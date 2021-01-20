@@ -1,0 +1,3 @@
+Hallo Zusammen, ich beschäftige mich jetzt wieder mit londonlaw und habe einen Folk angelegt unter: https://github.com/horald/londonlaw 
+Ich gehe gerne Top-Down vor. Wenn ich die Zeile 26 gettext.install im Quellcode "london-client" aufrufe, bekomme ich eine Fehlermeldung. Was kann das sein?
+Gruß Horst Meyer

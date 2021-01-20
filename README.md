@@ -28,7 +28,7 @@ Dependencies:
 * [zope-interface](https://pypi.python.org/pypi/zope.interface)
 
 The code has been tested with the following versions:
-* Python 2.7
+* Python 3.8.5 (planned)
 * Twisted-13.0.0
 * wxPython-3.0.1.1
 * zope-interface-4.1.1

@@ -23,7 +23,7 @@ try:
     import londonlaw.guiclient
     gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
 except:
-#    gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
+#    gettext.install("londonlaw", localdir="locale", unicode=True) # use local locale directory if launching locally
 #    print (_("Attempting to launch client from current directory...")).encode(sys.stdout.encoding, "replace")
     import sys, os.path
     # add the parent directory to PYTHONPATH
