@@ -1,0 +1,9 @@
+.gitignore~
+git.sh
+git.sh~
+run.sh
+run.sh~
+*.py~
+*.txt~
+*.json~
+*.md~

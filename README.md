@@ -2,6 +2,8 @@
 London Law
 ----------
 
+<b>This is an attempt to rewrite londonlaw for python3. However, this version is only a copy and therefore not yet suitable for python3!</b>
+
 London Law is an online multiplayer adaptation of the [classic Scotland Yard
 board game](http://www.boardgamegeek.com/boardgame/438/scotland-yard)
 ([Wikipedia](http://en.wikipedia.org/wiki/Scotland_Yard_board_game)).
