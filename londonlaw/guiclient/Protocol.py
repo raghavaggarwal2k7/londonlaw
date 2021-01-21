@@ -24,14 +24,12 @@ from londonlaw.common.protocol import *
 import wx
 
 
-#class ProtocolError(Exception):
-#   pass
+class ProtocolError(Exception):
+   pass
    
 
 class LLawClientProtocol(basic.LineOnlyReceiver):
-   pass
 
-"""
    def __init__(self):
       self._tagIndex   = 0
       self._waitTag    = ""
@@ -113,7 +111,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
       except AttributeError as e:
          log.msg(str(e))
-         print("tokens = " + str(tokens))
+         print(("tokens = " + str(tokens)))
          log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 
 
@@ -487,4 +485,3 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
 
-"""

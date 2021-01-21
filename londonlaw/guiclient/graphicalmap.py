@@ -243,7 +243,7 @@ gridHash = SetHash()
 # no-op in wxPython2.8 and later: wx.InitAllImageHandlers()
 maskImageFile = os.path.join(MEDIAROOT, "images/map-number-mask.png")
 #maskImage = wx.Image(maskImageFile, wx.BITMAP_TYPE_ANY)
-maskImage=None
+#maskImage=None
 
 
 # Create a hash table that assists in mapping pixel locations to map numbers.
