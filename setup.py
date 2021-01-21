@@ -17,7 +17,7 @@ if 'sdist' in sys.argv:
 if 'sdist' not in sys.argv and 'clean' not in sys.argv:
    DATA_PREFIX=os.path.normpath(sys.prefix)+"/share/"  # default
    for arg in sys.argv:
-      index = string.find(arg, "--install-data=")
+      index = arg.find("--install-data=")
       if index > -1:
          DATA_PREFIX = os.path.normpath(arg[(index+len("--install-data=")):])
 
@@ -58,8 +58,8 @@ def appendMOFiles(installList, dirname, files):
 # and calling 'appendDataFiles'.
 def getDataFilesList():
    installList = []
-   os.path.walk('londonlaw/guiclient/images', appendImageFiles, installList)
-   os.path.walk('londonlaw/locale', appendMOFiles, installList)
+   os.walk('londonlaw/guiclient/images', appendImageFiles, installList)
+   os.walk('londonlaw/locale', appendMOFiles, installList)
    return installList
 
 

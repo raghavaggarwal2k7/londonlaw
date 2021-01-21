@@ -3,39 +3,38 @@
 # This file is distributed under the same license as the londonlaw package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2005.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: londonlaw\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2005-08-26 00:31-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-01-21 09:12+0100\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
+"Last-Translator: \n"
+"Language: de\n"
+"X-Generator: Poedit 2.3\n"
 
 #: london-admin:29 london-client:26 london-server:26
 msgid "London Law does not appear to be installed."
 msgstr "London Law scheint nicht installiert zu sein."
 
 #: london-admin:30
-#, fuzzy
 msgid "Attempting to launch admin client from current directory..."
 msgstr ""
 "Versuche die Administrationsanwendung aus dem aktuellem Verzeichnis zu "
-"starten"
+"starten."
 
 #: london-client:27
-#, fuzzy
 msgid "Attempting to launch client from current directory..."
-msgstr "Versuche die Anwendung aus dem aktuellem Verzeichnis zu starten"
+msgstr "Versuche die Anwendung aus dem aktuellem Verzeichnis zu starten..."
 
 #: london-server:27
 msgid "Attempting to launch server from current directory..."
-msgstr "Versuche den Server aus dem aktuellem Verzeichnis zu starten"
+msgstr "Versuche den Server aus dem aktuellem Verzeichnis zu starten."
 
 #: common/Pawn.py:49
 msgid "Red"
@@ -98,7 +97,7 @@ msgstr "Schließe die Spielregistrierung"
 
 #: server/GameRegistry.py:139
 msgid "Purging expired games"
-msgstr "Säubere vergangene Spiele."
+msgstr "Säubere vergangene Spiele"
 
 #: server/GameRegistry.py:163
 msgid ""
@@ -139,7 +138,7 @@ msgstr "Spielername nicht gefunden."
 #: server/Protocol.py:125 server/Protocol.py:198 server/Protocol.py:275
 #: server/Protocol.py:313
 msgid "Unrecognized game name."
-msgstr "Unbekannter Spielname"
+msgstr "Unbekannter Spielname."
 
 #: server/Protocol.py:136 server/Protocol.py:209
 msgid "The server admin ejected you from this game."
@@ -154,17 +153,16 @@ msgid "That move is illegal."
 msgstr "Der Zug ist ungültig."
 
 #: server/Protocol.py:185 server/Protocol.py:336
-#, fuzzy
 msgid "It is not that pawn's turn."
 msgstr "Diese Spielfigur ist nicht am Zug."
 
 #: server/Protocol.py:215
 msgid "Game is in progress."
-msgstr "Das Spiel hat bereits angefangen"
+msgstr "Das Spiel hat bereits angefangen."
 
 #: server/Protocol.py:227
 msgid "Unsupported language code."
-msgstr "Unbekannte Sprache"
+msgstr "Unbekannte Sprache-"
 
 #: server/Protocol.py:345
 msgid "That game name is already in use."
@@ -211,7 +209,6 @@ msgid "Unrecognized command."
 msgstr "Unbekannter Befehl."
 
 #: server/Protocol.py:657
-#, fuzzy
 msgid "Invalid number of moves."
 msgstr "Ungültige Anzahl an Zügen."
 
@@ -221,10 +218,9 @@ msgstr "Dieses Team ist voll."
 
 #: server/Team.py:54
 msgid "Player not on team."
-msgstr "Spieler ist nicht im Team"
+msgstr "Spieler ist nicht im Team."
 
 #: server/__init__.py:36
-#, fuzzy
 msgid "listen for connections on port NUM"
 msgstr "Warte auf Verbindung an Port NUM"
 
@@ -416,9 +412,8 @@ msgid "Mr. X History%(hotkey)s"
 msgstr ""
 
 #: guiclient/MainWindow.py:84
-#, fuzzy
 msgid "Show/hide the Mr. X history window"
-msgstr "Zeige/Verstecke Mr. X's vergangene Züge."
+msgstr "Zeige/Verstecke Mr. X's vergangene Züge"
 
 #: guiclient/MainWindow.py:87
 msgid "View"

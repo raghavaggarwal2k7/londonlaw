@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 #  London Law -- a networked manhunting board game
 #  Copyright (C) 2003-2004 Paul Pelzl
@@ -20,20 +20,17 @@
 import gettext, sys
 
 try:
-    import guiclient
-    gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
-    print("try")
+   import londonlaw.server
+   gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
 except:
-#    gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
-#    print (_("Attempting to launch client from current directory...")).encode(sys.stdout.encoding, "replace")
-    import sys, os.path
-    # add the parent directory to PYTHONPATH
-    cwd = os.path.split(os.path.abspath(os.getcwd()))
-    sys.path.append(cwd[0])
-    import guiclient
-    print("except")
+   gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
+   print (_("Attempting to launch server from current directory...")).encode(sys.stdout.encoding, "replace")
+   import sys, os.path
+   # add the parent directory to PYTHONPATH
+   cwd = os.path.split(os.path.abspath(os.getcwd()))
+   sys.path.append(cwd[0])
+   import londonlaw.server
 
-print("Not yet ready for Python3!")
-guiclient.init()
-print("App closed...")
+londonlaw.server.init()
+
 
