@@ -17,8 +17,8 @@
 
 
 import os, wx
-from utility import *
-from SetHash import *
+from .utility import *
+from .SetHash import *
 from londonlaw.common.config import *
 
 
@@ -242,7 +242,8 @@ MASKSIZE = (39, 42)  # size of a rect that contains a map number graphic
 gridHash = SetHash()
 # no-op in wxPython2.8 and later: wx.InitAllImageHandlers()
 maskImageFile = os.path.join(MEDIAROOT, "images/map-number-mask.png")
-maskImage = wx.Image(maskImageFile, wx.BITMAP_TYPE_ANY)
+#maskImage = wx.Image(maskImageFile, wx.BITMAP_TYPE_ANY)
+maskImage=None
 
 
 # Create a hash table that assists in mapping pixel locations to map numbers.

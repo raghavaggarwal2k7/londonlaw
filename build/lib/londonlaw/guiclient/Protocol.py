@@ -24,13 +24,14 @@ from londonlaw.common.protocol import *
 import wx
 
 
-class ProtocolError(Exception):
-   pass
+#class ProtocolError(Exception):
+#   pass
    
 
-
 class LLawClientProtocol(basic.LineOnlyReceiver):
+   pass
 
+"""
    def __init__(self):
       self._tagIndex   = 0
       self._waitTag    = ""
@@ -110,9 +111,9 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
          else:
             log.msg("Received unhandled server message (too few args): \"" + line + "\" state = \"" + self._state + "\"")
 
-      except AttributeError, e:
+      except AttributeError as e:
          log.msg(str(e))
-         print "tokens = " + str(tokens)
+         print("tokens = " + str(tokens))
          log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 
 
@@ -124,7 +125,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
          self.sendTokens(self.genTag(), "doublemove", 
                data[0], data[1], data[2], data[3], data[4])
       else:
-         print "Protocol.makeMove() received illegal data length"
+         print("Protocol.makeMove() received illegal data length")
 
 
    def newgame(self, data):
@@ -486,3 +487,4 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
 
+"""

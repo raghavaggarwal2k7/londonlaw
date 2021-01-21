@@ -14,12 +14,12 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-"""
-import wxversion
-try:
-	wxversion.select("3.0")
-except wxversion.VersionError:
-	wxversion.select("2.8")
+
+#import wxversion
+#try:
+#	wxversion.select("3.0")
+#except wxversion.VersionError:
+#	wxversion.select("2.8")
 
 import wx
 
@@ -29,17 +29,15 @@ wxreactor.install()
 import sys, gettext
 from twisted.internet import protocol, reactor
 from twisted.python import log
-from ConnectWindow import *
-from GameListWindow import *
-from RegistrationWindow import *
-from MainWindow import *
-from Protocol import LLawClientProtocol
-from GuiNetMessenger import *
-
+from .ConnectWindow import *
+from .GameListWindow import *
+from .RegistrationWindow import *
+from .MainWindow import *
+from .Protocol import LLawClientProtocol
+from .GuiNetMessenger import *
 
 
 messenger = GuiNetMessenger()
-
 
 class LLawClientFactory(protocol.ClientFactory):
    protocol = LLawClientProtocol
@@ -56,7 +54,6 @@ def shutdown(shutdownWindow):
    #reactor.addSystemEventTrigger('after', 'shutdown', shutdownWindow.Close, True)
    reactor.stop()
 
-
 # Run the whole shebang.
 class MyApp(wx.App):
 
@@ -68,9 +65,6 @@ class MyApp(wx.App):
       messenger.registerGameListWindowLauncher(self.chooseGame)
       messenger.registerRegistrationWindowLauncher(self.register)
       messenger.registerMainWindowLauncher(self.startGame)
-
-      #wx.InitAllImageHandlers()        # Required to be able to load compressed images
-
       messenger.guiLaunchConnectionWindow()
 
       return True
@@ -152,13 +146,12 @@ class MyApp(wx.App):
          reactor.connectTCP(hostname, portNum, LLawClientFactory())
 
 
-"""
 def init():
-    print("In guiclient.init()")	
-#   log.startLogging(sys.stderr, 0)
-#   app = MyApp(0)
+   print("In guiclient.init()")	
+   log.startLogging(sys.stderr, 0)
+   app = MyApp(0)
 
-#   reactor.registerWxApp(app)
-#   reactor.run()
+   reactor.registerWxApp(app)
+   reactor.run()
 
 

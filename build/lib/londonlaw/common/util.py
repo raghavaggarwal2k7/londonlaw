@@ -1,5 +1,6 @@
 import re, sys
 
+
 def escape_chars(token):
    return re.sub(r"""("|\\)""", r"\\\1", token)
 
@@ -36,5 +37,5 @@ def printable(uni):
    try:
       return uni.encode(sys.stdout.encoding, "replace")
    except:
-      print "exception in printable"
+      print("exception in printable")
 

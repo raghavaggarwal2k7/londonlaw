@@ -22,7 +22,7 @@
 # This class creates a combined chat entry and chat message display area.
 
 import gettext, wx
-from ScrolledLabel import *
+from .ScrolledLabel import *
 
 
 # Wrapped in a StaticBox.

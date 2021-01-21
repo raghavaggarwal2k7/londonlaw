@@ -22,12 +22,12 @@
 # a set of player status icons, a chat area, and some useful buttons.
 
 import time, gettext, wx
-from MapWindow import *
-from ChatPanel import *
-from PlayerIcon import *
-from MoveDialog import *
-from HistoryWindow import *
-from graphicalmap import *
+from .MapWindow import *
+from .ChatPanel import *
+from .PlayerIcon import *
+from .MoveDialog import *
+from .HistoryWindow import *
+from .graphicalmap import *
 from londonlaw.common.protocol import LLAW_VERSION
 
 
@@ -299,7 +299,7 @@ class MainWindow(wx.Frame):
          self.status.PushStatusText(_("The Black Detective moved to %(number)d using %(transport)s.") %
                {"number" : loc, "transport" : tstr}, 1)
       else:
-         print "unrecognized mover: " + str(mover)
+         print("unrecognized mover: " + str(mover))
 
       # pop up an alert box when X uses a double move
       if mover == self.lastMover and not self.isMrX:

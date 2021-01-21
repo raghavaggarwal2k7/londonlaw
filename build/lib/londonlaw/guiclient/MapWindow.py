@@ -25,8 +25,8 @@
 
 
 import os, gettext, wx
-from TextPanel import *
-from graphicalmap import *
+from .TextPanel import *
+from .graphicalmap import *
 from londonlaw.common.config import *
 
 

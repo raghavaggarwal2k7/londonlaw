@@ -15,9 +15,6 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-from sets import *
-
-
 # create a hash table that does not overwrite values, but rather appends them
 # to a set
 class SetHash:

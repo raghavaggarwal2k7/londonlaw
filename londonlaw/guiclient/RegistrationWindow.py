@@ -28,8 +28,8 @@ from twisted.python import log
 import wx
 from londonlaw.common.protocol import *
 from londonlaw.common.config import *
-from AutoListCtrl import *
-from ChatPanel import *
+from .AutoListCtrl import *
+from .ChatPanel import *
 
 
 

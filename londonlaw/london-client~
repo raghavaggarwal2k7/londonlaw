@@ -17,19 +17,23 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-import gettext, sys
+import gettext, sys, os
+import locale
 
 try:
     import guiclient
-    gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
+#    cwd = os.path.split(os.path.abspath(os.getcwd()))
+    cwd=os.getcwd()
+    print("Pfad="+cwd+"\n")
+    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
+    encoding=locale.getdefaultlocale()
+    print ("encoding: "+format(encoding)+"," )    
+    print (_("Attempting to launch client from current directory..."))
     print("try")
 except:
-#    gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
+    gettext.install("londonlaw", "locale") # use local locale directory if launching locally
 #    print (_("Attempting to launch client from current directory...")).encode(sys.stdout.encoding, "replace")
-    gettext.bindtextdomain('londonlaw','locale')
-    gettext.textdomain('londonlaw')
-    _ = gettext.gettext
-#    print (_("Attempting to launch client from current directory...")).encode(sys.stdout.encoding, "replace")
+    print (_("Attempting to launch client from current directory..."))
     import sys, os.path
     # add the parent directory to PYTHONPATH
     cwd = os.path.split(os.path.abspath(os.getcwd()))
@@ -37,7 +41,7 @@ except:
     import guiclient
     print("except")
 
-print("Not yet ready for Python3!")
+print(_("Not yet ready for Python3!"))
 guiclient.init()
-print("App closed...")
+print(_("App closed..."))
 

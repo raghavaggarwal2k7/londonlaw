@@ -24,7 +24,7 @@
 # Status icons can be overlaid on the player icons to show whose turn it is, etc.
 
 import os, gettext, wx
-from TextPanel import *
+from .TextPanel import *
 from londonlaw.common.config import *
 
 
@@ -70,17 +70,17 @@ class PlayerIcon(wx.Panel):
 
       # create the inventory labels
       if self.isMrX:
-         self.blackLabel = TextPanel(self, " "+`tokenList[3]`+" ", 10, wx.EXPAND)
+         self.blackLabel = TextPanel(self, " "+repr(tokenList[3])+" ", 10, wx.EXPAND)
          self.blackLabel.SetBackgroundColour(wx.Colour(0,0,0))
          self.blackLabel.SetForegroundColour(wx.Colour(255,255,255))
-         self.doubleLabel = TextPanel(self, " "+`tokenList[4]`+" ", 10, wx.EXPAND)
+         self.doubleLabel = TextPanel(self, " "+repr(tokenList[4])+" ", 10, wx.EXPAND)
          self.doubleLabel.SetBackgroundColour(wx.Colour(255,84,166))
       else:
-         self.taxiLabel = TextPanel(self, " "+`tokenList[0]`+" ", 10, wx.EXPAND)
+         self.taxiLabel = TextPanel(self, " "+repr(tokenList[0])+" ", 10, wx.EXPAND)
          self.taxiLabel.SetBackgroundColour(wx.Colour(255, 191, 0))
-         self.busLabel = TextPanel(self, " "+`tokenList[1]`+" ", 10, wx.EXPAND)
+         self.busLabel = TextPanel(self, " "+repr(tokenList[1])+" ", 10, wx.EXPAND)
          self.busLabel.SetBackgroundColour(wx.Colour(7, 155, 0))
-         self.ugndLabel = TextPanel(self, " "+`tokenList[2]`+" ", 10, wx.EXPAND)
+         self.ugndLabel = TextPanel(self, " "+repr(tokenList[2])+" ", 10, wx.EXPAND)
          self.ugndLabel.SetBackgroundColour(wx.Colour(160, 36, 96))
          self.ugndLabel.SetForegroundColour(wx.Colour(255, 255, 255))
 
@@ -112,12 +112,12 @@ class PlayerIcon(wx.Panel):
 
    def updateTokens(self, tokenList):
       if self.isMrX:
-         self.blackLabel.SetText(" "+`tokenList[3]`+" ")
-         self.doubleLabel.SetText(" "+`tokenList[4]`+" ")
+         self.blackLabel.SetText(" "+repr(tokenList[3])+" ")
+         self.doubleLabel.SetText(" "+repr(tokenList[4])+" ")
       else:
-         self.taxiLabel.SetText(" "+`tokenList[0]`+" ")
-         self.busLabel.SetText(" "+`tokenList[1]`+" ")
-         self.ugndLabel.SetText(" "+`tokenList[2]`+" ")
+         self.taxiLabel.SetText(" "+repr(tokenList[0])+" ")
+         self.busLabel.SetText(" "+repr(tokenList[1])+" ")
+         self.ugndLabel.SetText(" "+repr(tokenList[2])+" ")
       self.invSizer.Layout()
 
 
@@ -183,7 +183,7 @@ class PlayerIconGroup(wx.Panel):
       # Get icons for all the players
       if len(nameList) != 6:
          sys.exit("PlayerIconGroup must be called with len(nameList) == 6\n" +
-            "(here it was called with length "+`len(nameList)`+")")
+            "(here it was called with length "+repr(len(nameList))+")")
       
       self.players = [PlayerIcon(self, 
          os.path.normpath(os.path.join(MEDIAROOT, "images/playericon0.jpg")),

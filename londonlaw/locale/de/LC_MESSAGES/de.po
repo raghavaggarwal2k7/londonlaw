@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: londonlaw\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: pelzlpj@eecs.umich.edu\n"
 "POT-Creation-Date: 2005-08-26 00:31-0400\n"
-"PO-Revision-Date: 2021-01-21 09:12+0100\n"
+"PO-Revision-Date: 2021-01-21 12:13+0100\n"
+"Last-Translator: \n"
 "Language-Team: German <de@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Rosetta-Version: 0.1\n"
-"Last-Translator: \n"
-"Language: de\n"
 "X-Generator: Poedit 2.3\n"
 
 #: london-admin:29 london-client:26 london-server:26
@@ -162,7 +162,7 @@ msgstr "Das Spiel hat bereits angefangen."
 
 #: server/Protocol.py:227
 msgid "Unsupported language code."
-msgstr "Unbekannte Sprache-"
+msgstr "Unbekannte Sprache."
 
 #: server/Protocol.py:345
 msgid "That game name is already in use."
@@ -228,18 +228,22 @@ msgstr "Warte auf Verbindung an Port NUM"
 msgid "NUM"
 msgstr "NUM"
 
+#. TRANSLATORS: this is for a set of radio buttons for chat messages--"send to" all players or "send to" team only
 #: guiclient/ChatPanel.py:40
 msgid "send to:"
 msgstr "sende an:"
 
+#. TRANSLATORS: this is for a set of radio buttons for chat messages--send to "all" players or send to "team" only
 #: guiclient/ChatPanel.py:42
 msgid "all"
 msgstr "alle Spieler"
 
+#. TRANSLATORS: this is for a set of radio buttons for chat messages--send to "all" players or send to "team" only
 #: guiclient/ChatPanel.py:44
 msgid "team"
 msgstr "Team"
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/ConnectWindow.py:42 guiclient/ConnectWindow.py:47
 #: guiclient/GameListWindow.py:112 guiclient/GameListWindow.py:118
 #: guiclient/MainWindow.py:74 guiclient/RegistrationWindow.py:95
@@ -247,24 +251,29 @@ msgstr "Team"
 msgid "File"
 msgstr "Datei"
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/ConnectWindow.py:44 guiclient/GameListWindow.py:115
 #: guiclient/MainWindow.py:72 guiclient/RegistrationWindow.py:99
 #, python-format
 msgid "Exit%(hotkey)s"
 msgstr "Exit%(hotkey)s"
 
+#. TRANSLATORS: labels for server connection dialog
 #: guiclient/ConnectWindow.py:59
 msgid "Connect to: "
 msgstr "Verbunden mit: "
 
+#. TRANSLATORS: labels for server connection dialog
 #: guiclient/ConnectWindow.py:62
 msgid "host:"
 msgstr "Server:"
 
+#. TRANSLATORS: labels for server connection dialog
 #: guiclient/ConnectWindow.py:65
 msgid "port:"
 msgstr "Port:"
 
+#. TRANSLATORS: labels for server connection dialog
 #: guiclient/ConnectWindow.py:78
 msgid "User information: "
 msgstr "Spieler Information: "
@@ -277,6 +286,7 @@ msgstr "Benutzername:"
 msgid "password:"
 msgstr "Passwort:"
 
+#. TRANSLATORS: labels for server connection dialog buttons
 #: guiclient/ConnectWindow.py:97
 msgid "Connect"
 msgstr "Verbinden"
@@ -285,6 +295,7 @@ msgstr "Verbinden"
 msgid "Quit"
 msgstr "Beenden"
 
+#. TRANSLATORS: this is the title for a small alert window that pops up when the server reports an error
 #: guiclient/ConnectWindow.py:155 guiclient/GameListWindow.py:198
 #: guiclient/MainWindow.py:360 guiclient/RegistrationWindow.py:202
 msgid "Server Message"
@@ -320,6 +331,7 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/GameListWindow.py:114 guiclient/GameListWindow.py:212
 #: guiclient/MainWindow.py:70 guiclient/MainWindow.py:223
 #: guiclient/RegistrationWindow.py:97 guiclient/RegistrationWindow.py:220
@@ -336,18 +348,22 @@ msgstr "Verbindung zum Server trennen"
 msgid "Exit London Law"
 msgstr "London Law beenden"
 
+#. TRANSLATORS: these are column labels for the window where the user chooses a game
 #: guiclient/GameListWindow.py:128
 msgid "Game Room"
 msgstr "Spiel"
 
+#. TRANSLATORS: these are column labels for the window where the user chooses a game
 #: guiclient/GameListWindow.py:130
 msgid "Status"
 msgstr "Status"
 
+#. TRANSLATORS: these are column labels for the window where the user chooses a game
 #: guiclient/GameListWindow.py:132
 msgid "Game Type"
 msgstr "Spieltyp"
 
+#. TRANSLATORS: these are column labels for the window where the user chooses a game
 #: guiclient/GameListWindow.py:134
 msgid "Players"
 msgstr "Spieler"
@@ -379,15 +395,18 @@ msgstr "Trennen und Beenden"
 msgid "Disconnect from the server?"
 msgstr "Trenne vom Server?"
 
+#. TRANSLATORS: this is for the turn number labels in the history window
 #: guiclient/HistoryWindow.py:60
 #, python-format
 msgid " Turn %(num)d "
 msgstr " %(num)d. Runde "
 
+#. TRANSLATORS: this is the symbol shown in the history bar to indicate turns where X will surface
 #: guiclient/HistoryWindow.py:121
 msgid " ? "
 msgstr " ? "
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:77
 #, python-format
 msgid "Fullscreen Map%(hotkey)s"
@@ -397,6 +416,7 @@ msgstr ""
 msgid "Toggle fullscreen map view"
 msgstr ""
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:80
 #, python-format
 msgid "Map Zoom%(hotkey)s"
@@ -406,6 +426,7 @@ msgstr ""
 msgid "Toggle map zoom level"
 msgstr ""
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:83
 #, python-format
 msgid "Mr. X History%(hotkey)s"
@@ -415,14 +436,17 @@ msgstr ""
 msgid "Show/hide the Mr. X history window"
 msgstr "Zeige/Verstecke Mr. X's vergangene Züge"
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:87
 msgid "View"
 msgstr "Ansicht"
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:90 guiclient/MainWindow.py:453
 msgid "About London Law"
 msgstr "Über London Law"
 
+#. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:92
 msgid "Help"
 msgstr ""
@@ -431,52 +455,64 @@ msgstr ""
 msgid "The game has not yet started."
 msgstr ""
 
+#. TRANSLATORS: this is the initial value of the turn counter at the bottom right of the game window
 #: guiclient/MainWindow.py:99
 msgid "Turn: 0"
 msgstr "Zug: 0"
 
+#. TRANSLATORS: this is the main game window title
 #: guiclient/MainWindow.py:120
 msgid "London Law -- Mr. X"
 msgstr "London Law -- Mr. X"
 
+#. TRANSLATORS: this is the main game window title
 #: guiclient/MainWindow.py:123
 msgid "London Law -- Detectives"
 msgstr "London Law -- Detektive"
 
+#. TRANSLATORS: label for the "make a move" button
 #: guiclient/MainWindow.py:134
 msgid "Move"
 msgstr "Bewegen"
 
+#. TRANSLATORS: label for the "view Mr. X history" toggle checkbox
 #: guiclient/MainWindow.py:137
 msgid "View History"
 msgstr ""
 
+#. TRANSLATORS: label for the map zoom toggle checkbox
 #: guiclient/MainWindow.py:140
 msgid "Zoom"
 msgstr "Zoom"
 
+#. TRANSLATORS: this is how team chat messages will appear
 #: guiclient/MainWindow.py:205
 #, python-format
 msgid "<%(playername)s [to team]> %(message)s"
 msgstr ""
 
+#. TRANSLATORS: this is how chat messages will appear
 #: guiclient/MainWindow.py:209
 #, python-format
 msgid "<%(playername)s> %(message)s"
 msgstr ""
 
+#. TRANSLATORS: as in "Mr. X made his move using 'a taxi'."
 #: guiclient/MainWindow.py:253
 msgid "a taxi"
 msgstr "ein Taxi"
 
+#. TRANSLATORS: as in "Mr. X made his move using 'a bus'."
 #: guiclient/MainWindow.py:258
 msgid "a bus"
 msgstr "einen Bus"
 
+#. TRANSLATORS: as in "Mr. X made his move using 'the underground'."
 #: guiclient/MainWindow.py:263
 msgid "the underground"
 msgstr "die Londoner Underground"
 
+#. TRANSLATORS: as in "Mr. X made his move using 'a black ticket'."
 #: guiclient/MainWindow.py:267
 msgid "a black ticket"
 msgstr "ein schwarzes Ticket"
@@ -494,8 +530,7 @@ msgstr "Mr. X nutzte %(transport)s und bewegte sich nach %(number)d."
 #: guiclient/MainWindow.py:282
 #, python-format
 msgid "Mr. X surfaced at %(number)d using %(transport)s."
-msgstr ""
-"Mr. X wurde auf %(number)d gesichtet, als er ein %(transport)s nutzte."
+msgstr "Mr. X wurde auf %(number)d gesichtet, als er ein %(transport)s nutzte."
 
 #: guiclient/MainWindow.py:286
 #, python-format
@@ -531,6 +566,7 @@ msgstr ""
 msgid "Mr. X just used a double move ticket!"
 msgstr "Mr. X verwendete ein Doppelticket!"
 
+#. TRANSLATORS: this is the title of an alert window that pops up when X double-moves
 #: guiclient/MainWindow.py:307
 msgid "Double Move"
 msgstr "Doppelter Zug"
@@ -543,11 +579,13 @@ msgid ""
 "A multiplayer manhunting adventure by Paul Pelzl"
 msgstr ""
 
+#. TRANSLATORS: this is the turn counter at the lower right of the game window
 #: guiclient/MainWindow.py:477
 #, python-format
 msgid "Turn: %(num)d"
 msgstr "Zug: %(num)d"
 
+#. TRANSLATORS: this should be reference to the user--in English, "you" or "yourself" would both work
 #: guiclient/MainWindow.py:485 guiclient/MainWindow.py:495
 #: guiclient/MainWindow.py:505 guiclient/MainWindow.py:515
 #: guiclient/MainWindow.py:525 guiclient/MainWindow.py:535
@@ -588,36 +626,44 @@ msgstr "Der schwarze Detektiv ist an der Reihe.(%(username)s)."
 msgid "Choose a Move"
 msgstr ""
 
+#. TRANSLATORS: this is a label for a choose box that lets the user select single or double move
 #: guiclient/MoveDialog.py:76
 msgid "move type: "
 msgstr ""
 
+#. TRANSLATORS: as in "single move", not "double move"
 #: guiclient/MoveDialog.py:78
 msgid "Single"
 msgstr ""
 
+#. TRANSLATORS: as in "double move", not "single move"
 #: guiclient/MoveDialog.py:80
 msgid "Double"
 msgstr ""
 
+#. TRANSLATORS: this is for the move selection dialog
 #: guiclient/MoveDialog.py:86
 #, python-format
 msgid "Move from %(number)d to "
 msgstr ""
 
+#. TRANSLATORS: this is for the move selection dialog: "move from 102 to 110 'using' taxi"
 #: guiclient/MoveDialog.py:89 guiclient/MoveDialog.py:119
 msgid " using "
 msgstr ""
 
+#. TRANSLATORS: this is for the move selection dialog
 #: guiclient/MoveDialog.py:116 guiclient/MoveDialog.py:277
 #, python-format
 msgid "Move from %(number)s to "
 msgstr ""
 
+#. TRANSLATORS: as in "move number one" (of multiple moves)
 #: guiclient/MoveDialog.py:157
 msgid "Move One:"
 msgstr ""
 
+#. TRANSLATORS: as in "move number two" (of multiple moves)
 #: guiclient/MoveDialog.py:159
 msgid "Move Two:"
 msgstr ""
@@ -646,22 +692,27 @@ msgstr "Der blaue Detektiv kann sich nicht dorthin bewegen."
 msgid "The Black Detective can't move to that location."
 msgstr "Der schwarze Detektiv kann sich nicht dorthin bewegen."
 
+#. TRANSLATORS: this is the title of an alert window that pops up when the user tries to make an illegal move
 #: guiclient/MoveDialog.py:228
 msgid "Illegal Move"
 msgstr ""
 
+#. TRANSLATORS: this is used for choosing ticket type in the move dialog
 #: guiclient/MoveDialog.py:433
 msgid "taxi"
 msgstr "Taxi"
 
+#. TRANSLATORS: this is used for choosing ticket type in the move dialog
 #: guiclient/MoveDialog.py:436
 msgid "bus"
 msgstr "Bus"
 
+#. TRANSLATORS: this is used for choosing ticket type in the move dialog
 #: guiclient/MoveDialog.py:439
 msgid "underground"
 msgstr "Underground"
 
+#. TRANSLATORS: this is used for choosing ticket type in the move dialog
 #: guiclient/MoveDialog.py:442
 msgid "black ticket"
 msgstr "schwarzes Ticket"
@@ -688,34 +739,42 @@ msgstr ""
 msgid "Choose a Team"
 msgstr ""
 
+#. TRANSLATORS: this is the label for a radiobutton group that lets the user choose a team
 #: guiclient/RegistrationWindow.py:43
 msgid "team: "
 msgstr ""
 
+#. TRANSLATORS: this is one of the two team names
 #: guiclient/RegistrationWindow.py:45
 msgid "Detectives"
 msgstr ""
 
+#. TRANSLATORS: this is one of the two team names
 #: guiclient/RegistrationWindow.py:47
 msgid "Mr. X"
 msgstr "Mr. X"
 
+#. TRANSLATORS: these are column labels for the window where the players choose teams for a game
 #: guiclient/RegistrationWindow.py:112
 msgid "Player"
 msgstr "Spieler"
 
+#. TRANSLATORS: these are column labels for the window where the players choose teams for a game
 #: guiclient/RegistrationWindow.py:114
 msgid "Team"
 msgstr "Team"
 
+#. TRANSLATORS: these are column labels for the window where the players choose teams for a game
 #: guiclient/RegistrationWindow.py:116
 msgid "Votes to Start?"
 msgstr ""
 
+#. TRANSLATORS: these are column labels for the window where the players choose teams for a game
 #: guiclient/RegistrationWindow.py:118
 msgid "Pawns"
 msgstr ""
 
+#. TRANSLATORS: this is displayed in a column when no players have joined one of the games
 #: guiclient/RegistrationWindow.py:120
 msgid "(no players joined)"
 msgstr ""
@@ -732,18 +791,22 @@ msgstr ""
 msgid "Vote to Start"
 msgstr ""
 
+#. TRANSLATORS: window title for server connection
 #: guiclient/__init__.py:79
 msgid "London Law -- Connect to Server"
 msgstr ""
 
+#. TRANSLATORS: window title for game selection
 #: guiclient/__init__.py:91
 msgid "London Law -- Choose a Game"
 msgstr ""
 
+#. TRANSLATORS: window title for team selection
 #: guiclient/__init__.py:103
 msgid "London Law -- Team Selection"
 msgstr ""
 
+#. TRANSLATORS: main window title
 #: guiclient/__init__.py:116
 msgid "London Law"
 msgstr ""

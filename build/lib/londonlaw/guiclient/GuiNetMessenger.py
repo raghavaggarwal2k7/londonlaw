@@ -142,4 +142,3 @@ class GuiNetMessenger:
    def setPassword(self, password):
       self._password = password
 
-
