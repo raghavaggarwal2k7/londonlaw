@@ -1,0 +1,4 @@
+Hallo Herr Balmer, 
+hatten Sie sich londonlaw schon mal angeschaut. Ich habe einen Teil des Sourcecode angepaßt und in meine Folk aktualisiert: https://github.com/horald/londonlaw 
+Auf einer anderen Maschine, wo londonlaw funktioniert, habe ich den london-server gestartet. Allerdings weiß ich noch nicht warum ich keine Connection von meinem Client aus bekomme...
+Gruß Horst Meyer
