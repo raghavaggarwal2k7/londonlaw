@@ -1,0 +1,3 @@
+Hallo Herr Balmer, 
+in der __init__.py von guiclient habe ich gesehen, dass man ein log.startLogging eingebunden hat. Wenn ich es richtig verstehe, werden damit Statusmeldung im Terminal ausgegeben. Ich habe die Ausgabe mal in eine Datei umgeleitet: log.startLogging(open('./londonlaw.log', 'w')). Das funktioniert auch. Wenn der Server nicht erreichbar ist, kommt auch eine Meldung. Aber wenn der Server bereit ist, kommt keine Verbindung zustande. In der Dropbox unter Fragen, habe ich die londonlaw.log-Datei mal abgelegt. Vielen Dank für Ihr Mühe.
+Gruß Horst Meyer
