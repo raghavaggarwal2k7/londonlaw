@@ -51,7 +51,6 @@ except:
     print("except")
 
 print("Not yet ready for Python3!")
-print("Achtung! GameRegistry.py Zl 82 geändert!")
 server.init()
 print("App closed...")
 

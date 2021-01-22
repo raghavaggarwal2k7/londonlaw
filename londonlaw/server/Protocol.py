@@ -23,8 +23,8 @@ import re, shlex, sys, gettext, os
 from londonlaw.common import util
 from londonlaw.aiclients import ai_list
 from londonlaw.common.protocol import *
-from Game import *
-import GameRegistry
+from .Game import *
+from . import GameRegistry
 
 
 class ServerError(Exception):
@@ -284,9 +284,9 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                self._game.syncPlayer(self._username)
          except KeyError:
             raise DeniedCommand(self.trans.ugettext("Unrecognized game name."))
-         except TeamError, e:
+         except TeamError as e:
             raise DeniedCommand(self.trans.ugettext(e.ustr()))
-         except GameError, e:
+         except GameError as e:
             raise DeniedCommand(self.trans.ugettext(e.ustr()))
 
 
@@ -383,7 +383,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                for p in GameRegistry.registry.getUnjoinedUsers():
                   GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName().encode("utf-8"), 
                         g.getStatus(), g.getType(), str(g.getNumPlayers()))
-            except GameError, e:
+            except GameError as e:
                raise DeniedCommand(self.trans.ugettext(e.ustr()))
 
 
@@ -408,9 +408,9 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
             log.msg(util.printable(_("Player \"%(playername)s\" has signed on") % 
                   {"playername" : self._username}))
             self.sendOk(tag)
-         except GameRegistry.PasswordError, e:
+         except GameRegistry.PasswordError as e:
             raise DeniedCommand(self.trans.ugettext(e.ustr()))
-         except GameRegistry.UserError, e:
+         except GameRegistry.UserError as e:
             raise DeniedCommand(self.trans.ugettext(e.ustr()))
 
 
@@ -478,9 +478,9 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
       try:
          self._game.setTeam(self._username, args[0])
-      except GameError, e:
+      except GameError as e:
          raise DeniedCommand(self.trans.ugettext(e.ustr()))
-      except TeamError, e:
+      except TeamError as e:
          raise DeniedCommand(self.trans.ugettext(e.ustr()))
       self.sendOk(tag)            
 
@@ -491,7 +491,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
       vote = args[0].lower()
       try:
          self._voteStart = util.parse_bool(vote)
-      except ValueError, e:
+      except ValueError as e:
          raise IllegalCommand(str(e))
       self.sendOk(tag)
       for listener in self._game.getListeners():
@@ -500,7 +500,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
 
    def cmd_whatturnnum_playing(self, tag, args):
-      self.sendTokens(tag, "turnnum", `self._game.getTurnNum()`)
+      self.sendTokens(tag, "turnnum", repr(self._game.getTurnNum()))
 
 
    def cmd_whoseturn_playing(self, tag, args):
@@ -587,15 +587,15 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          
          try:
             f(tag, arguments)
-         except IllegalCommand, e:
+         except IllegalCommand as e:
             self.sendBad(tag, e.ustr().encode("utf-8"))
-         except DeniedCommand, e:
+         except DeniedCommand as e:
             self.sendNo(tag, e.ustr().encode("utf-8"))
       
-      except ServerError, e:
+      except ServerError as e:
          self.sendBad("*", e.ustr().encode("utf-8"))
-      except ValueError, e:
-         print "value error:" + str(e)
+      except ValueError as e:
+         print("value error:" + str(e))
          self.sendBad("-", str(e))
 
 
@@ -647,12 +647,12 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          else:
             loc = pawn.getLocation()
          self.sendUntagged("pawninfo", pawn.getName(), 
-               pawn.getPlayer().encode("utf-8"), `loc`,
-               `pawn.getTicketAmount("taxi")`,
-               `pawn.getTicketAmount("bus")`,
-               `pawn.getTicketAmount("underground")`,
-               `pawn.getTicketAmount("black")`,
-               `pawn.getTicketAmount("double")`)
+               pawn.getPlayer().encode("utf-8"), repr(loc),
+               repr(pawn.getTicketAmount("taxi")),
+               repr(pawn.getTicketAmount("bus")),
+               repr(pawn.getTicketAmount("underground")),
+               repr(pawn.getTicketAmount("black")),
+               repr(pawn.getTicketAmount("double")))
 
 
    def sendPlayerInfo(self, username, game=None):

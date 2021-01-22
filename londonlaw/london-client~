@@ -42,6 +42,7 @@ except:
     print("except")
 
 print(_("Not yet ready for Python3!"))
+print("Achtung! graphicalmap.py 245 ändern!")
 guiclient.init()
 print(_("App closed..."))
 

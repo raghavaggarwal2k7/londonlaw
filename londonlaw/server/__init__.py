@@ -18,9 +18,9 @@
 from twisted.internet import protocol, reactor, task
 from twisted.python import log
 from londonlaw.common.protocol import *
-from Protocol import LLawServerProtocol
+from .Protocol import LLawServerProtocol
 from optparse import OptionParser
-import GameRegistry
+from . import GameRegistry
 import sys, gettext, os
 
 
@@ -39,7 +39,8 @@ def init():
          default=os.path.expanduser("~/.londonlaw/server"))
    (options, args) = parser.parse_args()
 
-   log.startLogging(sys.stdout, 0)
+#   log.startLogging(sys.stdout, 0)
+   log.startLogging(open('./londonlaw-server.log', 'w'))
 
    registry = GameRegistry.getHandle(dbDir=options.dbdir)
    # Purge expired games every half hour

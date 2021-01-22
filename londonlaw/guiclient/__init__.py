@@ -149,7 +149,7 @@ class MyApp(wx.App):
 def init():
    print("In guiclient.init()")	
 #   log.startLogging(sys.stderr, 0)
-   log.startLogging(open('./londonlaw.log', 'w'))
+   log.startLogging(open('./londonlaw-client.log', 'w'))
    app = MyApp(0)
 
    reactor.registerWxApp(app)

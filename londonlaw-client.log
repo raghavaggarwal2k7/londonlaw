@@ -1,15 +1,13 @@
-2021-01-22 09:42:11+0100 [-] Log opened.
-2021-01-22 09:42:12+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:119: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
-2021-01-22 09:42:12+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:120: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
-2021-01-22 09:42:12+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:121: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
-2021-01-22 09:42:12+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:122: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
-2021-01-22 09:42:12+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:123: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
-2021-01-22 09:42:12+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:124: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
-2021-01-22 09:42:12+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/__init__.py:81: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
-2021-01-22 09:43:09+0100 [-] Starting factory <guiclient.LLawClientFactory object at 0x7f7dc83cc7f0>
-2021-01-22 09:43:18+0100 [-] Stopping factory <guiclient.LLawClientFactory object at 0x7f7dc83cc7f0>
-2021-01-22 09:49:58+0100 [-] Starting factory <guiclient.LLawClientFactory object at 0x7f7dc83cc9a0>
-2021-01-22 09:49:58+0100 [Uninitialized] Unhandled Error
+2021-01-22 10:58:13+0100 [-] Log opened.
+2021-01-22 10:58:13+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:119: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
+2021-01-22 10:58:13+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:120: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
+2021-01-22 10:58:13+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:121: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
+2021-01-22 10:58:13+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:122: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
+2021-01-22 10:58:13+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:123: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
+2021-01-22 10:58:13+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/ConnectWindow.py:124: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
+2021-01-22 10:58:13+0100 [-] /home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/__init__.py:81: wx.core.wxPyDeprecationWarning: Call to deprecated item __call__. Use :meth:`EvtHandler.Bind` instead.
+2021-01-22 10:58:30+0100 [-] Starting factory <guiclient.LLawClientFactory object at 0x7f2361bd89a0>
+2021-01-22 10:58:30+0100 [Uninitialized] Unhandled Error
 	Traceback (most recent call last):
 	  File "/usr/lib/python3/dist-packages/twisted/python/log.py", line 103, in callWithLogger
 	    return callWithContext({"system": lp}, func, *args, **kw)
@@ -40,7 +38,7 @@
 	    raise TypeError("Data must not be unicode")
 	builtins.TypeError: Data must not be unicode
 	
-2021-01-22 09:49:58+0100 [Uninitialized] Unhandled Error
+2021-01-22 10:58:30+0100 [Uninitialized] Unhandled Error
 	Traceback (most recent call last):
 	  File "/usr/lib/python3/dist-packages/wx/core.py", line 2167, in MainLoop
 	    rv = wx.PyApp.MainLoop(self)
@@ -71,4 +69,4 @@
 	    if self._state != "shutdown":
 	builtins.AttributeError: 'LLawClientProtocol' object has no attribute '_state'
 	
-2021-01-22 09:50:16+0100 [-] App closed...
+2021-01-22 10:59:41+0100 [-] App closed...

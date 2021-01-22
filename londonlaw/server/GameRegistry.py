@@ -16,7 +16,7 @@
 
 
 from twisted.python import log
-import sets, shelve, os, time, ConfigParser, gettext
+import shelve, os, time, configparser, gettext
 from londonlaw.common.protocol import *
 from londonlaw.common import util
 
@@ -60,7 +60,7 @@ class GameRegistrySingleton:
          os.makedirs(dbDir)
 
       # read and parse server configuration file
-      configParser   = ConfigParser.SafeConfigParser()
+      configParser   = configparser.SafeConfigParser()
       configFilename = os.path.join(dbDir, "config")
       self._adminPassword  = None
       self._expiration     = None
@@ -79,14 +79,14 @@ class GameRegistrySingleton:
       self._users = shelve.open(os.path.join(dbDir, "users_db." + LLAW_VERSION), 
             "c", writeback = True)
       self._clients       = {}
-      self._unjoinedUsers = sets.Set()
+      #self._unjoinedUsers = Set()
 
 
    def addClient(self, client):
       self._clients[client.getUsername()] = client
 
    def addGame(self, game):
-      if not self._games.has_key(game.getName().encode("utf-8")):
+      if game.getName().encode("utf-8") not in self._games:
          self._games[game.getName().encode("utf-8")] = game
       else:
          raise Exception(N_("Game name in use."))
@@ -106,13 +106,13 @@ class GameRegistrySingleton:
       return self._clients[username]
 
    def getConnectedUserList(self):
-      return self._clients.keys()
+      return list(self._clients.keys())
 
    def getGame(self, gameName):
       return self._games[gameName.encode("utf-8")]
 
    def getGameList(self):
-      return self._games.values()
+      return list(self._games.values())
 
    def getLastAddress(self, username):
       return self._users[username.encode("utf-8")][1]
@@ -127,18 +127,18 @@ class GameRegistrySingleton:
       return self._unjoinedUsers
 
    def getUserList(self):
-      users = self._users.keys()
+      users = list(self._users.keys())
       decoded = [u.decode("utf-8") for u in users]
       decoded.sort()
       return decoded
 
    def hasGame(self, gameName):
-      return self._games.has_key(gameName.encode("utf-8"))
+      return gameName.encode("utf-8") in self._games
 
    def purgeBotGames(self):
       # purge any games that have bots
       log.msg(util.printable(_("Purging games involving AI clients")))
-      games = self._games.values()
+      games = list(self._games.values())
       for game in games:
          for player in game.getPlayers():
             if player[-5:] == '[bot]':
@@ -148,17 +148,17 @@ class GameRegistrySingleton:
    def purgeExpiredGames(self):
       if self._expiration > 0:
          log.msg(util.printable(_("Purging expired games")))
-         games = self._games.values()
+         games = list(self._games.values())
          for game in games:
             if (time.time() - game._startTime) / 3600 > self._expiration:
                self.purgeGame(game)
 
    def purgeGame(self, game):
-      if self._games.has_key(game.getName().encode("utf-8")):
+      if game.getName().encode("utf-8") in self._games:
          playerList = game.getPlayers()[:]
          playerConnected = False 
          for player in playerList:
-            if self._clients.has_key(player):
+            if player in self._clients:
                playerConnected = True
                break
          if not playerConnected:
@@ -174,10 +174,10 @@ class GameRegistrySingleton:
             raise PasswordError(N_("admin login disabled.  Consult the user manual to enable administrator access."))
          elif password != self._adminPassword:
             raise PasswordError(N_("Incorrect password."))
-      elif not self._users.has_key(username.encode("utf-8")):
+      elif username.encode("utf-8") not in self._users:
          self._users[username.encode("utf-8")] = (password, address)
       else:
-         if self._clients.has_key(username):
+         if username in self._clients:
             raise UserError(N_("That username is in use."))
          elif password != self._users[username.encode("utf-8")][0]:
             raise PasswordError(N_("Incorrect password."))
@@ -185,11 +185,11 @@ class GameRegistrySingleton:
             self._users[username.encode("utf-8")] = (password, address)
 
    def removeClient(self, client):
-      if self._clients.has_key(client.getUsername()):
+      if client.getUsername() in self._clients:
          del self._clients[client.getUsername()]
 
    def removeGame(self, game):
-      if self._games.has_key(game.getName().encode("utf-8")):
+      if game.getName().encode("utf-8") in self._games:
          del self._games[game.getName().encode("utf-8")]
          log.msg(util.printable(_("Removed game \"%(gamename)s\"") % 
             {"gamename": game.getName()}))
@@ -209,7 +209,7 @@ class GameRegistrySingleton:
       self._users[username.encode("utf-8")] = (password, oldIP)
 
    def unRegisterUser(self, username):
-      if self._users.has_key(username.encode("utf-8")):
+      if username.encode("utf-8") in self._users:
          del self._users[username.encode("utf-8")]
 
 def getHandle(dbDir):
