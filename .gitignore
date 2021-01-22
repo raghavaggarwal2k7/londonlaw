@@ -7,3 +7,9 @@ run.sh~
 *.txt~
 *.json~
 *.md~
+*.log
+*.log~
+__pycache__
+*.pyc
+*.pyc~
+

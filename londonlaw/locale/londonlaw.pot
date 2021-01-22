@@ -814,3 +814,8 @@ msgstr ""
 #: guiclient/__init__.py:147
 msgid "Connecting to server..."
 msgstr ""
+
+#: london-client:44
+msgid "Not yet ready for Python3!"
+msgstr ""
+
