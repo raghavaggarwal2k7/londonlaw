@@ -214,7 +214,7 @@ class GameRegistrySingleton:
 
 def getHandle(dbDir):
    global registry
-
+   
    if registry == None:
       registry = GameRegistrySingleton(dbDir)
    return registry

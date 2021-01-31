@@ -560,6 +560,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def lineReceived(self, line):
       try:
+         print("line="+line.decode("utf-8"))
          tokens = shlex.split(line)
          if len(tokens) == 0:
             raise ServerError(self.trans.ugettext("Insufficient arguments."))
