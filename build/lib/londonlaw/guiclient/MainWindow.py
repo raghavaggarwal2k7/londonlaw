@@ -22,16 +22,16 @@
 # a set of player status icons, a chat area, and some useful buttons.
 
 import time, gettext, wx
-#from .MapWindow import *
+from .MapWindow import *
 from .ChatPanel import *
 from .PlayerIcon import *
 from .MoveDialog import *
-#from .HistoryWindow import *
-#from .graphicalmap import *
+from .HistoryWindow import *
+from .graphicalmap import *
 from londonlaw.common.protocol import LLAW_VERSION
 
 
-"""
+
 class MainWindow(wx.Frame):
    # players is a list of Mr. X and all detectives, their
    # positions, and their tokens
@@ -554,4 +554,3 @@ class MainWindow(wx.Frame):
 
 
 
-"""

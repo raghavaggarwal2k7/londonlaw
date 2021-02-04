@@ -15,7 +15,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-import re, random, sets, time, gettext
+import re, random, time, gettext
 
 from twisted.python import log
 from zope import interface
@@ -23,8 +23,8 @@ from zope import interface
 from londonlaw.common.protocol import *
 from londonlaw.common.map import *
 from londonlaw.common.Pawn import *
-from Team import *
-import Protocol, GameRegistry
+from .Team import *
+from . import Protocol, GameRegistry
 
 
 # mark strings for use with xgettext
@@ -438,7 +438,7 @@ class Game:
          return cmp(team1.getNumPlayers(), team2.getNumPlayers())
       # all we really need to do is get the minimum element, but I don't
       # see a way to do that in the python 2.3 standard library
-      teams.sort(comparer)
+#      teams.sort(comparer)
       return teams[0]
             
    def getPawnByName(self, name):

@@ -1,4 +1,4 @@
-import sets, gettext
+import gettext
 
 
 # mark translatable strings for xgettext
@@ -77,8 +77,8 @@ class Team(object):
             extra -= 1
          else:
             pawnsForPlayer = minPawns
-         for _ in xrange(pawnsForPlayer):
-            self._assignPawnToPlayer(pawnIterator.next(), player)
+         for _ in range(pawnsForPlayer):
+            self._assignPawnToPlayer(next(pawnIterator), player)
          
    def _unassignPawns(self):
       self._pawn2player.clear()

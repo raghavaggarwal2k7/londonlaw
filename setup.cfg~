@@ -12,4 +12,4 @@ doc_files = doc/TODO
             doc/manual.pdf
             doc/manual.html
             README
-requires = python >= 3.7, wxGTK >= 2.4.2
+requires = python >= 2.3, wxGTK >= 2.4.2

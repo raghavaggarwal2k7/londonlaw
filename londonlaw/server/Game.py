@@ -438,7 +438,7 @@ class Game:
          return cmp(team1.getNumPlayers(), team2.getNumPlayers())
       # all we really need to do is get the minimum element, but I don't
       # see a way to do that in the python 2.3 standard library
-      teams.sort(comparer)
+#      teams.sort(comparer)
       return teams[0]
             
    def getPawnByName(self, name):

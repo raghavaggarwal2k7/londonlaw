@@ -66,19 +66,20 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_allplayers_admin(self, tag, args):
       for player in GameRegistry.registry.getUserList():
-         self.sendUntagged("playername", player.encode("utf-8"))
+#         self.sendUntagged("playername", player.encode("utf-8"))
+         self.sendUntagged("playername", player)
       self.sendOk(tag)
       
 
    def cmd_ban_admin(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
             GameRegistry.registry.removePassword(args[0])
             self.sendOk(tag)
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Player name not found."))
+            raise DeniedCommand(self.trans.gettext("Player name not found."))
 
 
    def cmd_chatall_endgame(self, tag, args):
@@ -87,12 +88,13 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_chatall_joined(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          self.sendOk(tag)
          for player in self._game.getPlayers():
             try:
-               GameRegistry.registry.getClient(player).sendUntagged("chatall", self._username.encode("utf-8"), args[0])
+#               GameRegistry.registry.getClient(player).sendUntagged("chatall", self._username.encode("utf-8"), args[0])
+               GameRegistry.registry.getClient(player).sendUntagged("chatall", self._username, args[0])
             except KeyError:
                pass
 
@@ -107,24 +109,26 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_chatteam_playing(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          self.sendOk(tag)
          for player in self._game.getTeam(self._username).getPlayers():
             try:
-               GameRegistry.registry.getClient(player).sendUntagged("chatteam", self._username.encode("utf-8"), args[0])
+#               GameRegistry.registry.getClient(player).sendUntagged("chatteam", self._username.encode("utf-8"), args[0])
+               GameRegistry.registry.getClient(player).sendUntagged("chatteam", self._username, args[0])
             except KeyError:
                pass
 
 
    def cmd_deletegame_admin(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
-            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
+#            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
+            g = GameRegistry.registry.getGame(args[0])
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Unrecognized game name."))
+            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
 
          playerList = g.getPlayers()[:]
          for player in playerList:
@@ -136,7 +140,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                   client._voteStart = False
                   client._game      = None
                   client.sendUntagged("ejected", 
-                        self.trans.ugettext("The server admin ejected you from this game.").encode("utf-8"))
+                        self.trans.gettext("The server admin ejected you from this game."))
+#                        self.trans.gettext("The server admin ejected you from this game.").encode("utf-8"))
             except KeyError:
                pass
          self.testRemoveGame(g, True)
@@ -145,13 +150,14 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_deleteplayer_admin(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
-         username = args[0].decode("utf-8")
+#         username = args[0].decode("utf-8")
+         username = args[0]
          try:
             GameRegistry.registry.deleteUser(username)
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Player name not found."))
+            raise DeniedCommand(self.trans.gettext("Player name not found."))
          # if this player was connected, boot him out
          try:
             client = GameRegistry.registry.getClient(username)
@@ -163,19 +169,20 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_disconnect_admin(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
-            client = GameRegistry.registry.getClient(args[0].decode("utf-8"))
+#            client = GameRegistry.registry.getClient(args[0].decode("utf-8"))
+            client = GameRegistry.registry.getClient(args[0])
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("No such user is connected."))
+            raise DeniedCommand(self.trans.gettext("No such user is connected."))
          client.transport.loseConnection()
          self.sendOk(tag)
 
 
    def cmd_doublemove_playing(self, tag, args):
       if len(args) < 5:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       pawn = self._game.getCurrentPawn()
       if args[0] == pawn.getName().lower():
          if self._username == pawn.getPlayer() and self._game.isLegalMove(
@@ -183,9 +190,11 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
             self.sendOk(tag)
             self._game.makeMove(pawn, int(args[1]), args[2], int(args[3]), args[4])
          else:
-            self.sendNo(tag, self.trans.ugettext("That move is illegal.").encode("utf-8"))
+#            self.sendNo(tag, self.trans.gettext("That move is illegal.").encode("utf-8"))
+            self.sendNo(tag, self.trans.gettext("That move is illegal."))
       else:
-         self.sendNo(tag, self.trans.ugettext("It is not that pawn's turn.").encode("utf-8"))
+#         self.sendNo(tag, self.trans.gettext("It is not that pawn's turn.").encode("utf-8"))
+         self.sendNo(tag, self.trans.gettext("It is not that pawn's turn."))
 
 
    # kicks a player out of a game, but not off the server
@@ -193,12 +202,14 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
       if len(args) < 2:
          raise IllegalCommand("Insufficient arguments.")
       else:
-         player = args[0].decode("utf-8")
-         game   = args[1].decode("utf-8")
+#         player = args[0].decode("utf-8")
+#         game   = args[1].decode("utf-8")
+         player = args[0]
+         game   = args[1]
          try:
             g = GameRegistry.registry.getGame(game)
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Unrecognized game name."))
+            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
          
          if g.getStatus() == GAMESTATUS_NEW or g.getStatus() == GAMESTATUS_COMPLETE:
             if player in g.getPlayers():
@@ -210,18 +221,19 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                      client._voteStart = False
                      client._game      = None
                      client.sendUntagged("ejected", 
-                        self.trans.ugettext("The server admin ejected you from this game.").encode("utf-8"))
+#                        self.trans.gettext("The server admin ejected you from this game.").encode("utf-8"))
+                        self.trans.gettext("The server admin ejected you from this game."))
                except KeyError:
                   pass
             self.testRemoveGame(g, True)
             self.sendOk(tag)
          else:
-            raise DeniedCommand(self.trans.ugettext("Game is in progress."))
+            raise DeniedCommand(self.trans.gettext("Game is in progress."))
 
 
    def cmd_language_default(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
             # first try searching the installed locale dir
@@ -235,22 +247,24 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                self.trans = t
                self.sendOk(tag)
             except:
-               raise DeniedCommand(self.trans.ugettext("Unsupported language code."))
+               raise DeniedCommand(self.trans.gettext("Unsupported language code."))
 
 
    def cmd_profile_admin(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
-         player = args[0].decode("utf-8")
+#         player = args[0].decode("utf-8")
+         player = args[0]
          try:
             pw = GameRegistry.registry.getPassword(player)
             ip = GameRegistry.registry.getLastAddress(player)
             if pw == None:
                pw = "None"
-            self.sendTokens(tag, "profile", pw.encode("utf-8"), str(ip))
+#            self.sendTokens(tag, "profile", pw.encode("utf-8"), str(ip))
+            self.sendTokens(tag, "profile", pw, str(ip))
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Player name not found."))
+            raise DeniedCommand(self.trans.gettext("Player name not found."))
 
 
    def cmd_history_endgame(self, tag, args):
@@ -265,9 +279,9 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_join_player(self, tag, args):
       if args == []:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
-         name = args[0].decode("utf-8")
+         name = args[0]
          try:
             g = GameRegistry.registry.getGame(name)
             g.addPlayer(self._username)
@@ -277,17 +291,18 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                self._state = "joined"
                # number of players in this game needs to be updated
                for p in GameRegistry.registry.getUnjoinedUsers():
-                  GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName().encode("utf-8"), 
+#                  GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName().encode("utf-8"), 
+                  GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName(), 
                         g.getStatus(), g.getType(), str(g.getNumPlayers()))
             else:
                self._state = "playing"
                self._game.syncPlayer(self._username)
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Unrecognized game name."))
+            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
          except TeamError as e:
-            raise DeniedCommand(self.trans.ugettext(e.ustr()))
+            raise DeniedCommand(self.trans.gettext(e.ustr()))
          except GameError as e:
-            raise DeniedCommand(self.trans.ugettext(e.ustr()))
+            raise DeniedCommand(self.trans.gettext(e.ustr()))
 
 
    def cmd_leave_joined(self, tag, args):
@@ -296,7 +311,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
       self._voteStart = False
       # number of players in this game needs to be updated
       for p in GameRegistry.registry.getUnjoinedUsers():
-         GameRegistry.registry.getClient(p).sendUntagged("gameinfo", self._game.getName().encode("utf-8"), 
+#         GameRegistry.registry.getClient(p).sendUntagged("gameinfo", self._game.getName().encode("utf-8"), 
+         GameRegistry.registry.getClient(p).sendUntagged("gameinfo", self._game.getName(), 
                self._game.getStatus(), self._game.getType(), str(self._game.getNumPlayers()))
       GameRegistry.registry.addUnjoinedUser(self._username)
       self.sendOk(tag)
@@ -309,16 +325,18 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
       if len(args) > 0:
          if args[0] == "Mr. X":
             for algorithm, launcher in ai_list.X_ALGORITHMS:
-               self.sendTokens(tag, "aiinfo", algorithm.encode("utf-8"))
+#               self.sendTokens(tag, "aiinfo", algorithm.encode("utf-8"))
+               self.sendTokens(tag, "aiinfo", algorithm)
             self.sendOk(tag)
          elif args[0] == "Detectives":
             for algorithm, launcher in ai_list.DETECTIVE_ALGORITHMS:
-               self.sendTokens(tag, "aiinfo", algorithm.encode("utf-8"))
+#               self.sendTokens(tag, "aiinfo", algorithm.encode("utf-8"))
+               self.sendTokens(tag, "aiinfo", algorithm)
             self.sendOk(tag)
          else:
-            raise DeniedCommand(self.trans.ugettext("Unrecognized team name."))
+            raise DeniedCommand(self.trans.gettext("Unrecognized team name."))
       else:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
 
 
    def cmd_listgames_admin(self, tag, args):
@@ -327,21 +345,24 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_listgames_player(self, tag, args):
       for g in GameRegistry.registry.getGameList():
-         self.sendUntagged("gameinfo", g.getName().encode("utf-8"), 
-               g.getStatus().encode("utf-8"), g.getType().encode("utf-8"), str(g.getNumPlayers()))
+#         self.sendUntagged("gameinfo", g.getName().encode("utf-8"), 
+#               g.getStatus().encode("utf-8"), g.getType().encode("utf-8"), str(g.getNumPlayers()))
+         self.sendUntagged("gameinfo", g.getName(), 
+               g.getStatus(), g.getType(), str(g.getNumPlayers()))
       self.sendOk(tag)
 
 
    def cmd_listplayers_default(self, tag, args):
       if len(args) > 0:
          try:
-            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
+#            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
+            g = GameRegistry.registry.getGame(args[0])
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Unrecognized game name."))
+            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
       elif self._state == "joined":
          g = self._game
       else:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
 
       for player in g.getPlayers():
          self.sendPlayerInfo(player, g)
@@ -350,7 +371,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_move_playing(self, tag, args):
       if len(args) < 3:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       pawn = self._game.getCurrentPawn()
       if args[0] == pawn.getName().lower():
          if self._username == pawn.getPlayer() and \
@@ -358,18 +379,21 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
             self.sendOk(tag)
             self._game.makeMove(pawn, int(args[1]), args[2])
          else:
-            self.sendNo(tag, self.trans.ugettext("That move is illegal.").encode("utf-8"))
+#            self.sendNo(tag, self.trans.gettext("That move is illegal.").encode("utf-8"))
+            self.sendNo(tag, self.trans.gettext("That move is illegal."))
       else:
-         self.sendNo(tag, self.trans.ugettext("It is not that pawn's turn.").encode("utf-8"))
+#         self.sendNo(tag, self.trans.gettext("It is not that pawn's turn.").encode("utf-8"))
+         self.sendNo(tag, self.trans.gettext("It is not that pawn's turn."))
 
 
    def cmd_newgame_player(self, tag, args):
       if len(args) < 2:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
-         name = args[0].decode("utf-8")
+#         name = args[0].decode("utf-8")
+         name = args[0]
          if GameRegistry.registry.hasGame(name):
-            raise DeniedCommand(self.trans.ugettext("That game name is already in use."))
+            raise DeniedCommand(self.trans.gettext("That game name is already in use."))
          else:
             try:
                g = Game(name, args[1])
@@ -381,24 +405,27 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                log.msg(util.printable(_("New game \"%(gamename)s\" created by player \"%(playername)s\"") %
                      {"gamename": name, "playername": self._username}))
                for p in GameRegistry.registry.getUnjoinedUsers():
-                  GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName().encode("utf-8"), 
+#                  GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName().encode("utf-8"), 
+                  GameRegistry.registry.getClient(p).sendUntagged("gameinfo", g.getName(), 
                         g.getStatus(), g.getType(), str(g.getNumPlayers()))
             except GameError as e:
-               raise DeniedCommand(self.trans.ugettext(e.ustr()))
+               raise DeniedCommand(self.trans.gettext(e.ustr()))
 
 
    def cmd_login_default(self, tag, args):
-      raise DeniedCommand(self.trans.ugettext("Already logged in."))
+      raise DeniedCommand(self.trans.gettext("Already logged in."))
 
 
    def cmd_login_compat(self, tag, args):
       if len(args) < 2:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
-            GameRegistry.registry.registerUser(args[0].decode("utf-8"), args[1].decode("utf-8"), 
+#            GameRegistry.registry.registerUser(args[0].decode("utf-8"), args[1].decode("utf-8"), 
+            GameRegistry.registry.registerUser(args[0], args[1], 
                   self.transport.getPeer().host)
-            self._username = args[0].decode("utf-8")
+#            self._username = args[0].decode("utf-8")
+            self._username = args[0]
             if self._username == "admin":
                self._state = "admin"
             else:
@@ -409,13 +436,13 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                   {"playername" : self._username}))
             self.sendOk(tag)
          except GameRegistry.PasswordError as e:
-            raise DeniedCommand(self.trans.ugettext(e.ustr()))
+            raise DeniedCommand(self.trans.gettext(e.ustr()))
          except GameRegistry.UserError as e:
-            raise DeniedCommand(self.trans.ugettext(e.ustr()))
+            raise DeniedCommand(self.trans.gettext(e.ustr()))
 
 
    def cmd_login_init(self, tag, args):
-      raise DeniedCommand(self.trans.ugettext("Protocol version not verified."))
+      raise DeniedCommand(self.trans.gettext("Protocol version not verified."))
 
 
    def cmd_noop_default(self, tag, args):
@@ -428,19 +455,21 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    
    def cmd_protocol_default(self, tag, args):
-      raise DeniedCommand(self.trans.ugettext("Protocol version already verified."))
+      raise DeniedCommand(self.trans.gettext("Protocol version already verified."))
 
    def cmd_protocol_init(self, tag, args):
+      PROTOCOL_VERSION = "2.0"
+#      print("tag="+tag+",protocol_version="+PROTOCOL_VERSION+"<")
       if len(args) > 0:
          if args[0] == PROTOCOL_VERSION:
             self._state = "compat"
             self.sendOk(tag)
          elif args[0].isdigit():
-            raise IllegalCommand(self.trans.ugettext("Incompatible protocol version."))
+            raise IllegalCommand(self.trans.gettext("Incompatible protocol version."))
          else:
-            raise IllegalCommand(self.trans.ugettext("Unrecognized protocol string."))
+            raise IllegalCommand(self.trans.gettext("Unrecognized protocol string."))
       else:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
 
 
    def cmd_requestai_joined(self, tag, args):
@@ -457,37 +486,39 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          log.msg(util.printable(_("Launching AI algorithm \"%(algorithm)s\" using script \"%(script)s\"" % 
             {"algorithm" : requestedAlgorithm, "script" : launchScript})))
          os.spawnl(os.P_NOWAIT, sys.executable, sys.executable, launchScript,
-               self.generateBotName().encode("utf-8"), self._game.getName().encode("utf-8"))
+               self.generateBotName(), self._game.getName())
+#               self.generateBotName().encode("utf-8"), self._game.getName().encode("utf-8"))
       else:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
 
 
    def cmd_setpassword_admin(self, tag, args):
       if len(args) < 2:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
-            GameRegistry.registry.setPassword(args[0].decode("utf-8"), args[1].decode("utf-8"))
+#            GameRegistry.registry.setPassword(args[0].decode("utf-8"), args[1].decode("utf-8"))
+            GameRegistry.registry.setPassword(args[0], args[1])
             self.sendOk(tag)
          except KeyError:
-            raise DeniedCommand(self.trans.ugettext("Player name not found."))
+            raise DeniedCommand(self.trans.gettext("Player name not found."))
 
 
    def cmd_setteam_joined(self, tag, args):
       if len(args) == 0:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       try:
          self._game.setTeam(self._username, args[0])
       except GameError as e:
-         raise DeniedCommand(self.trans.ugettext(e.ustr()))
+         raise DeniedCommand(self.trans.gettext(e.ustr()))
       except TeamError as e:
-         raise DeniedCommand(self.trans.ugettext(e.ustr()))
+         raise DeniedCommand(self.trans.gettext(e.ustr()))
       self.sendOk(tag)            
 
 
    def cmd_votestart_joined(self, tag, args):
       if len(args) == 0:
-         raise IllegalCommand(self.trans.ugettext("Insufficient arguments."))
+         raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       vote = args[0].lower()
       try:
          self._voteStart = util.parse_bool(vote)
@@ -512,7 +543,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          self._game.removePlayer(self._username)
          # number of players in this game needs to be updated
          for p in GameRegistry.registry.getUnjoinedUsers():
-            GameRegistry.registry.getClient(p).sendUntagged("gameinfo", self._game.getName().encode("utf-8"), 
+#            GameRegistry.registry.getClient(p).sendUntagged("gameinfo", self._game.getName().encode("utf-8"), 
+            GameRegistry.registry.getClient(p).sendUntagged("gameinfo", self._game.getName(), 
                   self._game.getStatus(), self._game.getType(), str(self._game.getNumPlayers()))
          # kill the game if this was the last player
          self.testRemoveGame(self._game)
@@ -560,13 +592,12 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def lineReceived(self, line):
       try:
-         print("line="+line.decode("utf-8"))
-         tokens = shlex.split(line)
+         tokens = shlex.split(line.decode("utf-8"))
          if len(tokens) == 0:
-            raise ServerError(self.trans.ugettext("Insufficient arguments."))
+            raise ServerError(self.trans.gettext("Insufficient arguments."))
          if len(tokens[0]) > 0 and tokens[0][0] == "#":
             if len(tokens) < 2:
-               raise ServerError(self.trans.ugettext("Insufficient arguments."))
+               raise ServerError(self.trans.gettext("Insufficient arguments."))
             tag       = tokens[0]
             command   = tokens[1]
             arguments = tokens[2:]
@@ -574,7 +605,9 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
             tag       = "-"
             command   = tokens[0]
             arguments = tokens[1:]
-         
+         icount=0
+         for x in range(len(arguments)):
+            icount=icount+1 
          if not (re.match(r"^#\d+$", tag) or tag == "-"):
             raise ServerError("illegal tag")
 
@@ -583,13 +616,15 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
             # Try a catch-all method for the command
             f = getattr(self, "".join(("cmd_", command, "_default")), None)
          if f is None:
-            self.sendBad(tag, self.trans.ugettext("Unrecognized command.").encode("utf-8"))
+#            self.sendBad(tag, self.trans.gettext("Unrecognized command.").encode("utf-8"))
+            self.sendBad(tag, self.trans.gettext("Unrecognized command."))
             return
          
          try:
             f(tag, arguments)
          except IllegalCommand as e:
-            self.sendBad(tag, e.ustr().encode("utf-8"))
+             print(e.ustr())
+#            self.sendBad(tag, e.ustr().encode("utf-8"))
          except DeniedCommand as e:
             self.sendNo(tag, e.ustr().encode("utf-8"))
       
@@ -635,7 +670,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
    def sendTokens(self, *tokens):
       s = util.join_tokens(*tokens)
       # convert to ASCII if necessary--all unicode should already be safely encoded as UTF-8
-      self.sendLine(str(s)) 
+      self.sendLine(s.encode('utf-8')) 
    
    def sendUntagged(self, *tokens):
       self.sendTokens("*", *tokens)
@@ -648,7 +683,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          else:
             loc = pawn.getLocation()
          self.sendUntagged("pawninfo", pawn.getName(), 
-               pawn.getPlayer().encode("utf-8"), repr(loc),
+#               pawn.getPlayer().encode("utf-8"), repr(loc),
+               pawn.getPlayer(), repr(loc),
                repr(pawn.getTicketAmount("taxi")),
                repr(pawn.getTicketAmount("bus")),
                repr(pawn.getTicketAmount("underground")),
@@ -665,11 +701,13 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          vote = str(GameRegistry.registry.getClient(username).getVote())
       except KeyError:
          vote = "None"
-      self.sendUntagged( "playerinfo", username.encode("utf-8"),
+#      self.sendUntagged( "playerinfo", username.encode("utf-8"),
+      self.sendUntagged( "playerinfo", username,
          game.getTeam(username).getName(), vote, pawnToken)
 
    def sendPlayerLeave(self, username):
-      self.sendUntagged("playerleave", username.encode("utf-8"))
+      self.sendUntagged("playerleave", username)
+#      self.sendUntagged("playerleave", username.encode("utf-8"))
 
    def setGame(self, game):
       self._game = game
@@ -708,20 +746,23 @@ class ProtocolGameListener:
       client = GameRegistry.registry.getClient(self._username)
       client_state = "endgame"
       client.sendUntagged("gameover", winningTeam.getName(), 
-            client.trans.ugettext("Mr. X successfully evaded the detectives for 24 turns.  Mr. X wins!").encode("utf-8"))
+            client.trans.gettext("Mr. X successfully evaded the detectives for 24 turns.  Mr. X wins!"))
+#            client.trans.gettext("Mr. X successfully evaded the detectives for 24 turns.  Mr. X wins!").encode("utf-8"))
 
    def gameOverStuck(self, winningTeam):
       client = GameRegistry.registry.getClient(self._username)
       client_state = "endgame"
       client.sendUntagged("gameover", winningTeam.getName(), 
-            client.trans.ugettext("None of the detectives are able to move.  Mr. X wins!").encode("utf-8"))
+            client.trans.gettext("None of the detectives are able to move.  Mr. X wins!"))
+#            client.trans.gettext("None of the detectives are able to move.  Mr. X wins!").encode("utf-8"))
 
    def gameOverCaught(self, winningTeam, detective):
       client = GameRegistry.registry.getClient(self._username)
       client_state = "endgame"
       client.sendUntagged("gameover", winningTeam.getName(), 
-         (client.trans.ugettext("Mr. X was caught by the %(color)s Detective at location %(number)d.  The detectives win!") % \
-         {"color" : detective.getTranslatedName(client.trans), "number" : detective.getLocation()}).encode("utf-8"))
+         (client.trans.gettext("Mr. X was caught by the %(color)s Detective at location %(number)d.  The detectives win!") % \
+         {"color" : detective.getTranslatedName(client.trans), "number" : detective.getLocation()}))
+#         {"color" : detective.getTranslatedName(client.trans), "number" : detective.getLocation()}).encode("utf-8"))
 
    def gameStart(self, game):
       GameRegistry.registry.getClient(self._username)._state = "playing"
@@ -743,7 +784,7 @@ class ProtocolGameListener:
             repr(dest2),
             transport2)
       else:
-         raise ServerError(self.trans.ugettext("Invalid number of moves."))
+         raise ServerError(self.trans.gettext("Invalid number of moves."))
    
    def pawnStuck(self, pawn):
       GameRegistry.registry.getClient(self._username).sendUntagged("stuck", pawn.getName())
@@ -767,7 +808,8 @@ class ProtocolGameListener:
       GameRegistry.registry.getClient(self._username).sendPlayerInfo(player)
 
    def playerRejoin(self, player):
-      GameRegistry.registry.getClient(self._username).sendUntagged("rejoin", player.encode("utf-8"))
+      GameRegistry.registry.getClient(self._username).sendUntagged("rejoin", player)
+#      GameRegistry.registry.getClient(self._username).sendUntagged("rejoin", player.encode("utf-8"))
 
    def playerVoteStart(self, game, player, vote):
       GameRegistry.registry.getClient(self._username).sendPlayerInfo(player)

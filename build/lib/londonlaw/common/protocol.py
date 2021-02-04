@@ -17,7 +17,8 @@
 
 LLAW_VERSION          = "0.3.0pre2"
 
-PROTOCOL_VERSION      = "2.1"
+#PROTOCOL_VERSION      = "2.1"
+PROTOCOL_VERSION      = "2.0"
 LLAW_PORT             = 7921
 
 GAMESTATUS_NEW        = "new"

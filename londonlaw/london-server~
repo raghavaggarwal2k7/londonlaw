@@ -16,7 +16,6 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 import gettext, sys, os
 import locale
 
@@ -24,12 +23,11 @@ try:
     import server
 #   gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
     cwd=os.getcwd()
-    print("Pfad="+cwd+"\n")
+#    print("Pfad="+cwd+"\n")
     gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
     encoding=locale.getdefaultlocale()
-    print ("encoding: "+format(encoding)+"," )    
+#    print ("encoding: "+format(encoding)+"," )    
     print (_("Attempting to launch server from current directory..."))
-    print("try")
 except:
     pass
 #   gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
@@ -51,6 +49,7 @@ except:
     print("except")
 
 print("Not yet ready for Python3!")
+#pdb.run("Achtung! GameRegistry.py Zl 82 geändert!")
 server.init()
 print("App closed...")
 

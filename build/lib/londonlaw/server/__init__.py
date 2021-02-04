@@ -18,9 +18,9 @@
 from twisted.internet import protocol, reactor, task
 from twisted.python import log
 from londonlaw.common.protocol import *
-from Protocol import LLawServerProtocol
+from .Protocol import LLawServerProtocol
 from optparse import OptionParser
-import GameRegistry
+from . import GameRegistry
 import sys, gettext, os
 
 
@@ -38,19 +38,20 @@ def init():
          help=_("use DBDIR to store game und user database"), metavar=_("DBDIR"),
          default=os.path.expanduser("~/.londonlaw/server"))
    (options, args) = parser.parse_args()
-
-   log.startLogging(sys.stdout, 0)
-
+   
+#   log.startLogging(sys.stdout, 0)
+   log.startLogging(open('./londonlaw-server.log', 'w'))
+   options.dbdir=os.getcwd()+"/londonlaw/server"
+   print("dbdir="+options.dbdir)
    registry = GameRegistry.getHandle(dbDir=options.dbdir)
    # Purge expired games every half hour
    gameKiller = task.LoopingCall(registry.purgeExpiredGames)
-   gameKiller.start(1800)
+#   gameKiller.start(1800)
+   loopgameKiller = gameKiller.start(1800)
    # Purge games involving AI clients
    registry.purgeBotGames()
-
    reactor.listenTCP(int(options.port), LLawServerFactory())
    reactor.run()
-
    registry.close()
 
 

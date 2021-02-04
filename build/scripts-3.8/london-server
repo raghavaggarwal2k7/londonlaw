@@ -16,21 +16,41 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-import gettext, sys
+import gettext, sys, os
+import locale
 
 try:
-   import londonlaw.server
-   gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
+    import server
+#   gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
+    cwd=os.getcwd()
+#    print("Pfad="+cwd+"\n")
+    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
+    encoding=locale.getdefaultlocale()
+#    print ("encoding: "+format(encoding)+"," )    
+    print (_("Attempting to launch server from current directory..."))
 except:
-   gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
-   print (_("Attempting to launch server from current directory...")).encode(sys.stdout.encoding, "replace")
-   import sys, os.path
-   # add the parent directory to PYTHONPATH
-   cwd = os.path.split(os.path.abspath(os.getcwd()))
-   sys.path.append(cwd[0])
-   import londonlaw.server
+    pass
+#   gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
+#   print (_("Attempting to launch server from current directory...")).encode(sys.stdout.encoding, "replace")
+#   import sys, os.path
+#   # add the parent directory to PYTHONPATH
+#   cwd = os.path.split(os.path.abspath(os.getcwd()))
+#   sys.path.append(cwd[0])
+#   import londonlaw.server
+    cwd=os.getcwd()
+    print("Pfad="+cwd+"\n")
+    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
+    print (_("Attempting to server client from current directory..."))
+    import sys, os.path
+    # add the parent directory to PYTHONPATH
+    cwd = os.path.split(os.path.abspath(os.getcwd()))
+    sys.path.append(cwd[0])
+    import server
+    print("except")
 
-londonlaw.server.init()
+print("Not yet ready for Python3!")
+#pdb.run("Achtung! GameRegistry.py Zl 82 geändert!")
+server.init()
+print("App closed...")
 
 
