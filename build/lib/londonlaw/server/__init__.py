@@ -40,13 +40,11 @@ def init():
    (options, args) = parser.parse_args()
    
 #   log.startLogging(sys.stdout, 0)
-   log.startLogging(open('./londonlaw-server.log', 'w'))
+#   log.startLogging(open('./londonlaw-server.log', 'w'))
    options.dbdir=os.getcwd()+"/londonlaw/server"
-   print("dbdir="+options.dbdir)
    registry = GameRegistry.getHandle(dbDir=options.dbdir)
    # Purge expired games every half hour
    gameKiller = task.LoopingCall(registry.purgeExpiredGames)
-#   gameKiller.start(1800)
    loopgameKiller = gameKiller.start(1800)
    # Purge games involving AI clients
    registry.purgeBotGames()

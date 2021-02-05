@@ -17,8 +17,8 @@
 
 from twisted.python import log
 import shelve, os, time, configparser, gettext
-from londonlaw.common.protocol import *
-from londonlaw.common import util
+from common.protocol import *
+from common import util
 
 
 # mark translatable strings for xgettext

@@ -19,20 +19,25 @@
 
 from twisted.python import threadable
 threadable.init()
-import gettext, sys
+import os, gettext, sys
 
 try:
-   import londonlaw.adminclient
-   gettext.install("londonlaw") # use system locale dir if client was installed
+   import adminclient
+#   gettext.install("londonlaw") # use system locale dir if client was installed
+   cwd=os.getcwd()
+#    print("Pfad="+cwd+"\n")
+   gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
+   
 except:
    gettext.install("londonlaw", "locale") # use local locale directory if launching locally
-   print (_("Attempting to launch admin client from current directory...")).encode(sys.stdout.encoding, "replace")
+#   print (_("Attempting to launch admin client from current directory...")).encode(sys.stdout.encoding, "replace")
+   print (_("Attempting to launch admin client from current directory..."))
    import sys, os.path
    # add the parent directory to PYTHONPATH
    cwd = os.path.split(os.path.abspath(os.getcwd()))
    sys.path.append(cwd[0])
-   import londonlaw.adminclient
+   import adminclient
 
-londonlaw.adminclient.init()
+adminclient.init()
 
 

@@ -1,1 +1,1 @@
-MEDIAROOT = "guiclient"
+MEDIAROOT = "/usr/share/londonlaw/guiclient"

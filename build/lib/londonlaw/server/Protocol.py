@@ -66,7 +66,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def cmd_allplayers_admin(self, tag, args):
       for player in GameRegistry.registry.getUserList():
-         self.sendUntagged("playername", player.encode("utf-8"))
+#         self.sendUntagged("playername", player.encode("utf-8"))
+         self.sendUntagged("playername", player)
       self.sendOk(tag)
       
 
@@ -92,7 +93,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          self.sendOk(tag)
          for player in self._game.getPlayers():
             try:
-               GameRegistry.registry.getClient(player).sendUntagged("chatall", self._username.encode("utf-8"), args[0])
+#               GameRegistry.registry.getClient(player).sendUntagged("chatall", self._username.encode("utf-8"), args[0])
+               GameRegistry.registry.getClient(player).sendUntagged("chatall", self._username, args[0])
             except KeyError:
                pass
 
@@ -112,7 +114,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          self.sendOk(tag)
          for player in self._game.getTeam(self._username).getPlayers():
             try:
-               GameRegistry.registry.getClient(player).sendUntagged("chatteam", self._username.encode("utf-8"), args[0])
+#               GameRegistry.registry.getClient(player).sendUntagged("chatteam", self._username.encode("utf-8"), args[0])
+               GameRegistry.registry.getClient(player).sendUntagged("chatteam", self._username, args[0])
             except KeyError:
                pass
 
@@ -149,7 +152,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
       if args == []:
          raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
-         username = args[0].decode("utf-8")
+#         username = args[0].decode("utf-8")
+         username = args[0]
          try:
             GameRegistry.registry.deleteUser(username)
          except KeyError:
@@ -168,7 +172,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
-            client = GameRegistry.registry.getClient(args[0].decode("utf-8"))
+#            client = GameRegistry.registry.getClient(args[0].decode("utf-8"))
+            client = GameRegistry.registry.getClient(args[0])
          except KeyError:
             raise DeniedCommand(self.trans.gettext("No such user is connected."))
          client.transport.loseConnection()
@@ -249,7 +254,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
       if args == []:
          raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
-         player = args[0].decode("utf-8")
+#         player = args[0].decode("utf-8")
+         player = args[0]
          try:
             pw = GameRegistry.registry.getPassword(player)
             ip = GameRegistry.registry.getLastAddress(player)
@@ -349,7 +355,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
    def cmd_listplayers_default(self, tag, args):
       if len(args) > 0:
          try:
-            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
+#            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
+            g = GameRegistry.registry.getGame(args[0])
          except KeyError:
             raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
       elif self._state == "joined":
@@ -490,7 +497,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          raise IllegalCommand(self.trans.gettext("Insufficient arguments."))
       else:
          try:
-            GameRegistry.registry.setPassword(args[0].decode("utf-8"), args[1].decode("utf-8"))
+#            GameRegistry.registry.setPassword(args[0].decode("utf-8"), args[1].decode("utf-8"))
+            GameRegistry.registry.setPassword(args[0], args[1])
             self.sendOk(tag)
          except KeyError:
             raise DeniedCommand(self.trans.gettext("Player name not found."))
@@ -584,7 +592,6 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 
    def lineReceived(self, line):
       try:
-         print("line="+line.decode("utf-8"))
          tokens = shlex.split(line.decode("utf-8"))
          if len(tokens) == 0:
             raise ServerError(self.trans.gettext("Insufficient arguments."))
@@ -598,11 +605,9 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
             tag       = "-"
             command   = tokens[0]
             arguments = tokens[1:]
-         print("command="+command)
          icount=0
          for x in range(len(arguments)):
             icount=icount+1 
-            print(str(icount)+"="+arguments[x]+"<")          
          if not (re.match(r"^#\d+$", tag) or tag == "-"):
             raise ServerError("illegal tag")
 
@@ -618,7 +623,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          try:
             f(tag, arguments)
          except IllegalCommand as e:
-             print(e.ustr().encode("utf-8"))
+             print(e.ustr())
 #            self.sendBad(tag, e.ustr().encode("utf-8"))
          except DeniedCommand as e:
             self.sendNo(tag, e.ustr().encode("utf-8"))

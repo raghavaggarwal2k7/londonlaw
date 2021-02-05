@@ -78,7 +78,8 @@ class MyApp(wx.App):
       self.connectFrame.Fit()
       self.connectFrame.Show(1)
       self.currentWindow = self.connectFrame
-      wx.EVT_BUTTON(self.connectFrame, self.connectFrame.connectButton.GetId(), self.connect)
+#      wx.EVT_BUTTON(self.connectFrame, self.connectFrame.connectButton.GetId(), self.connect)
+      self.connectFrame.connectButton.Bind(wx.EVT_BUTTON,self.connect)
       return self.connectFrame
 
 
@@ -147,9 +148,8 @@ class MyApp(wx.App):
 
 
 def init():
-   print("In guiclient.init()")	
 #   log.startLogging(sys.stderr, 0)
-   log.startLogging(open('./londonlaw-client.log', 'w'))
+#   log.startLogging(open('./londonlaw-client.log', 'w'))
    app = MyApp(0)
 
    reactor.registerWxApp(app)

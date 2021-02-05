@@ -17,7 +17,7 @@
 
 from twisted.internet import protocol, reactor, task
 from twisted.python import log
-from londonlaw.common.protocol import *
+from common.protocol import *
 from .Protocol import LLawServerProtocol
 from optparse import OptionParser
 from . import GameRegistry

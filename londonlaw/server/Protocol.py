@@ -20,9 +20,9 @@ from twisted.internet import protocol, reactor
 from twisted.protocols import basic
 from twisted.python import log
 import re, shlex, sys, gettext, os
-from londonlaw.common import util
-from londonlaw.aiclients import ai_list
-from londonlaw.common.protocol import *
+from common import util
+from aiclients import ai_list
+from common.protocol import *
 from .Game import *
 from . import GameRegistry
 

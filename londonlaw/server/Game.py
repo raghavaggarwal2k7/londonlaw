@@ -20,9 +20,9 @@ import re, random, time, gettext
 from twisted.python import log
 from zope import interface
 
-from londonlaw.common.protocol import *
-from londonlaw.common.map import *
-from londonlaw.common.Pawn import *
+from common.protocol import *
+from common.map import *
+from common.Pawn import *
 from .Team import *
 from . import Protocol, GameRegistry
 

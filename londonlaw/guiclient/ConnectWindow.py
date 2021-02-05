@@ -34,6 +34,20 @@ class ConnectWindow(wx.Frame):
       EXIT = 100
 
       self.exitCallback = exitCallback
+      
+      #Default values
+      if len(sys.argv)>1:
+         self.defaultHost = sys.argv[1]
+      else:	
+         self.defaultHost = "localhost"
+      if len(sys.argv)>2:
+         self.defaultUsername = sys.argv[2]
+      else:   
+         self.defaultUsername = ""
+      if len(sys.argv)>3:
+         self.defaultPassword = sys.argv[3]
+      else:   
+         self.defaultPassword = ""
 
       # Create a menu bar
       # TRANSLATORS: this is a menu bar entry
@@ -58,7 +72,8 @@ class ConnectWindow(wx.Frame):
       connectLabel.SetFont(labelFont)
       # TRANSLATORS: labels for server connection dialog
       self.hostEntryLabel = wx.StaticText(mainPanel, -1, _("host:"), wx.Point(0,0))
-      self.hostEntry      = wx.TextCtrl(mainPanel, -1, "localhost", wx.DefaultPosition, (170, wx.DefaultSize[1]))
+#      self.hostEntry      = wx.TextCtrl(mainPanel, -1, "localhost", wx.DefaultPosition, (170, wx.DefaultSize[1]))
+      self.hostEntry      = wx.TextCtrl(mainPanel, -1, self.defaultHost, wx.DefaultPosition, (170, wx.DefaultSize[1]))
       # TRANSLATORS: labels for server connection dialog
       self.portEntryLabel = wx.StaticText(mainPanel, -1, _("port:"), wx.Point(0,0))
       self.portEntry      = wx.TextCtrl(mainPanel, -1, str(LLAW_PORT), wx.DefaultPosition, (50, wx.DefaultSize[1]))
@@ -76,10 +91,10 @@ class ConnectWindow(wx.Frame):
       userLabel = wx.StaticText(mainPanel, -1, _("User information: "))
       userLabel.SetFont(labelFont)
       self.usernameEntryLabel = wx.StaticText(mainPanel, -1, _("username:"), wx.Point(0,0))
-      self.usernameEntry = wx.TextCtrl(mainPanel, -1)
+      self.usernameEntry = wx.TextCtrl(mainPanel, -1, self.defaultUsername)
       self.usernameEntry.SetMaxLength(20)
       self.passEntryLabel = wx.StaticText(mainPanel, -1, _("password:"), wx.Point(0,0))
-      self.passEntry = wx.TextCtrl(mainPanel, -1, style=wx.TE_PASSWORD)
+      self.passEntry = wx.TextCtrl(mainPanel, -1, self.defaultPassword, style=wx.TE_PASSWORD)
       self.passEntry.SetMaxLength(20)
 
       userSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -116,13 +131,18 @@ class ConnectWindow(wx.Frame):
 
       self.hostEntry.SetFocus()
 
-      wx.EVT_SET_FOCUS(self.hostEntry, self.selectFocused)
-      wx.EVT_SET_FOCUS(self.portEntry, self.selectFocused)
-      wx.EVT_SET_FOCUS(self.usernameEntry, self.selectFocused)
-      wx.EVT_SET_FOCUS(self.passEntry, self.selectFocused)
-      wx.EVT_BUTTON(self, self.quitButton.GetId(), self.menuExit)
-      wx.EVT_MENU(self, EXIT, self.menuExit)
-
+#      wx.EVT_SET_FOCUS(self.hostEntry, self.selectFocused)
+      self.hostEntry.Bind(wx.EVT_SET_FOCUS, self.selectFocused)
+#      wx.EVT_SET_FOCUS(self.portEntry, self.selectFocused)
+      self.portEntry.Bind(wx.EVT_SET_FOCUS, self.selectFocused)
+#      wx.EVT_SET_FOCUS(self.usernameEntry, self.selectFocused)
+      self.usernameEntry.Bind(wx.EVT_SET_FOCUS, self.selectFocused)
+#      wx.EVT_SET_FOCUS(self.passEntry, self.selectFocused)
+      self.passEntry.Bind(wx.EVT_SET_FOCUS,self.selectFocused)
+#      wx.EVT_BUTTON(self, self.quitButton.GetId(), self.menuExit)
+      self.quitButton.Bind(wx.EVT_BUTTON,self.menuExit)
+#      wx.EVT_MENU(self, EXIT, self.menuExit)
+      self.Bind(wx.EVT_MENU, self.menuExit, id=wx.ID_EXIT)
 
    # select contents of a focused wx.TextCtrl
    def selectFocused(self, ev):
@@ -147,7 +167,7 @@ class ConnectWindow(wx.Frame):
 
 
    def showInfoAlert(self, info):
-      self.PushStatusText("")
+#      self.PushStatusText("")
       alert = wx.MessageDialog(self, info,
       # TRANSLATORS: this is the title for a small alert window that pops up when the server reports an error
          _("Server Message"), wx.OK|wx.ICON_INFORMATION)

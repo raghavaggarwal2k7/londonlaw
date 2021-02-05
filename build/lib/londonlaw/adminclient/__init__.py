@@ -32,7 +32,7 @@ class AdminClientFactory(protocol.ClientFactory):
       p._password = self._password
 
    def clientConnectionFailed(self, connector, reason):
-      print "Unable to connect to server."
+      print("Unable to connect to server.")
       reactor.stop()
 
 

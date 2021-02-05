@@ -39,6 +39,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
       self._game2Status = {}
       self._gameJoined = None
       self._history    = []
+      self._state      = ""
 
 
    def _setPreviousState(self):
@@ -91,7 +92,9 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
    def lineReceived(self, line):
       #print "received line \"%s\"" % line.encode("string_escape")
       try:
-         tokens    = shlex.split(line)
+#         tokens    = shlex.split(line)
+         tokens = shlex.split(line.decode("utf-8"))
+         print(len(tokens))
          if len(tokens) > 1:
             tag       = tokens[0]
             response  = tokens[1].lower()
@@ -104,15 +107,18 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
             if f is None:
                log.msg("Received unhandled server message (tried default): \"" + line + "\" state = \"" + self._state + "\"")
                return
-            
+
+            print(tag)     
+            for x in range(len(data)): 
+               print(data[x])        
             f(tag, data)
          else:
             log.msg("Received unhandled server message (too few args): \"" + line + "\" state = \"" + self._state + "\"")
 
       except AttributeError as e:
          log.msg(str(e))
-         print(("tokens = " + str(tokens)))
-         log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
+         print("Received unhandled server message:"+line.decode("utf-8")+" state:"+self._state)
+#         log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 
 
    def makeMove(self, data):
@@ -143,7 +149,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
    def sendTokens(self, *tokens):
       s = util.join_tokens(*tokens)
       # convert from unicode to 8-bit ascii
-      self.sendLine(str(s))
+      self.sendLine(s.encode("utf-8"))
 
 
    def logUnmatched(self, tag, response, data):
@@ -253,8 +259,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
             self.sendTokens(self.genTag(), "login", 
                   self._messenger.getUsername().encode("utf-8"), 
                   self._messenger.getPassword().encode("utf-8"))
-      else:
-         logUnmatched(tag, "ok", data)
+#      else:
+#         logUnmatched(tag, "ok", data)
 
 
    def response_ok_tryjoin(self, tag, data):

@@ -79,7 +79,6 @@ class GameRegistrySingleton:
       self._users = shelve.open(os.path.join(dbDir, "users_db." + LLAW_VERSION), 
             "c", writeback = True)
       self._clients       = {}
-#      self._unjoinedUsers = Set()
       self._unjoinedUsers = set()
 
 
@@ -93,8 +92,8 @@ class GameRegistrySingleton:
          raise Exception(N_("Game name in use."))
 
    def addUnjoinedUser(self, username):
-      print("add user="+username)
-#      self._unjoinedUsers.add(username)
+#      print("add user="+username)
+      self._unjoinedUsers.add(username)
 
    def close(self):
       log.msg(util.printable(_("Closing game registry")))
@@ -130,7 +129,8 @@ class GameRegistrySingleton:
 
    def getUserList(self):
       users = list(self._users.keys())
-      decoded = [u.decode("utf-8") for u in users]
+#      decoded = [u.decode("utf-8") for u in users]
+      decoded = [u for u in users]
       decoded.sort()
       return decoded
 
@@ -148,7 +148,8 @@ class GameRegistrySingleton:
                break
 
    def purgeExpiredGames(self):
-      if self._expiration > 0:
+#      if self._expiration > 0:
+      if self._expiration != None:
          log.msg(util.printable(_("Purging expired games")))
          games = list(self._games.values())
          for game in games:

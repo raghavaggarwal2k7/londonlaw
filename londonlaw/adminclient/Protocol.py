@@ -20,8 +20,8 @@ from twisted.internet import reactor, threads
 from twisted.protocols import basic
 from twisted.python import log
 import shlex, sys
-from londonlaw.common import util
-from londonlaw.common.protocol import *
+from common import util
+from common.protocol import *
 
 
 # turn a UTF-8 encoded string into something printable
@@ -76,9 +76,9 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
          else:
             log.msg("Received unhandled server message (too few args): \"" + line + "\" state = \"" + self._state + "\"")
 
-      except AttributeError, e:
+      except AttributeError as e:
          log.msg(str(e))
-         print "tokens = " + str(tokens)
+         print("tokens = " + str(tokens))
          log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 
 
@@ -98,57 +98,57 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
    def handleCommand(self, command_str):
       commands = shlex.split(command_str)
       if commands[0] == 'commands':
-         print "Command list: allplayers ban commands deletegame deleteplayer disconnect eject help"
-         print "              listgames listplayers password profile quit"
-         print "Enter \"help <command>\" to see usage information."
+         print("Command list: allplayers ban commands deletegame deleteplayer disconnect eject help")
+         print("              listgames listplayers password profile quit")
+         print("Enter \"help <command>\" to see usage information.")
          d = threads.deferToThread(self.getCommand)
          d.addCallback(self.handleCommand)
       elif commands[0] == 'help':
          if len(commands) == 1:
-            print "Usage: help <command>" 
-            print "Provides usage syntax for the specified command, along with brief explanation of purpose."
-            print "Enter 'commands' to see a list of available commands."
+            print("Usage: help <command>") 
+            print("Provides usage syntax for the specified command, along with brief explanation of purpose.")
+            print("Enter 'commands' to see a list of available commands.")
          elif commands[1] == 'allplayers':
-            print "Usage: allplayers"
-            print "Lists all user accounts on the server."
+            print("Usage: allplayers")
+            print("Lists all user accounts on the server.")
          elif commands[1] == 'ban':
-            print "Usage: ban \"player name\""
-            print "Sets the specified user's password to a null value, effectively banning that player from the server."
+            print("Usage: ban \"player name\"")
+            print("Sets the specified user's password to a null value, effectively banning that player from the server.")
          elif commands[1] == 'commands':
-            print "Usage: commands"
-            print "Provides a list of admin client commands."
+            print("Usage: commands")
+            print("Provides a list of admin client commands.")
          elif commands[1] == 'deletegame':
-            print "Usage: deletegame \"game name\""
-            print "Deletes the specified game, and ejects any connected players into the game registration area."
+            print("Usage: deletegame \"game name\"")
+            print("Deletes the specified game, and ejects any connected players into the game registration area.")
          elif commands[1] == 'deleteplayer':
-            print "Usage: deleteplayer \"player name\""
-            print "Deletes the user account for this player, and disconnects him from the server if necessary."
+            print("Usage: deleteplayer \"player name\"")
+            print("Deletes the user account for this player, and disconnects him from the server if necessary.")
          elif commands[1] == 'disconnect':
-            print "Usage: disconnect \"player name\""
-            print "Causes the server to drop its connection to the specified player."
+            print("Usage: disconnect \"player name\"")
+            print("Causes the server to drop its connection to the specified player.")
          elif commands[1] == 'eject':
-            print "Usage: eject \"player name\" \"game name\""
-            print "Ejects the specified player from this game and into the game registration area."
+            print("Usage: eject \"player name\" \"game name\"")
+            print("Ejects the specified player from this game and into the game registration area.")
          elif commands[1] == 'help':
-            print "Usage: help <command>" 
-            print "Provides usage syntax for the specified command, along with brief explanation of purpose."
+            print("Usage: help <command>") 
+            print("Provides usage syntax for the specified command, along with brief explanation of purpose.")
          elif commands[1] == 'listgames':
-            print "Usage: listgames"
-            print "Lists all games running on the server."
+            print("Usage: listgames")
+            print("Lists all games running on the server.")
          elif commands[1] == 'listplayers':
-            print "Usage: listplayers \"game name\""
-            print "Lists all players joined to the specified game."
+            print("Usage: listplayers \"game name\"")
+            print("Lists all players joined to the specified game.")
          elif commands[1] == 'password':
-            print "Usage: password \"player name\" \"new password\""
-            print "Changes the password of the specified player."
+            print("Usage: password \"player name\" \"new password\"")
+            print("Changes the password of the specified player.")
          elif commands[1] == 'profile':
-            print "Usage: profile \"player name\""
-            print "Provides password and IP address information for the specified player."
+            print("Usage: profile \"player name\"")
+            print("Provides password and IP address information for the specified player.")
          elif commands[1] == 'quit':
-            print "Usage: quit"
-            print "Disconnect from the server and exit the admin client."
+            print("Usage: quit")
+            print("Disconnect from the server and exit the admin client.")
          else:
-            print "Unable to provide help for unrecognized command \"" + commands[1] + "\"."
+            print("Unable to provide help for unrecognized command \"" + commands[1] + "\".")
          d = threads.deferToThread(self.getCommand)
          d.addCallback(self.handleCommand)
       elif commands[0] == 'allplayers':
@@ -159,7 +159,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "tryban"
             self.sendTokens("ban", commands[1])
          else:
-            print "Usage: ban \"player name\""
+            print("Usage: ban \"player name\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'deletegame':
@@ -167,7 +167,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "trydeletegame"
             self.sendTokens("deletegame", commands[1])
          else:
-            print "Usage: deletegame \"game name\""
+            print("Usage: deletegame \"game name\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'deleteplayer':
@@ -175,7 +175,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "trydeleteplayer"
             self.sendTokens("deleteplayer", commands[1])
          else:
-            print "Usage: deleteplayer \"player name\""
+            print("Usage: deleteplayer \"player name\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'disconnect':
@@ -183,7 +183,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "trydisconnect"
             self.sendTokens("disconnect", commands[1])
          else:
-            print "Usage: disconnect \"player name\""
+            print("Usage: disconnect \"player name\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'eject':
@@ -191,7 +191,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "tryeject"
             self.sendTokens("eject", commands[1], commands[2])
          else:
-            print "Usage: eject \"player name\" \"game name\""
+            print("Usage: eject \"player name\" \"game name\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'listgames':
@@ -202,7 +202,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "trylistplayers"
             self.sendTokens('listplayers', commands[1])
          else:
-            print "Usage: listplayers \"game name\""
+            print("Usage: listplayers \"game name\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'password':
@@ -210,7 +210,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "trypassword"
             self.sendTokens("setpassword", commands[1], commands[2])
          else:
-            print "Usage: password \"player name\" \"new password\""
+            print("Usage: password \"player name\" \"new password\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'profile':
@@ -218,13 +218,13 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             self._state = "tryprofile"
             self.sendTokens(self.genTag(), "profile", commands[1])
          else:
-            print "Usage: profile \"player name\""
+            print("Usage: profile \"player name\"")
             d = threads.deferToThread(self.getCommand)
             d.addCallback(self.handleCommand)
       elif commands[0] == 'quit':
          self.transport.loseConnection()
       else:
-         print "Unrecognized command."
+         print("Unrecognized command.")
          d = threads.deferToThread(self.getCommand)
          d.addCallback(self.handleCommand)
 
@@ -241,13 +241,13 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_gameinfo_trylistgames(self, tag, data):
-      print "* \"" + makePrint(data[0]) + "\""
-      print "     status: " + makePrint(data[1]) + "   type: " + makePrint(data[2]) + \
-            "   players: " + data[3]
+      print("* \"" + makePrint(data[0]) + "\"")
+      print("     status: " + makePrint(data[1]) + "   type: " + makePrint(data[2]) + \
+            "   players: " + data[3])
 
 
    def response_bad_default(self, tag, data):
-      print "Bad command. (\"" + makePrint(data[0]) + "\")"
+      print("Bad command. (\"" + makePrint(data[0]) + "\")")
       self._state = "loggedin"
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
@@ -266,48 +266,48 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_no_default(self, tag, data):
-      print "Command rejected. (\"" + makePrint(data[0]) + "\")"
+      print("Command rejected. (\"" + makePrint(data[0]) + "\")")
       self._state = "loggedin"
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
 
    def response_no_login(self, tag, data):
-      print "The server refused your login attempt. (\"" + makePrint(data[0]) + "\")"
+      print("The server refused your login attempt. (\"" + makePrint(data[0]) + "\")")
       self.transport.loseConnection()
 
 
    def response_ok_tryban(self, tag, data):
       self._state = "loggedin"
-      print "User banned.  (Use 'disconnect' to force user off the server immediately.)"
+      print("User banned.  (Use 'disconnect' to force user off the server immediately.)")
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
 
    def response_ok_trydeletegame(self, tag, data):
       self._state = "loggedin"
-      print "Game deleted."
+      print("Game deleted.")
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
 
    def response_ok_trydeleteplayer(self, tag, data):
       self._state = "loggedin"
-      print "Player deleted."
+      print("Player deleted.")
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
 
    def response_ok_trydisconnect(self, tag, data):
       self._state = "loggedin"
-      print "Player disconnected."
+      print("Player disconnected.")
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
 
    def response_ok_tryeject(self, tag, data):
       self._state = "loggedin"
-      print "Player ejected from game."
+      print("Player ejected from game.")
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
@@ -315,7 +315,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
    def response_ok_login(self, tag, data):
       if tag == self._waitTag:
          self._state = "loggedin"
-         print "Logged in to server with administrator access.  Enter 'commands' for a command list."
+         print("Logged in to server with administrator access.  Enter 'commands' for a command list.")
          d = threads.deferToThread(self.getCommand)
          d.addCallback(self.handleCommand)
       else:
@@ -354,7 +354,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
    def response_ok_trypassword(self, tag, data):
       self._state = "loggedin"
-      print "User's password has been set."
+      print("User's password has been set.")
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
@@ -364,17 +364,17 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_playerinfo_trylistplayers(self, tag, data):
-      print "* \"" + makePrint(data[0]) + "\""
-      print "     team: " + data[1] + "   vote_start: " + data[2] + "   pawns: " + data[3]
+      print("* \"" + makePrint(data[0]) + "\"")
+      print("     team: " + data[1] + "   vote_start: " + data[2] + "   pawns: " + data[3])
 
 
    def response_playername_tryallplayers(self, tag, data):
-      print "* \"" + makePrint(data[0]) + "\""
+      print("* \"" + makePrint(data[0]) + "\"")
 
 
    def response_profile_tryprofile(self, tag, data):
       if tag == self._waitTag:
-         print "password: \"" + makePrint(data[0]) + "\"   last_ip: " + data[1]
+         print("password: \"" + makePrint(data[0]) + "\"   last_ip: " + data[1])
       else:
          self.logUnmatched(tag, "profile", data)
       self._state = "loggedin"
