@@ -19,8 +19,8 @@
 import shlex, sys, gettext, locale
 from twisted.protocols import basic
 from twisted.python import log
-from londonlaw.common import util
-from londonlaw.common.protocol import *
+from common import util
+from common.protocol import *
 import wx
 
 
@@ -78,7 +78,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
    def join(self, name):
       log.msg("called Protocol.join()")
-      self.sendTokens(self.genTag(), "join", name.encode("utf-8"))
+#      self.sendTokens(self.genTag(), "join", name.encode("utf-8"))
+      self.sendTokens(self.genTag(), "join", name)
       self._state      = "tryjoin"
       self._gameJoined = name
 
@@ -91,10 +92,10 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
    def lineReceived(self, line):
       #print "received line \"%s\"" % line.encode("string_escape")
+      print("======================================")
       try:
 #         tokens    = shlex.split(line)
          tokens = shlex.split(line.decode("utf-8"))
-         print(len(tokens))
          if len(tokens) > 1:
             tag       = tokens[0]
             response  = tokens[1].lower()
@@ -109,8 +110,13 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
                return
 
             print(tag)     
-            for x in range(len(data)): 
-               print(data[x])        
+            print(response)
+            for x in list(range(len(data))): 
+               print(data[x])   
+            if f is None:
+               print("".join(("response_", response, "_default")))
+            else:           
+               print("".join(("response_", response, "_", self._state)))
             f(tag, data)
          else:
             log.msg("Received unhandled server message (too few args): \"" + line + "\" state = \"" + self._state + "\"")
@@ -133,8 +139,11 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def newgame(self, data):
+      print("newgame")
+      print(data)   	
       self._state = "trynewgame"
-      self.sendTokens(self.genTag(), "newgame", data[0].encode("utf-8"), data[1])
+#      self.sendTokens(self.genTag(), "newgame", data[0].encode("utf-8"), data[1])
+      self.sendTokens(self.genTag(), "newgame", data[0], data[1])
 
 
    def genTag(self):
@@ -173,27 +182,32 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
       
    def response_chatall_endgame(self, tag, data):
-      decoded = [el.decode("utf-8") for el in data]
+#      decoded = [el.decode("utf-8") for el in data]
+      decoded = [el for el in data]
       self._messenger.guiUpdateChat("all", decoded)
 
 
    def response_chatall_joined(self, tag, data):
-      decoded = [el.decode("utf-8") for el in data]
+#      decoded = [el.decode("utf-8") for el in data]
+      decoded = [el for el in data]
       self._messenger.guiUpdateChat("all", decoded)
 
 
    def response_chatall_playing(self, tag, data):
-      decoded = [el.decode("utf-8") for el in data]
+#      decoded = [el.decode("utf-8") for el in data]
+      decoded = [el for el in data]
       self._messenger.guiUpdateChat("all", decoded)
 
 
    def response_chatteam_endgame(self, tag, data):
-      decoded = [el.decode("utf-8") for el in data]
+#      decoded = [el.decode("utf-8") for el in data]
+      decoded = [el for el in data]
       self._messenger.guiUpdateChat("team", decoded)
 
 
    def response_chatteam_playing(self, tag, data):
-      decoded = [el.decode("utf-8") for el in data]
+#      decoded = [el.decode("utf-8") for el in data]
+      decoded = [el for el in data]
       self._messenger.guiUpdateChat("team", decoded)
 
 
@@ -225,8 +239,10 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
       if tag == self._waitTag:
          self._state = "login"
          self.sendTokens(self.genTag(), "login", 
-               self._messenger.getUsername().encode("utf-8"), 
-               self._messenger.getPassword().encode("utf-8"))
+               self._messenger.getUsername(), 
+               self._messenger.getPassword())
+#               self._messenger.getUsername().encode("utf-8"), 
+#               self._messenger.getPassword().encode("utf-8"))
       else:
          logUnmatched(tag, "ok", data)
 
@@ -257,8 +273,10 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
          else:
             self._state = "login"
             self.sendTokens(self.genTag(), "login", 
-                  self._messenger.getUsername().encode("utf-8"), 
-                  self._messenger.getPassword().encode("utf-8"))
+                  self._messenger.getUsername(), 
+                  self._messenger.getPassword())
+#                  self._messenger.getUsername().encode("utf-8"), 
+#                  self._messenger.getPassword().encode("utf-8"))
 #      else:
 #         logUnmatched(tag, "ok", data)
 
@@ -338,7 +356,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
    def response_gameinfo_loggedin(self, tag, data):
       log.msg("received gameinfo " + str(data))
-      decoded = [data[0].decode("utf-8")] + data[1:]
+#      decoded = [data[0].decode("utf-8")] + data[1:]
+      decoded = [data[0]] + data[1:]
       self._game2Status[decoded[0]] = decoded[1]
       self._messenger.guiAddGame(decoded)
 
@@ -357,7 +376,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
    def response_gameremoved_loggedin(self, tag, data):
       log.msg("received gameremoved info " + str(data))
-      decoded = [el.decode("utf-8") for el in data]
+#      decoded = [el.decode("utf-8") for el in data]
+      decoded = [el for el in data]
       self._messenger.guiRemoveGame(decoded)
 
 
@@ -407,9 +427,12 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_pawninfo_playing(self, tag, data):
+      print("pawinfo_playing")
+      print(data)   	
       log.msg("received pawninfo " + str(data))
+#            [data[1].decode("utf-8"), int(data[2]), 
       self._pawnInfo[self._pawn2Index[data[0]]] = \
-            [data[1].decode("utf-8"), int(data[2]), 
+            [data[1], int(data[2]), 
             [int(data[3]), int(data[4]), int(data[5]), int(data[6]), int(data[7])]]
       if None not in self._pawnInfo:
          self._messenger.guiLaunchMainWindow(self._pawnInfo)
@@ -417,19 +440,22 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
    def response_playerinfo_joined(self, tag, data):
       log.msg("received playerinfo " + str(data))
-      decoded = [data[0].decode("utf-8")] + data[1:]
+#      decoded = [data[0].decode("utf-8")] + data[1:]
+      decoded = [data[0]] + data[1:]
       self._messenger.guiAddPlayer(decoded)
 
 
    def response_playerinfo_default(self, tag, data):
       log.msg("received playerinfo " + str(data))
-      decoded = [data[0].decode("utf-8")] + data[1:]
+#      decoded = [data[0].decode("utf-8")] + data[1:]
+      decoded = [data[0]] + data[1:]
       self._messenger.guiAddPlayer(decoded)
 
 
    def response_playerleave_joined(self, tag, data):
       log.msg("received playerleave " + str(data))
-      decoded = [el.decode("utf-8") for el in data]
+#      decoded = [el.decode("utf-8") for el in data]
+      decoded = [el for el in data]
       self._messenger.guiRemovePlayer(decoded)
 
 
@@ -455,11 +481,15 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_turnnum_playing(self, tag, data):
+      print("turnnum_playing")
+      print(data)
       log.msg("received turnnum " + str(data))
       self._messenger.guiSetTurnNum(data[0])
 
 
    def response_turn_playing(self, tag, data):
+      print("turn_playing")
+      print(data)   	
       log.msg("received turn " + str(data))
       self._messenger.guiSetPawnTurn(data[0])
 

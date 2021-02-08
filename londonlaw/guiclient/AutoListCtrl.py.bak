@@ -69,8 +69,10 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
       cwd=os.getcwd()
 #      file1 = os.path.normpath(os.path.join(MEDIAROOT, "images/smalluparrow.png"))
 #      file2 = os.path.normpath(os.path.join(MEDIAROOT, "images/smalldownarrow.png"))
-      file1 = cwd+"/londonlaw/guiclient/images/smalluparrow.png"
-      file2 = cwd+"/londonlaw/guiclient/images/smalldownarrow.png"
+#      file1 = cwd+"/londonlaw/guiclient/images/smalluparrow.png"
+#      file2 = cwd+"/londonlaw/guiclient/images/smalldownarrow.png"
+      file1 = "/home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/images/smalluparrow.png"
+      file2 = "/home/horald/prgentw/python/londonlaw3/londonlaw/guiclient/images/smalldownarrow.png"
       image = wx.Image(file1, wx.BITMAP_TYPE_ANY)
       image.SetMaskColour(255, 255, 255)
 #      self.smallUpArrow = self.imageList.Add(wx.BitmapFromImage(image))
@@ -100,27 +102,25 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
       info.m_image  = -1
       info.m_format = wx.LIST_FORMAT_CENTRE
 
-      for i in list(range(len(self.headers))):
+#      print(self.__dict__)
+      for i in range(len(self.headers)):
          info.m_text = self.headers[i]
-         self.InsertColumn(i, self.headers[i])
-#         self.InsertColumnInfo(i, info)
+         print(info.m_text) 
+         self.InsertColumnInfo(i, info)
 
-      items = list(self.itemDataMap.items())
-      for i in list(range(len(items))):
+      items = self.itemDataMap.items()
+# ACHTUNG! Testhalber ausgeklammert      
+      for i in range(len(items)):
          key, data = items[i]
-#         self.InsertStringItem(i, data[0])
-         print("i,data")
-         print(i)
-         print(data) 
-         self.InsertItem(i, data[0])
-         for j in list(range(1, len(self.headers))):
-#            self.SetStringItem(i, j, data[j])
-            self.SetItem(i, j, data[j])
+         self.InsertStringItem(i, data[0])
+         for j in range(1, len(self.headers)):
+            self.SetStringItem(i, j, data[j])
          self.SetItemData(i, key)
 
       # dirty hack... wxWidgets needs a wx.LIST_AUTOSIZE_* that
       # chooses the maximum of BOTH header size and list item size
-      for i in list(range(len(self.headers) - 1)):
+# ACHTUNG! Testhalber ausgeklammert      
+      for i in range(len(self.headers) - 1):
          self.SetColumnWidth(i, wx.LIST_AUTOSIZE) 
          itemWidth = self.GetColumnWidth(i)
          self.SetColumnWidth(i, wx.LIST_AUTOSIZE_USEHEADER)
@@ -143,12 +143,11 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
       log.msg("called GameListWindow.addGameInfo(), data = " + str(data))
       # check for pre-existing matching data
       foundMatch = False
-      for item in list(range(len(self.itemDataMap))):
+      for item in range(len(self.itemDataMap)):
          if data[0] == self.itemDataMap[item][0]:
             foundMatch = True
-            for i in list(range(1, len(data))):
-#               self.SetStringItem(item, i, data[i])
-               self.SetItem(item, i, data[i])
+            for i in range(1, len(data)):
+               self.SetStringItem(item, i, data[i])
 
       if not foundMatch:
          # if no matches found, add a new item to the list
@@ -159,11 +158,9 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
                del self.itemDataMap[0]
          index = len(self.itemDataMap)
          self.itemDataMap[index] = data
-#         self.InsertStringItem(index, data[0])
-         self.InsertItem(index, data[0])
-         for i in list(range(1, len(self.headers))):
-#            self.SetStringItem(index, i, data[i])
-            self.SetItem(index, i, data[i])
+         self.InsertStringItem(index, data[0])
+         for i in range(1, len(self.headers)):
+            self.SetStringItem(index, i, data[i])
          self.SetItemData(index, index)
 
 
@@ -174,25 +171,25 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
       for key in self.itemDataMap:
          if self.itemDataMap[key][0] == data[0]:
             # update the datamap 
-            for i in list(range(key, len(self.itemDataMap)-1)):
+            for i in range(key, len(self.itemDataMap)-1):
                self.itemDataMap[i] = self.itemDataMap[i+1]
             del self.itemDataMap[len(self.itemDataMap)-1]
             if len(self.itemDataMap) == 0 and self.placeholder:
                self.itemDataMap[0] = self.placeholder
                self.InsertStringItem(0, self.placeholder[0])
-               for i in list(range(len(self.headers))):
+               for i in range(len(self.headers)):
                   self.SetStringItem(0, i, self.placeholder[i])
             break
 
       # delete the requested item
-      for item in list(range(self.GetItemCount())):
+      for item in range(self.GetItemCount()):
          if self.GetItemText(item) == data[0]:
             self.DeleteItem(item)
             break
       # update the ItemData field associated with the remaining items,
       # to keep them in sync with the keys of the itemDataMap
-      for item in list(range(len(self.itemDataMap))):
-         for key in list(range(len(self.itemDataMap))):
+      for item in range(len(self.itemDataMap)):
+         for key in range(len(self.itemDataMap)):
             if self.itemDataMap[key][0] == self.GetItemText(item):
                self.SetItemData(item, key)
 

@@ -28,7 +28,7 @@ from .PlayerIcon import *
 from .MoveDialog import *
 from .HistoryWindow import *
 from .graphicalmap import *
-from londonlaw.common.protocol import LLAW_VERSION
+from common.protocol import LLAW_VERSION
 
 
 
@@ -36,6 +36,7 @@ class MainWindow(wx.Frame):
    # players is a list of Mr. X and all detectives, their
    # positions, and their tokens
    def __init__(self, parent, ID, title, username, playerList, messenger, exitCallback):
+      print("MainWindow")   	
       wx.Frame.__init__(self, parent, ID, title)
       
       self.username         = username
@@ -53,6 +54,7 @@ class MainWindow(wx.Frame):
       self.ticketName2Index = {"taxi" : 0, "bus" : 1,
             "underground" : 2, "black" : 3, "double" : 4}
 
+      print("Mainwindow1")
       self.EXIT       = 100
       self.DISCONNECT = 101
       self.FULLSCREEN = 102
@@ -62,6 +64,7 @@ class MainWindow(wx.Frame):
 
       self.exitCallback = exitCallback
 
+      print("Mainwindow2") 
       # Create a menu bar
       menuBar = wx.MenuBar()
       self.fileMenu = wx.Menu()
@@ -91,29 +94,34 @@ class MainWindow(wx.Frame):
       menuBar.Append(self.helpMenu, _("Help"))
       self.SetMenuBar(menuBar)
 
+      print("Mainwindow3")
       self.status = self.CreateStatusBar(3)
       self.status.SetStatusWidths([-1, -1, 70])
       self.status.PushStatusText(_("The game has not yet started."), 0)
       # TRANSLATORS: this is the initial value of the turn counter at the bottom right of the game window
       self.status.PushStatusText(_("Turn: 0"), 2)
 
+      print("Mainwindow3.1")
       usernameList = []
       tokenList = []
       for p in self.playerList:
          usernameList.append(p[0])
          tokenList.append(p[2])
 
+      print("Mainwindow3.2")
       # contain everything in a panel to get rid of the lame dark grey
       # background in Win32
       self.panel = wx.Panel(self, -1)
 
+      print("Mainwindow3.3")
       # create the map window
       self.mapWindow = MapWindow(self.panel, usernameList)
-      for i in range(len(self.playerList)):
-         if self.playerList[i][1] != -1:
-            self.mapWindow.setLocation(i, self.playerList[i][1])
+      print("Mainwindow3.4")
+#      for i in list(range(len(self.playerList))):
+#         if self.playerList[i][1] != -1:
+#            self.mapWindow.setLocation(i, self.playerList[i][1])
          
-
+      print("Mainwindow4")
       if self.isMrX:
          # TRANSLATORS: this is the main game window title
          self.SetTitle(_("London Law -- Mr. X"))
@@ -121,7 +129,7 @@ class MainWindow(wx.Frame):
          # TRANSLATORS: this is the main game window title
          self.SetTitle(_("London Law -- Detectives"))
       
-
+      print("Mainwindow5")
       # create a chat view and chat entry area
       self.chatWindow = ChatPanel(self.panel, "", not self.isMrX)
 
@@ -142,13 +150,15 @@ class MainWindow(wx.Frame):
       self.buttonSizer.Add(self.historyButton, 0, wx.ALL, 5)
       self.buttonSizer.Add(self.moveButton, 0, wx.ALL, 5)
 
+      print("Mainwindow6")
       # create a history window
-      self.historyWin = HistoryWindow(self.panel)
+#      self.historyWin = HistoryWindow(self.panel)
 
       self.centerSizer = wx.BoxSizer(wx.HORIZONTAL)
       self.centerSizer.Add(self.icons, 0, wx.ALIGN_CENTRE|wx.ALL)
       self.centerSizer.Add(self.buttonSizer, 0, wx.ALIGN_CENTRE)
       
+      print("Mainwindow6.1")
       # the main window is composed of three areas stacked vertically:
       # map window, player status icons, and chat windows.
       # Use a Sizer to handle this geometry.
@@ -157,20 +167,27 @@ class MainWindow(wx.Frame):
       self.mainSizer.Add(self.centerSizer, 0, wx.ALIGN_CENTRE)
       self.mainSizer.Add(self.chatWindow, 0, wx.EXPAND | wx.ALL, 5)
 
+      print("Mainwindow6.2")
       self.panelSizer = wx.BoxSizer(wx.HORIZONTAL)
-      self.panelSizer.Add(self.historyWin, 0, wx.EXPAND)
-      self.panelSizer.Add(self.mainSizer, 1, wx.EXPAND)
+#      self.panelSizer.Add(self.historyWin, 0, wx.EXPAND)
+#      self.panelSizer.Add(self.mainSizer, 1, wx.EXPAND)
+      self.panelSizer.Add(self.mainSizer, 0, wx.EXPAND)
       
+      print("Mainwindow6.3")
       self.panel.SetSizer(self.panelSizer)
 
+      print("Mainwindow6.4")
       self.topSizer = wx.BoxSizer(wx.VERTICAL)
       self.topSizer.Add(self.panel, 1, wx.EXPAND)
       self.SetSizer(self.topSizer)
       self.topSizer.Fit(self)
       self.SetAutoLayout(1)
 
+
+      print("Mainwindow6.5")
       self.chatWindow.SetFocus()
 
+      print("Mainwindow7")
       # need a data structure to hold a move from a MoveDialog
       self.move = []
       self.moveDialogId = wx.NewId()
@@ -178,6 +195,7 @@ class MainWindow(wx.Frame):
       # initialize pixelToLoc algorithm
       generateGridHash()
 
+      print("Mainwindow8")
       # make the buttons do some stuff
       wx.EVT_CHECKBOX(self, self.zoomButton.GetId(), self.toggleZoom)
       wx.EVT_CHECKBOX(self, self.historyButton.GetId(), self.toggleHistory)
@@ -545,7 +563,7 @@ class MainWindow(wx.Frame):
       
 
    def updateHistory(self, hist):
-      for t in range(1, len(hist)):
+      for t in list(range(1, len(hist))):
          for move in hist[t]:
             if move[0] == "X":
                if int(move[1]) != -1:

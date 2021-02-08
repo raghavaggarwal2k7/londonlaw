@@ -24,11 +24,12 @@
 # at a time, at which point a player registration window is spawned.
 
 
-import os.path, gettext, wx
+#import os.path, gettext, wx
+import os, gettext
 from twisted.python import log
 import wx
-from londonlaw.common.protocol import *
-from londonlaw.common.config import *
+from common.protocol import *
+from common.config import *
 from .AutoListCtrl import *
 
 
@@ -47,7 +48,7 @@ class NewGameDialog(wx.Dialog):
       newGameLabel = wx.StaticText(panel, -1, _("New Game: "))
       newGameLabel.SetFont(labelFont)
       nameLabel         = wx.StaticText(panel, -1, _("game room name:"), wx.Point(0,0))
-      self.nameEntry    = wx.TextCtrl(panel, -1, "", wx.DefaultPosition, (170, wx.DefaultSize[1]))
+      self.nameEntry    = wx.TextCtrl(panel, -1, "neu", wx.DefaultPosition, (170, wx.DefaultSize[1]))
       typeLabel         = wx.StaticText(panel, -1, _("game type:"), wx.Point(0,0))
       self.typeList     = wx.Choice(panel, -1, wx.DefaultPosition, wx.DefaultSize, ["standard"])
       self.submitButton = wx.Button(panel, wx.ID_OK, _("OK"))
@@ -80,8 +81,10 @@ class NewGameDialog(wx.Dialog):
       sizer.Fit(self)
       self.SetAutoLayout(1)
 
-      wx.EVT_BUTTON(self, wx.ID_OK, self.submit)
-      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.cancel) 
+#      wx.EVT_BUTTON(self, wx.ID_OK, self.submit)
+#      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.cancel) 
+      self.Bind(wx.EVT_BUTTON, self.submit, id=wx.ID_OK)
+      self.Bind(wx.EVT_BUTTON, self.cancel, id=wx.ID_CANCEL)
 
 
    def submit(self, event):
@@ -151,13 +154,20 @@ class GameListWindow(wx.Frame):
       mainPanel.SetSizer(mainSizer)
       mainSizer.Fit(mainPanel)
 
-      wx.EVT_CLOSE(self, self.menuExit)
-      wx.EVT_MENU(self, EXIT, self.menuExit)
-      wx.EVT_MENU(self, DISCONNECT, self.menuDisconnect)
-      wx.EVT_LIST_ITEM_SELECTED(self, self.list.GetId(), self.enableSelectButton)
-      wx.EVT_LIST_ITEM_DESELECTED(self, self.list.GetId(), self.disableSelectButton)
-      wx.EVT_BUTTON(self, self.selectButton.GetId(), self.joinGame)
-      wx.EVT_BUTTON(self, self.createButton.GetId(), self.createGame)
+#      wx.EVT_CLOSE(self, self.menuExit)
+      self.Bind(wx.EVT_CLOSE, self.menuExit)
+#      wx.EVT_MENU(self, EXIT, self.menuExit)
+      self.Bind(wx.EVT_MENU, self.menuExit, id=EXIT)
+#      wx.EVT_MENU(self, DISCONNECT, self.menuDisconnect)
+      self.Bind(wx.EVT_MENU, self.menuDisconnect, id=DISCONNECT) 
+#      wx.EVT_LIST_ITEM_SELECTED(self, self.list.GetId(), self.enableSelectButton)
+      self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enableSelectButton, id=self.list.GetId())
+#      wx.EVT_LIST_ITEM_DESELECTED(self, self.list.GetId(), self.disableSelectButton)
+      self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disableSelectButton, id=self.list.GetId())
+#      wx.EVT_BUTTON(self, self.selectButton.GetId(), self.joinGame)
+      self.Bind(wx.EVT_BUTTON, self.joinGame, id=self.selectButton.GetId())
+#      wx.EVT_BUTTON(self, self.createButton.GetId(), self.createGame)
+      self.Bind(wx.EVT_BUTTON, self.createGame, id=self.createButton.GetId())
 
 
    def addGame(self, data):
@@ -179,6 +189,7 @@ class GameListWindow(wx.Frame):
 
 
    def createGame(self, event):
+      print("createGame")   	
       gameData = [None, None]
       gameDialog = NewGameDialog(self, gameData)
       result     = gameDialog.ShowModal()

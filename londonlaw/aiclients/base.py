@@ -106,7 +106,8 @@ class BaseAIProtocol(basic.LineOnlyReceiver):
    
    def lineReceived(self, line):
       try:
-         tokens = shlex.split(line)
+#         tokens = shlex.split(line)
+         tokens = shlex.split(line.decode("utf-8"))
          if len(tokens) > 1:
             tag       = tokens[0]
             response  = tokens[1].lower()
@@ -167,7 +168,8 @@ class BaseAIProtocol(basic.LineOnlyReceiver):
    def response_gameinfo_default(self, tag, args):
       if len(args) >= 2:
          try:
-            name   = args[0].decode("utf-8")
+#            name   = args[0].decode("utf-8")
+            name   = args[0]
             status = args[1]
             if name == self._gameroom:
                self._gameStatus = status
@@ -276,7 +278,8 @@ class BaseAIProtocol(basic.LineOnlyReceiver):
 
    def response_pawninfo_playing(self, tag, args):
       p = Pawn(args[0])
-      p.setPlayer(args[1].decode("utf-8"))
+#      p.setPlayer(args[1].decode("utf-8"))
+      p.setPlayer(args[1])
       p.setLocation(int(args[2]))
       p.setTicketAmount("taxi", int(args[3]))
       p.setTicketAmount("bus", int(args[4]))
@@ -306,7 +309,8 @@ class BaseAIProtocol(basic.LineOnlyReceiver):
 
 
    def response_playerinfo_default(self, tag, args):
-      self._players.add(args[0].decode("utf-8"))
+#      self._players.add(args[0].decode("utf-8"))
+      self._players.add(args[0])
 
 
    def response_playerleave_default(self, tag, args):

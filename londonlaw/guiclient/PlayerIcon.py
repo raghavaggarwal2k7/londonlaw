@@ -25,7 +25,7 @@
 
 import os, gettext, wx
 from .TextPanel import *
-from londonlaw.common.config import *
+from common.config import *
 
 
 # draw an icon to represent a player, with a caption for the name and a
@@ -44,20 +44,25 @@ class PlayerIcon(wx.Panel):
       # load the image
       iconImage = wx.Image(imagefile, wx.BITMAP_TYPE_ANY)
       # we need an extra copy of the player icon, so we can blit to one of them in memory
-      self.playerBitmap = wx.BitmapFromImage(iconImage)
-      self.iconBitmap   = wx.BitmapFromImage(iconImage)
-      self.iconBitmap2  = wx.BitmapFromImage(iconImage)
+#      self.playerBitmap = wx.BitmapFromImage(iconImage)
+#      self.iconBitmap   = wx.BitmapFromImage(iconImage)
+#      self.iconBitmap2  = wx.BitmapFromImage(iconImage)
+      self.playerBitmap = wx.Bitmap(iconImage)
+      self.iconBitmap   = wx.Bitmap(iconImage)
+      self.iconBitmap2  = wx.Bitmap(iconImage)
       self.icon = wx.StaticBitmap(self.iconPanel, -1, self.iconBitmap)
 
       # load the overlay image for the "I'm thinking" question mark
       thinkingImage = wx.Image(thinkingimagefile, wx.BITMAP_TYPE_ANY)
       thinkingImage.SetMaskColour(255, 0, 242) # the purplish colour is not to be drawn
-      self.thinkingBitmap = wx.BitmapFromImage(thinkingImage)
+#      self.thinkingBitmap = wx.BitmapFromImage(thinkingImage)
+      self.thinkingBitmap = wx.Bitmap(thinkingImage)
 
       # load the overlay image for the "I'm stuck" stop sign
       stuckImage = wx.Image(stuckimagefile, wx.BITMAP_TYPE_ANY)
       stuckImage.SetMaskColour(255, 0, 242) # the purplish colour is not to be drawn
-      self.stuckBitmap = wx.BitmapFromImage(stuckImage)
+#      self.stuckBitmap = wx.BitmapFromImage(stuckImage)
+      self.stuckBitmap = wx.Bitmap(stuckImage)
 
       iconSizer = wx.BoxSizer(wx.VERTICAL)
       iconSizer.Add(self.icon, 0, wx.ADJUST_MINSIZE)
@@ -184,17 +189,28 @@ class PlayerIconGroup(wx.Panel):
       if len(nameList) != 6:
          sys.exit("PlayerIconGroup must be called with len(nameList) == 6\n" +
             "(here it was called with length "+repr(len(nameList))+")")
-      
+
+      cwd=os.getcwd()
+#      self.players = [PlayerIcon(self, 
+#         os.path.normpath(os.path.join(MEDIAROOT, "images/playericon0.jpg")),
+#         os.path.normpath(os.path.join(MEDIAROOT, "images/thinking.png")), 
+#         os.path.normpath(os.path.join(MEDIAROOT, "images/stuck.png")), 
+#         nameList[0], tokenList[0], True)]
       self.players = [PlayerIcon(self, 
-         os.path.normpath(os.path.join(MEDIAROOT, "images/playericon0.jpg")),
-         os.path.normpath(os.path.join(MEDIAROOT, "images/thinking.png")), 
-         os.path.normpath(os.path.join(MEDIAROOT, "images/stuck.png")), 
+         cwd+"/londonlaw/guiclient/images/playericon0.jpg",
+         cwd+"/londonlaw/guiclient/images/thinking.png", 
+         cwd+"/londonlaw/guiclient/images/stuck.png", 
          nameList[0], tokenList[0], True)]
       for i in range(1, 6):
-         filename = os.path.normpath(os.path.join(MEDIAROOT, "images/playericon" + str(i) + ".jpg"))
+#         filename = os.path.normpath(os.path.join(MEDIAROOT, "images/playericon" + str(i) + ".jpg"))
+         filename = cwd+"/londonlaw/guiclient/images/playericon" + str(i) + ".jpg"
+#         self.players.append(PlayerIcon(self, filename,
+#            os.path.normpath(os.path.join(MEDIAROOT, "images/thinking.png")), 
+#            os.path.normpath(os.path.join(MEDIAROOT, "images/stuck.png")), 
+#            nameList[i], tokenList[i]))
          self.players.append(PlayerIcon(self, filename,
-            os.path.normpath(os.path.join(MEDIAROOT, "images/thinking.png")), 
-            os.path.normpath(os.path.join(MEDIAROOT, "images/stuck.png")), 
+            cwd+"/londonlaw/guiclient/images/thinking.png", 
+            cwd+"/londonlaw/guiclient/images/stuck.png", 
             nameList[i], tokenList[i]))
 
 

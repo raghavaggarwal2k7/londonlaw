@@ -24,16 +24,18 @@
 
 import os, sys, string, gettext, wx
 from .TextPanel import *
-from londonlaw.common.config import *
+from common.config import *
 
 class HistoryWindow(wx.ScrolledWindow):
    def __init__(self, parent):
       wx.ScrolledWindow.__init__(self, parent)
 
+      cwd=os.getcwd()
       # load in the ticket images
       self.ticketImages = []
-      for i in range(5):
-         filename = os.path.normpath(os.path.join(MEDIAROOT, "images/ticket" + str(i) + ".png"))
+      for i in list(range(5)):
+#         filename = os.path.normpath(os.path.join(MEDIAROOT, "images/ticket" + str(i) + ".png"))
+         filename = cwd+"/londonlaw/guiclient/images/ticket" + str(i) + ".png"
          self.ticketImages.append(wx.Image(filename, wx.BITMAP_TYPE_ANY))
 
       # the toplevel sizer is this two-column FlexGridSizer;
@@ -52,7 +54,7 @@ class HistoryWindow(wx.ScrolledWindow):
       # right column
       self.panels2      = []
       self.panelSizers2 = []
-      for i in range(24):
+      for i in list(range(24)):
          self.panels.append(wx.Panel(self, -1, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER))
          # TRANSLATORS: this is for the turn number labels in the history window
          self.turns.append(TextPanel(self.panels[i], _(" Turn %(num)d ") % {"num" : i+1},
@@ -68,7 +70,8 @@ class HistoryWindow(wx.ScrolledWindow):
          self.panels[i].SetSizerAndFit(self.panelSizers[i])
 
          self.panels2.append(wx.Panel(self, -1, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER))
-         self.tickets.append(wx.StaticBitmap(self.panels2[i], -1, wx.BitmapFromImage(self.ticketImages[4])))
+#         self.tickets.append(wx.StaticBitmap(self.panels2[i], -1, wx.BitmapFromImage(self.ticketImages[4])))
+         self.tickets.append(wx.StaticBitmap(self.panels2[i], -1, wx.Bitmap(self.ticketImages[4])))
 
          self.panelSizers2.append(wx.BoxSizer(wx.HORIZONTAL))
          self.panelSizers2[i].Add(self.tickets[i], 1, wx.EXPAND)

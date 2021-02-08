@@ -19,7 +19,7 @@
 import os, wx
 from .utility import *
 from .SetHash import *
-from londonlaw.common.config import *
+from common.config import *
 
 
 MAPSIZE = (2036, 1618)
@@ -251,14 +251,16 @@ maskImageFile = os.path.join(MEDIAROOT, "images/map-number-mask.png")
 # locations that overlap those grids.
 def generateGridHash():
    gridHash.clear()
-   for i in range(MAPSIZE[0]/GRIDSIZE[0] + 1):
-      for j in range(MAPSIZE[1]/GRIDSIZE[1] + 1):
-         grid = (i*GRIDSIZE[0], j*GRIDSIZE[1], GRIDSIZE[0], GRIDSIZE[1])
-         for loc in range(1, len(pixelTable)):
-            rect = (pixelTable[loc][0], pixelTable[loc][1],
-               MASKSIZE[0], MASKSIZE[1])
-            if collideRect(rect, grid):
-               gridHash.add((i, j), loc)
+   print("generategridhash,mapsize")
+   print(MAPSIZE)
+#   for i in list(range(MAPSIZE[0]/GRIDSIZE[0] + 1)):
+#      for j in list(range(MAPSIZE[1]/GRIDSIZE[1] + 1)):
+#         grid = (i*GRIDSIZE[0], j*GRIDSIZE[1], GRIDSIZE[0], GRIDSIZE[1])
+#         for loc in list(range(1, len(pixelTable))):
+#            rect = (pixelTable[loc][0], pixelTable[loc][1],
+#               MASKSIZE[0], MASKSIZE[1])
+#            if collideRect(rect, grid):
+#               gridHash.add((i, j), loc)
 
 
 # Map a pixel into a location on the map, adjusted for the map's zoom level.  

@@ -27,7 +27,7 @@
 import os, gettext, wx
 from .TextPanel import *
 from .graphicalmap import *
-from londonlaw.common.config import *
+from common.config import *
 
 
 PlayerNumError = "Player Number Error"
@@ -35,22 +35,30 @@ PlayerNumError = "Player Number Error"
 
 class MapWindow(wx.ScrolledWindow):
    def __init__(self, parent, usernameList):
+      print("MapWindow")
+      print(usernameList)    	
       wx.ScrolledWindow.__init__(self, parent)
 
+      print("Mapwindow1")      
+      cwd=os.getcwd()
       # load the map image and prepare a DC for it
-      mapImageFile   = os.path.normpath(os.path.join(MEDIAROOT, "images/map.jpg"))
+#      mapImageFile   = os.path.normpath(os.path.join(MEDIAROOT, "images/map.jpg"))
+      mapImageFile   = cwd+"/londonlaw/guiclient/images/map.jpg"
       mapImage       = wx.Image(mapImageFile, wx.BITMAP_TYPE_JPEG)
-      self.mapBitmap = wx.BitmapFromImage(mapImage)
+#      self.mapBitmap = wx.BitmapFromImage(mapImage)
+      self.mapBitmap = wx.Bitmap(mapImage)
       self.bmpDC     = wx.MemoryDC()
-      mapImageFile        = os.path.normpath(os.path.join(MEDIAROOT, "images/map-quarter.jpg"))
+#      mapImageFile        = os.path.normpath(os.path.join(MEDIAROOT, "images/map-quarter.jpg"))
+      mapImageFile        = cwd+"/londonlaw/guiclient/images/map-quarter.jpg"
       mapImage            = wx.Image(mapImageFile, wx.BITMAP_TYPE_JPEG)
-      self.mapBitmapSmall = wx.BitmapFromImage(mapImage)
+#      self.mapBitmapSmall = wx.BitmapFromImage(mapImage)
+      self.mapBitmapSmall = wx.Bitmap(mapImage)
       self.bmpDC.SelectObject(self.mapBitmapSmall)
 
       self.zoomLevel = 2
       self.pushpinOffset = (-8, 35)
 
-
+      print("Mapwindow2") 
       # configure scrollbars
       self.SetVirtualSize((self.mapBitmapSmall.GetWidth(), self.mapBitmapSmall.GetHeight()))
       self.SetScrollRate(10, 10)
@@ -68,27 +76,37 @@ class MapWindow(wx.ScrolledWindow):
       self.pushpinBackgrounds = []
       self.pushpinsDrawn      = []
       self.labels             = []
-      for i in range(6):
+      print("Mapwindow3")
+      for i in list(range(6)):
          self.playerLoc.append(0)
-         filename     = os.path.normpath(os.path.join(MEDIAROOT, "images/pin" + str(i) + ".png"))
+#         filename     = os.path.normpath(os.path.join(MEDIAROOT, "images/pin" + str(i) + ".png"))
+         filename     = cwd+"/londonlaw/guiclient/images/pin" + str(i) + ".png"
          pushpinImage = wx.Image(filename, wx.BITMAP_TYPE_ANY)
          pushpinImage.SetMaskColour(255, 0, 242) # the purplish colour is not to be drawn
-         pushpinBitmap  = wx.BitmapFromImage(pushpinImage)
+#         pushpinBitmap  = wx.BitmapFromImage(pushpinImage)
+         pushpinBitmap  = wx.Bitmap(pushpinImage)
          self.pushpins.append(pushpinBitmap)
-         pushpinBackBmp = wx.EmptyBitmap(pushpinBitmap.GetWidth(), pushpinBitmap.GetHeight(), -1)
+#         pushpinBackBmp = wx.EmptyBitmap(pushpinBitmap.GetWidth(), pushpinBitmap.GetHeight(), -1)
+         pushpinBackBmp = wx.Bitmap(pushpinBitmap.GetWidth(), pushpinBitmap.GetHeight(), -1)
          self.pushpinBackgrounds.append(pushpinBackBmp)
          self.labels.append(TextPanel(self, " " + usernameList[i][:20] + " ", 10, wx.SIMPLE_BORDER))
          self.labels[i].Hide()
          self.labels[i].SetBackgroundColour(wx.Colour(220, 220, 220))
 
-
-      wx.EVT_PAINT(self, self.OnPaint)
-      wx.EVT_ERASE_BACKGROUND(self, self.OnEraseBackground)
+      print("Mapwindow4")
+#      wx.EVT_PAINT(self, self.OnPaint)
+      self.Bind(wx.EVT_PAINT, self.OnPaint)
+#      wx.EVT_ERASE_BACKGROUND(self, self.OnEraseBackground)
+      self.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
       # scroll the map on middle or right button drag
-      wx.EVT_MIDDLE_DOWN(self, self.handleMiddleOrRightMouse)
-      wx.EVT_RIGHT_DOWN(self, self.handleMiddleOrRightMouse)
-      wx.EVT_MOTION(self, self.handleMoveMouse)
-      wx.EVT_LEFT_DCLICK(self, self.propagateDClick)
+#      wx.EVT_MIDDLE_DOWN(self, self.handleMiddleOrRightMouse)
+      self.Bind(wx.EVT_MIDDLE_DOWN, self.handleMiddleOrRightMouse)
+#      wx.EVT_RIGHT_DOWN(self, self.handleMiddleOrRightMouse)
+      self.Bind(wx.EVT_RIGHT_DOWN, self.handleMiddleOrRightMouse)
+#      wx.EVT_MOTION(self, self.handleMoveMouse)
+      self.Bind(wx.EVT_MOTION, self.handleMoveMouse)
+#      wx.EVT_LEFT_DCLICK(self, self.propagateDClick)
+      self.Bind(wx.EVT_LEFT_DCLICK, self.propagateDClick)
 
 
    def OnPaint(self, event):
@@ -161,22 +179,29 @@ class MapWindow(wx.ScrolledWindow):
    # updated and the pushpins are redrawn.
    # The tooltip label location is also updated.
    def setLocation(self, playerNum, loc):
+      print("setlocation-start")   	
       # restore the original map bitmap
       for i in self.pushpinsDrawn:
          self.unDrawPushpin(i)
+      print("setlocation1")   	
       self.playerLoc[playerNum] = loc
       # update this player's pushpin background
       self.updatePushpinBackground(playerNum)
       # blit all pushpins back on to the map bitmap
+      print("setlocation2")   	
       if playerNum not in self.pushpinsDrawn:
          self.pushpinsDrawn.append(playerNum)
-      for i in self.pushpinsDrawn:
-         self.drawPushpin(i)
+      print("setlocation3")   	
+#      for i in self.pushpinsDrawn:
+#         self.drawPushpin(i)
+      print("setlocation4")   	
       # update the tooltip label location
       mapPixel     = locToPixel(loc, self.zoomLevel)
       stepX, stepY = self.GetScrollPixelsPerUnit()
       sX, sY       = self.GetViewStart()
-      self.labels[playerNum].MoveXY(mapPixel[0] - 20 - sX*stepX, mapPixel[1] - 10 - sY*stepY)
+#      self.labels[playerNum].MoveXY(mapPixel[0] - 20 - sX*stepX, mapPixel[1] - 10 - sY*stepY)
+      self.labels[playerNum].Move(mapPixel[0] - 20 - sX*stepX, mapPixel[1] - 10 - sY*stepY)
+      print("setlocation-end")   	
 
 
    # remove a pushpin from the map bitmap
@@ -192,13 +217,19 @@ class MapWindow(wx.ScrolledWindow):
 
    # update a pushpin background
    def updatePushpinBackground(self, playerNum):
+      print("updatepushpinbackground-start")   	
       mapPixel = locToPixel(self.playerLoc[playerNum], self.zoomLevel)
+      print("updatepushpinbackground1")   	
       self.pushpinDC.SelectObject(self.pushpinBackgrounds[playerNum])
-      self.pushpinDC.BeginDrawing()
-      self.pushpinDC.Blit(0, 0, self.pushpinBackgrounds[playerNum].GetWidth(),
-            self.pushpinBackgrounds[playerNum].GetHeight(), 
-            self.bmpDC, mapPixel[0]-self.pushpinOffset[0], mapPixel[1]-self.pushpinOffset[1])
-      self.pushpinDC.EndDrawing()
+      print("updatepushpinbackground2")   	
+#      self.pushpinDC.BeginDrawing()
+#      print("updatepushpinbackground3")   	
+#      self.pushpinDC.Blit(0, 0, self.pushpinBackgrounds[playerNum].GetWidth(),
+#            self.pushpinBackgrounds[playerNum].GetHeight(), 
+#            self.bmpDC, mapPixel[0]-self.pushpinOffset[0], mapPixel[1]-self.pushpinOffset[1])
+#      print("updatepushpinbackground4")   	
+#      self.pushpinDC.EndDrawing()
+      print("updatepushpinbackground-end")   	
 
 
    # blit a pushpin image to the map bitmap

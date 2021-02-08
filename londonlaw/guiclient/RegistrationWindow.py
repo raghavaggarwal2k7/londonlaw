@@ -26,8 +26,8 @@
 import os.path, gettext, wx
 from twisted.python import log
 import wx
-from londonlaw.common.protocol import *
-from londonlaw.common.config import *
+from common.protocol import *
+from common.config import *
 from .AutoListCtrl import *
 from .ChatPanel import *
 
@@ -62,8 +62,10 @@ class RadioDialog(wx.Dialog):
       sizer.Fit(self)
       self.SetAutoLayout(1)
 
-      wx.EVT_BUTTON(self, wx.ID_OK, self.submit)
-      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.cancel)
+#      wx.EVT_BUTTON(self, wx.ID_OK, self.submit)
+#      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.cancel)
+      self.Bind(wx.EVT_BUTTON, self.submit, id=wx.ID_OK)
+      self.Bind(wx.EVT_BUTTON, self.cancel, id=wx.ID_CANCEL)
 
 
    def submit(self, event):
@@ -184,17 +186,26 @@ class RegistrationWindow(wx.Frame):
       mainPanel.SetSizer(mainSizer)
       mainSizer.Fit(mainPanel)
 
-      wx.EVT_CLOSE(self, self.menuExit)
-      wx.EVT_MENU(self, EXIT, self.menuExit)
-      wx.EVT_MENU(self, DISCONNECT, self.menuDisconnect)
-      wx.EVT_BUTTON(self, self.leaveButton.GetId(), self.leaveGame)
-      wx.EVT_BUTTON(self, self.aiButton.GetId(), self.requestAIList)
-      wx.EVT_BUTTON(self, self.teamButton.GetId(), self.chooseTeam)
-      wx.EVT_BUTTON(self, self.voteButton.GetId(), self.voteStart)
-      wx.EVT_TEXT_ENTER(self, self.chatWindow.chatEntry.GetId(), self.chatSend)
+#      wx.EVT_CLOSE(self, self.menuExit)
+      self.Bind(wx.EVT_CLOSE, self.menuExit)
+#      wx.EVT_MENU(self, EXIT, self.menuExit)
+      self.Bind(wx.EVT_MENU, self.menuExit, id=EXIT)
+#      wx.EVT_MENU(self, DISCONNECT, self.menuDisconnect)
+      self.Bind(wx.EVT_MENU, self.menuDisconnect, id=DISCONNECT)
+#      wx.EVT_BUTTON(self, self.leaveButton.GetId(), self.leaveGame)
+      self.Bind(wx.EVT_BUTTON, self.leaveGame, id=self.leaveButton.GetId()) 
+#      wx.EVT_BUTTON(self, self.aiButton.GetId(), self.requestAIList)
+      self.Bind(wx.EVT_BUTTON, self.requestAIList, id=self.aiButton.GetId())
+#      wx.EVT_BUTTON(self, self.teamButton.GetId(), self.chooseTeam)
+      self.Bind(wx.EVT_BUTTON, self.chooseTeam, id=self.teamButton.GetId())
+#      wx.EVT_BUTTON(self, self.voteButton.GetId(), self.voteStart)
+      self.Bind(wx.EVT_BUTTON, self.voteStart, id=self.voteButton.GetId())
+#      wx.EVT_TEXT_ENTER(self, self.chatWindow.chatEntry.GetId(), self.chatSend)
+      self.Bind(wx.EVT_TEXT_ENTER, self.chatSend, id=self.chatWindow.chatEntry.GetId())
 
 
    def addPlayer(self, data):
+      print("addplayer")   	
       log.msg("called RegistrationWindow.addPlayer()")
       self.list.addItem(data)
 

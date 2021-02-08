@@ -605,6 +605,7 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
             tag       = "-"
             command   = tokens[0]
             arguments = tokens[1:]
+#         print("command:"+command+"<")            
          icount=0
          for x in range(len(arguments)):
             icount=icount+1 

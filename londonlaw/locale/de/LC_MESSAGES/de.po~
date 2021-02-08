@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: londonlaw\n"
 "Report-Msgid-Bugs-To: pelzlpj@eecs.umich.edu\n"
 "POT-Creation-Date: 2005-08-26 00:31-0400\n"
-"PO-Revision-Date: 2021-02-08 23:47+0100\n"
+"PO-Revision-Date: 2021-01-22 14:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -311,11 +311,11 @@ msgstr "Neues Spiel: "
 
 #: guiclient/GameListWindow.py:50
 msgid "game room name:"
-msgstr "Spielerraum:"
+msgstr ""
 
 #: guiclient/GameListWindow.py:52
 msgid "game type:"
-msgstr "Spieltyp:"
+msgstr ""
 
 #: guiclient/GameListWindow.py:53
 msgid "standard"
@@ -590,7 +590,7 @@ msgstr "Zug: %(num)d"
 #: guiclient/MainWindow.py:505 guiclient/MainWindow.py:515
 #: guiclient/MainWindow.py:525 guiclient/MainWindow.py:535
 msgid "you"
-msgstr "du"
+msgstr ""
 
 #: guiclient/MainWindow.py:488
 #, python-format
@@ -695,7 +695,7 @@ msgstr "Der schwarze Detektiv kann sich nicht dorthin bewegen."
 #. TRANSLATORS: this is the title of an alert window that pops up when the user tries to make an illegal move
 #: guiclient/MoveDialog.py:228
 msgid "Illegal Move"
-msgstr "ungültiger Zug"
+msgstr ""
 
 #. TRANSLATORS: this is used for choosing ticket type in the move dialog
 #: guiclient/MoveDialog.py:433
@@ -747,7 +747,7 @@ msgstr ""
 #. TRANSLATORS: this is one of the two team names
 #: guiclient/RegistrationWindow.py:45
 msgid "Detectives"
-msgstr "Detektive"
+msgstr ""
 
 #. TRANSLATORS: this is one of the two team names
 #: guiclient/RegistrationWindow.py:47
@@ -781,7 +781,7 @@ msgstr ""
 
 #: guiclient/RegistrationWindow.py:130
 msgid "Leave Game"
-msgstr "Spiel verlassen"
+msgstr ""
 
 #: guiclient/RegistrationWindow.py:131
 msgid "Choose Team"
@@ -789,22 +789,22 @@ msgstr ""
 
 #: guiclient/RegistrationWindow.py:132
 msgid "Vote to Start"
-msgstr "Spiel starten"
+msgstr ""
 
 #. TRANSLATORS: window title for server connection
 #: guiclient/__init__.py:79
 msgid "London Law -- Connect to Server"
-msgstr "London Law -- Anmeldung"
+msgstr ""
 
 #. TRANSLATORS: window title for game selection
 #: guiclient/__init__.py:91
 msgid "London Law -- Choose a Game"
-msgstr "London Law -- Spieleauswahl"
+msgstr ""
 
 #. TRANSLATORS: window title for team selection
 #: guiclient/__init__.py:103
 msgid "London Law -- Team Selection"
-msgstr "London Law -- Spielerauswahl"
+msgstr ""
 
 #. TRANSLATORS: main window title
 #: guiclient/__init__.py:116

@@ -23,7 +23,7 @@
 # enter server information and provide usernames.
 
 import sys, gettext, wx
-from londonlaw.common.protocol import *
+from common.protocol import *
 
 
 # Initial window.  Creates a form for the user to enter a host, port, and user information.

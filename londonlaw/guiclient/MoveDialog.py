@@ -29,7 +29,7 @@
 #        can be factored better into functions.
 
 import gettext, wx
-from londonlaw.common.map import *
+from common.map import *
 
 
 
