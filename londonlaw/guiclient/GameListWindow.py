@@ -25,7 +25,7 @@
 
 
 #import os.path, gettext, wx
-import os, gettext
+import os, gettext, sys
 from twisted.python import log
 import wx
 from common.protocol import *
@@ -43,17 +43,22 @@ class NewGameDialog(wx.Dialog):
 
       self.returnValue = returnValue
 
+      if len(sys.argv)>4:
+         defaultGameName = sys.argv[4]
+      else:   
+         defaultGameName = ""
       labelFont = wx.Font(self.GetFont().GetPointSize(), wx.DEFAULT, wx.NORMAL, wx.BOLD)
       labelFont.SetWeight(wx.BOLD)
       newGameLabel = wx.StaticText(panel, -1, _("New Game: "))
       newGameLabel.SetFont(labelFont)
       nameLabel         = wx.StaticText(panel, -1, _("game room name:"), wx.Point(0,0))
-      self.nameEntry    = wx.TextCtrl(panel, -1, "neu", wx.DefaultPosition, (170, wx.DefaultSize[1]))
+      self.nameEntry    = wx.TextCtrl(panel, -1, defaultGameName, wx.DefaultPosition, (170, wx.DefaultSize[1]))
       typeLabel         = wx.StaticText(panel, -1, _("game type:"), wx.Point(0,0))
       self.typeList     = wx.Choice(panel, -1, wx.DefaultPosition, wx.DefaultSize, ["standard"])
       self.submitButton = wx.Button(panel, wx.ID_OK, _("OK"))
       self.cancelButton = wx.Button(panel, wx.ID_CANCEL, _("Cancel"))
       self.typeList.SetSelection(0)
+#      self._messenger.setGamename(self.nameEntry.GetValue())
 
       hSizer = wx.BoxSizer(wx.HORIZONTAL)
       hSizer.Add((30, 1), 0, 0)
@@ -145,10 +150,13 @@ class GameListWindow(wx.Frame):
       self.selectButton = wx.Button(mainPanel, -1, _("Join Game"))
       self.selectButton.Disable()
       self.createButton = wx.Button(mainPanel, -1, _("New Game"))
+      self.deleteButton = wx.Button(mainPanel, -1, _("Delete Game"))
+      self.deleteButton.Disable()
       buttonSizer = wx.BoxSizer(wx.HORIZONTAL)
       buttonSizer.Add((1, 1), 1, wx.EXPAND)
       buttonSizer.Add(self.createButton, 0, wx.ALIGN_CENTRE | wx.RIGHT | wx.BOTTOM | wx.ALL, 5)
       buttonSizer.Add(self.selectButton, 0, wx.ALIGN_CENTRE | wx.RIGHT | wx.BOTTOM | wx.ALL, 5)
+      buttonSizer.Add(self.deleteButton, 0, wx.ALIGN_CENTRE | wx.RIGHT | wx.BOTTOM | wx.ALL, 5)
       mainSizer.Add(buttonSizer, 0, wx.EXPAND, 0)
 
       mainPanel.SetSizer(mainSizer)
@@ -182,10 +190,12 @@ class GameListWindow(wx.Frame):
 
    def enableSelectButton(self, event):
       self.selectButton.Enable(True)
+      self.deleteButton.Enable(True)
 
 
    def disableSelectButton(self, event):
       self.selectButton.Disable()
+      self.deleteButton.Disable()
 
 
    def createGame(self, event):
@@ -194,17 +204,21 @@ class GameListWindow(wx.Frame):
       gameDialog = NewGameDialog(self, gameData)
       result     = gameDialog.ShowModal()
       if result == 1:
+         self._messenger.setGamename(gameDialog.nameEntry.GetValue())
          self._messenger.netNewGame(gameData)
    
 
    def joinGame(self, event):
       selected = self.list.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
+      self._messenger.setGamename(self.list.GetItemText(selected))
       self._messenger.netJoinGame(self.list.GetItemText(selected))  
 
 
    def showInfoAlert(self, info):
       self.PushStatusText("")
-      alert = wx.MessageDialog(self, info,
+#      print(info.decode("utf-8", errors="ignore"))
+      print(_("Unrecognized game name."))
+      alert = wx.MessageDialog(self, _(info),
          # TRANSLATORS: this is the title for a small alert window that pops up when the server reports an error
          _("Server Message"), wx.OK|wx.ICON_INFORMATION)
       alert.ShowModal()

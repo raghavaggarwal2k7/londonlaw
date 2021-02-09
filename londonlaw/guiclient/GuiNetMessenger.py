@@ -25,6 +25,12 @@ class GuiNetMessenger:
 
    def getPassword(self):
       return self._password
+      
+   def getGamename(self):
+      return self._namegame
+      
+   def setGamename(self, namegame):
+      self._namegame=namegame            	      
 
    def guiAddGame(self, data):
       self._gameListWindow.addGame(data)

@@ -36,7 +36,6 @@ class MainWindow(wx.Frame):
    # players is a list of Mr. X and all detectives, their
    # positions, and their tokens
    def __init__(self, parent, ID, title, username, playerList, messenger, exitCallback):
-      print("MainWindow")   	
       wx.Frame.__init__(self, parent, ID, title)
       
       self.username         = username
@@ -54,7 +53,6 @@ class MainWindow(wx.Frame):
       self.ticketName2Index = {"taxi" : 0, "bus" : 1,
             "underground" : 2, "black" : 3, "double" : 4}
 
-      print("Mainwindow1")
       self.EXIT       = 100
       self.DISCONNECT = 101
       self.FULLSCREEN = 102
@@ -64,7 +62,6 @@ class MainWindow(wx.Frame):
 
       self.exitCallback = exitCallback
 
-      print("Mainwindow2") 
       # Create a menu bar
       menuBar = wx.MenuBar()
       self.fileMenu = wx.Menu()
@@ -94,34 +91,30 @@ class MainWindow(wx.Frame):
       menuBar.Append(self.helpMenu, _("Help"))
       self.SetMenuBar(menuBar)
 
-      print("Mainwindow3")
       self.status = self.CreateStatusBar(3)
       self.status.SetStatusWidths([-1, -1, 70])
       self.status.PushStatusText(_("The game has not yet started."), 0)
       # TRANSLATORS: this is the initial value of the turn counter at the bottom right of the game window
       self.status.PushStatusText(_("Turn: 0"), 2)
 
-      print("Mainwindow3.1")
       usernameList = []
       tokenList = []
       for p in self.playerList:
          usernameList.append(p[0])
          tokenList.append(p[2])
 
-      print("Mainwindow3.2")
       # contain everything in a panel to get rid of the lame dark grey
       # background in Win32
       self.panel = wx.Panel(self, -1)
 
-      print("Mainwindow3.3")
       # create the map window
       self.mapWindow = MapWindow(self.panel, usernameList)
       print("Mainwindow3.4")
-#      for i in list(range(len(self.playerList))):
+      for i in list(range(len(self.playerList))):
+         print(i)	
 #         if self.playerList[i][1] != -1:
 #            self.mapWindow.setLocation(i, self.playerList[i][1])
          
-      print("Mainwindow4")
       if self.isMrX:
          # TRANSLATORS: this is the main game window title
          self.SetTitle(_("London Law -- Mr. X"))
@@ -129,7 +122,6 @@ class MainWindow(wx.Frame):
          # TRANSLATORS: this is the main game window title
          self.SetTitle(_("London Law -- Detectives"))
       
-      print("Mainwindow5")
       # create a chat view and chat entry area
       self.chatWindow = ChatPanel(self.panel, "", not self.isMrX)
 
@@ -158,7 +150,6 @@ class MainWindow(wx.Frame):
       self.centerSizer.Add(self.icons, 0, wx.ALIGN_CENTRE|wx.ALL)
       self.centerSizer.Add(self.buttonSizer, 0, wx.ALIGN_CENTRE)
       
-      print("Mainwindow6.1")
       # the main window is composed of three areas stacked vertically:
       # map window, player status icons, and chat windows.
       # Use a Sizer to handle this geometry.
@@ -173,10 +164,8 @@ class MainWindow(wx.Frame):
 #      self.panelSizer.Add(self.mainSizer, 1, wx.EXPAND)
       self.panelSizer.Add(self.mainSizer, 0, wx.EXPAND)
       
-      print("Mainwindow6.3")
       self.panel.SetSizer(self.panelSizer)
 
-      print("Mainwindow6.4")
       self.topSizer = wx.BoxSizer(wx.VERTICAL)
       self.topSizer.Add(self.panel, 1, wx.EXPAND)
       self.SetSizer(self.topSizer)
@@ -184,37 +173,55 @@ class MainWindow(wx.Frame):
       self.SetAutoLayout(1)
 
 
-      print("Mainwindow6.5")
       self.chatWindow.SetFocus()
 
-      print("Mainwindow7")
       # need a data structure to hold a move from a MoveDialog
       self.move = []
       self.moveDialogId = wx.NewId()
 
+      print("Mainwindow7")
       # initialize pixelToLoc algorithm
       generateGridHash()
-
       print("Mainwindow8")
+
       # make the buttons do some stuff
-      wx.EVT_CHECKBOX(self, self.zoomButton.GetId(), self.toggleZoom)
-      wx.EVT_CHECKBOX(self, self.historyButton.GetId(), self.toggleHistory)
-      wx.EVT_BUTTON(self, self.moveButton.GetId(), self.makeMove)
-      wx.EVT_TEXT_ENTER(self, self.chatWindow.chatEntry.GetId(), self.chatSend)
-      wx.EVT_MENU(self, self.EXIT, self.menuExit)
-      wx.EVT_MENU(self, self.DISCONNECT, self.menuDisconnect)
-      wx.EVT_MENU(self, self.FULLSCREEN, self.toggleFullscreen)
-      wx.EVT_MENU(self, self.ZOOM, self.toggleMenuZoom)
-      wx.EVT_MENU(self, self.HISTORY, self.toggleMenuHistory)
-      wx.EVT_MENU(self, self.ABOUT, self.showAbout)
-      wx.EVT_LEFT_DCLICK(self.icons.players[0].icon, self.scrollToPlayer0)
-      wx.EVT_LEFT_DCLICK(self.icons.players[1].icon, self.scrollToPlayer1)
-      wx.EVT_LEFT_DCLICK(self.icons.players[2].icon, self.scrollToPlayer2)
-      wx.EVT_LEFT_DCLICK(self.icons.players[3].icon, self.scrollToPlayer3)
-      wx.EVT_LEFT_DCLICK(self.icons.players[4].icon, self.scrollToPlayer4)
-      wx.EVT_LEFT_DCLICK(self.icons.players[5].icon, self.scrollToPlayer5)
-      wx.EVT_LEFT_DCLICK(self.mapWindow, self.moveToClicked)
-      wx.EVT_CLOSE(self, self.menuExit)
+##      wx.EVT_CHECKBOX(self, self.zoomButton.GetId(), self.toggleZoom)
+#      self.Bind(wx.EVT_CHECKBOX, self.toggleZoom, id=self.zoomButton.GetId())
+##      wx.EVT_CHECKBOX(self, self.historyButton.GetId(), self.toggleHistory)
+#      self.Bind(wx.EVT_CHECKBOX, self.toggleHistory, id=self.historyButton.GetId()) 
+##      wx.EVT_BUTTON(self, self.moveButton.GetId(), self.makeMove)
+#      self.Bind(wx.EVT_BUTTON, self.makeMove, id=self.moveButton.GetId())
+##      wx.EVT_TEXT_ENTER(self, self.chatWindow.chatEntry.GetId(), self.chatSend)
+#      self.Bind(wx.EVT_TEXT_ENTER, self.chatSend, id=self.chatWindow.chatEntry.GetId())
+##      wx.EVT_MENU(self, self.EXIT, self.menuExit)
+#      self.Bind(wx.EVT_MENU, self.menuExit, id=self.EXIT)
+##      wx.EVT_MENU(self, self.DISCONNECT, self.menuDisconnect)
+#      self.Bind(wx.EVT_MENU, self.menuDisconnct, id=self.DISCONNECT)
+##      wx.EVT_MENU(self, self.FULLSCREEN, self.toggleFullscreen)
+#      self.Bind(wx.EVT_MENU, self.toggleFullscreen, id=self.FULLSCREEN)
+##      wx.EVT_MENU(self, self.ZOOM, self.toggleMenuZoom)
+#      self.Bind(wx.EVT_MENU, self.toggleMenuZoom, id=self.ZOOM)
+##      wx.EVT_MENU(self, self.HISTORY, self.toggleMenuHistory)
+#      self.Bind(wx.EVT_MENU, self.toggleMenuHistory, id=self.HISTORY)
+##      wx.EVT_MENU(self, self.ABOUT, self.showAbout)
+#      self.Bind(wx.EVT_MENU, self.showAbout, id=self.ABOUT)
+##      wx.EVT_LEFT_DCLICK(self.icons.players[0].icon, self.scrollToPlayer0)
+#      self.icons.players[0].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer0)
+##      wx.EVT_LEFT_DCLICK(self.icons.players[1].icon, self.scrollToPlayer1)
+#      self.icons.players[1].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer1)
+##      wx.EVT_LEFT_DCLICK(self.icons.players[2].icon, self.scrollToPlayer2)
+#      self.icons.players[2].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer2)
+##      wx.EVT_LEFT_DCLICK(self.icons.players[3].icon, self.scrollToPlayer3)
+#      self.icons.players[3].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer3)
+##      wx.EVT_LEFT_DCLICK(self.icons.players[4].icon, self.scrollToPlayer4)
+#      self.icons.players[4].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer4)
+##      wx.EVT_LEFT_DCLICK(self.icons.players[5].icon, self.scrollToPlayer5)
+#      self.icons.players[5].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer5)
+##      wx.EVT_LEFT_DCLICK(self.mapWindow, self.moveToClicked)
+#      self.mapWindow.Bind(wx.EVT_LEFT_DCLICK, self.moveToClicked)
+##      wx.EVT_CLOSE(self, self.menuExit)
+#      self.Bind(wx.EVT_CLOSE, self.menuExit)
+      print("Mainwindow-end")
       
 
    def addChatMessage(self, chatType, data):
@@ -334,7 +341,7 @@ class MainWindow(wx.Frame):
       (text, sendTo) = self.chatWindow.GetEntry()
       if len(text) > 0:
          self.chatWindow.ClearEntry()
-         self.messenger.netSendChat(text, sendTo)
+         self.messenger.netSendChat(text.decode(), sendTo)
 
 
    def makeMove(self, event):
@@ -402,11 +409,7 @@ class MainWindow(wx.Frame):
       else:
          self.viewMenu.Check(self.HISTORY, False)
          self.historyWin.Show(False)
-#<<<<<<< HEAD
-         #self.panelSizer.Remove(self.historyWin)
-#=======
          self.panelSizer.Detach(self.historyWin)
-#>>>>>>> Update for wxPython3.0 compatibility
          self.panelSizer.Layout()
 
       # fix for graphical glitches in wx.MSW

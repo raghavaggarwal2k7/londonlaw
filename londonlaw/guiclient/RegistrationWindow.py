@@ -126,6 +126,7 @@ class ChoiceDialog(wx.Dialog):
 # Generate the main registration window.
 class RegistrationWindow(wx.Frame):
    def __init__(self, parent, ID, title, messenger, exitCallback):
+      title=title+" - "+messenger.getGamename()   
       wx.Frame.__init__(self, parent, ID, title)
 
       self.exitCallback = exitCallback

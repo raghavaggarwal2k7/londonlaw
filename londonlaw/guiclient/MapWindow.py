@@ -161,10 +161,11 @@ class MapWindow(wx.ScrolledWindow):
    def OnDraw(self, dc):
       (scrollx, scrolly) = self.GetViewStart()
       (dx, dy)           = self.GetScrollPixelsPerUnit()
-      (w, h)             = self.GetClientSizeTuple()
-      dc.BeginDrawing()
+#      (w, h)             = self.GetClientSizeTuple()
+      (w, h)             = self.GetClientSize()
+#      dc.BeginDrawing()
       dc.Blit(scrollx*dx, scrolly*dy, w, h, self.bmpDC, scrollx*dx, scrolly*dy)
-      dc.EndDrawing()
+#      dc.EndDrawing()
 
 
    def propagateDClick(self, ev):
@@ -208,11 +209,11 @@ class MapWindow(wx.ScrolledWindow):
    def unDrawPushpin(self, playerNum):
       mapPixel = locToPixel(self.playerLoc[playerNum], self.zoomLevel)
       self.pushpinDC.SelectObject(self.pushpinBackgrounds[playerNum])
-      self.bmpDC.BeginDrawing()
+#      self.bmpDC.BeginDrawing()
       self.bmpDC.Blit(mapPixel[0]-self.pushpinOffset[0], mapPixel[1]-self.pushpinOffset[1], 
             self.pushpinBackgrounds[playerNum].GetWidth(),
             self.pushpinBackgrounds[playerNum].GetHeight(), self.pushpinDC, 0, 0)
-      self.bmpDC.EndDrawing()
+#      self.bmpDC.EndDrawing()
 
 
    # update a pushpin background
@@ -224,9 +225,9 @@ class MapWindow(wx.ScrolledWindow):
       print("updatepushpinbackground2")   	
 #      self.pushpinDC.BeginDrawing()
 #      print("updatepushpinbackground3")   	
-#      self.pushpinDC.Blit(0, 0, self.pushpinBackgrounds[playerNum].GetWidth(),
-#            self.pushpinBackgrounds[playerNum].GetHeight(), 
-#            self.bmpDC, mapPixel[0]-self.pushpinOffset[0], mapPixel[1]-self.pushpinOffset[1])
+      self.pushpinDC.Blit(0, 0, self.pushpinBackgrounds[playerNum].GetWidth(),
+            self.pushpinBackgrounds[playerNum].GetHeight(), 
+            self.bmpDC, mapPixel[0]-self.pushpinOffset[0], mapPixel[1]-self.pushpinOffset[1])
 #      print("updatepushpinbackground4")   	
 #      self.pushpinDC.EndDrawing()
       print("updatepushpinbackground-end")   	
@@ -236,11 +237,11 @@ class MapWindow(wx.ScrolledWindow):
    def drawPushpin(self, playerNum):
       mapPixel = locToPixel(self.playerLoc[playerNum], self.zoomLevel)
       self.pushpinDC.SelectObject(self.pushpins[playerNum])
-      self.pushpinDC.BeginDrawing()
+#      self.pushpinDC.BeginDrawing()
       self.bmpDC.Blit(mapPixel[0]-self.pushpinOffset[0], mapPixel[1]-self.pushpinOffset[1], 
             self.pushpinBackgrounds[playerNum].GetWidth(),
             self.pushpinBackgrounds[playerNum].GetHeight(), self.pushpinDC, 0, 0, wx.COPY, True)
-      self.pushpinDC.EndDrawing()
+#      self.pushpinDC.EndDrawing()
 
 
    # center the map on a particular player        
