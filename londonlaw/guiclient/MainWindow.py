@@ -111,9 +111,8 @@ class MainWindow(wx.Frame):
       self.mapWindow = MapWindow(self.panel, usernameList)
       print("Mainwindow3.4")
       for i in list(range(len(self.playerList))):
-         print(i)	
-#         if self.playerList[i][1] != -1:
-#            self.mapWindow.setLocation(i, self.playerList[i][1])
+         if self.playerList[i][1] != -1:
+            self.mapWindow.setLocation(i, self.playerList[i][1])
          
       if self.isMrX:
          # TRANSLATORS: this is the main game window title
@@ -186,25 +185,25 @@ class MainWindow(wx.Frame):
 
       # make the buttons do some stuff
 ##      wx.EVT_CHECKBOX(self, self.zoomButton.GetId(), self.toggleZoom)
-#      self.Bind(wx.EVT_CHECKBOX, self.toggleZoom, id=self.zoomButton.GetId())
+      self.Bind(wx.EVT_CHECKBOX, self.toggleZoom, id=self.zoomButton.GetId())
 ##      wx.EVT_CHECKBOX(self, self.historyButton.GetId(), self.toggleHistory)
 #      self.Bind(wx.EVT_CHECKBOX, self.toggleHistory, id=self.historyButton.GetId()) 
 ##      wx.EVT_BUTTON(self, self.moveButton.GetId(), self.makeMove)
-#      self.Bind(wx.EVT_BUTTON, self.makeMove, id=self.moveButton.GetId())
+      self.Bind(wx.EVT_BUTTON, self.makeMove, id=self.moveButton.GetId())
 ##      wx.EVT_TEXT_ENTER(self, self.chatWindow.chatEntry.GetId(), self.chatSend)
-#      self.Bind(wx.EVT_TEXT_ENTER, self.chatSend, id=self.chatWindow.chatEntry.GetId())
+      self.Bind(wx.EVT_TEXT_ENTER, self.chatSend, id=self.chatWindow.chatEntry.GetId())
 ##      wx.EVT_MENU(self, self.EXIT, self.menuExit)
-#      self.Bind(wx.EVT_MENU, self.menuExit, id=self.EXIT)
+      self.Bind(wx.EVT_MENU, self.menuExit, id=self.EXIT)
 ##      wx.EVT_MENU(self, self.DISCONNECT, self.menuDisconnect)
-#      self.Bind(wx.EVT_MENU, self.menuDisconnct, id=self.DISCONNECT)
+      self.Bind(wx.EVT_MENU, self.menuDisconnect, id=self.DISCONNECT)
 ##      wx.EVT_MENU(self, self.FULLSCREEN, self.toggleFullscreen)
-#      self.Bind(wx.EVT_MENU, self.toggleFullscreen, id=self.FULLSCREEN)
+      self.Bind(wx.EVT_MENU, self.toggleFullscreen, id=self.FULLSCREEN)
 ##      wx.EVT_MENU(self, self.ZOOM, self.toggleMenuZoom)
-#      self.Bind(wx.EVT_MENU, self.toggleMenuZoom, id=self.ZOOM)
+      self.Bind(wx.EVT_MENU, self.toggleMenuZoom, id=self.ZOOM)
 ##      wx.EVT_MENU(self, self.HISTORY, self.toggleMenuHistory)
 #      self.Bind(wx.EVT_MENU, self.toggleMenuHistory, id=self.HISTORY)
 ##      wx.EVT_MENU(self, self.ABOUT, self.showAbout)
-#      self.Bind(wx.EVT_MENU, self.showAbout, id=self.ABOUT)
+      self.Bind(wx.EVT_MENU, self.showAbout, id=self.ABOUT)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[0].icon, self.scrollToPlayer0)
 #      self.icons.players[0].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer0)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[1].icon, self.scrollToPlayer1)
@@ -220,7 +219,7 @@ class MainWindow(wx.Frame):
 ##      wx.EVT_LEFT_DCLICK(self.mapWindow, self.moveToClicked)
 #      self.mapWindow.Bind(wx.EVT_LEFT_DCLICK, self.moveToClicked)
 ##      wx.EVT_CLOSE(self, self.menuExit)
-#      self.Bind(wx.EVT_CLOSE, self.menuExit)
+      self.Bind(wx.EVT_CLOSE, self.menuExit)
       print("Mainwindow-end")
       
 
@@ -341,7 +340,7 @@ class MainWindow(wx.Frame):
       (text, sendTo) = self.chatWindow.GetEntry()
       if len(text) > 0:
          self.chatWindow.ClearEntry()
-         self.messenger.netSendChat(text.decode(), sendTo)
+         self.messenger.netSendChat(text, sendTo)
 
 
    def makeMove(self, event):

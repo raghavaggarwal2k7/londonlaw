@@ -1,1 +1,2 @@
 Twisted==20.3.0
+wxPython==4.0.7  

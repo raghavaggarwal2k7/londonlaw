@@ -193,8 +193,8 @@ class MapWindow(wx.ScrolledWindow):
       if playerNum not in self.pushpinsDrawn:
          self.pushpinsDrawn.append(playerNum)
       print("setlocation3")   	
-#      for i in self.pushpinsDrawn:
-#         self.drawPushpin(i)
+      for i in self.pushpinsDrawn:
+         self.drawPushpin(i)
       print("setlocation4")   	
       # update the tooltip label location
       mapPixel     = locToPixel(loc, self.zoomLevel)
