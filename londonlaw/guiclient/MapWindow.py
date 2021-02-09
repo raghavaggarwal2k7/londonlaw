@@ -180,29 +180,23 @@ class MapWindow(wx.ScrolledWindow):
    # updated and the pushpins are redrawn.
    # The tooltip label location is also updated.
    def setLocation(self, playerNum, loc):
-      print("setlocation-start")   	
       # restore the original map bitmap
       for i in self.pushpinsDrawn:
          self.unDrawPushpin(i)
-      print("setlocation1")   	
       self.playerLoc[playerNum] = loc
       # update this player's pushpin background
       self.updatePushpinBackground(playerNum)
       # blit all pushpins back on to the map bitmap
-      print("setlocation2")   	
       if playerNum not in self.pushpinsDrawn:
          self.pushpinsDrawn.append(playerNum)
-      print("setlocation3")   	
       for i in self.pushpinsDrawn:
          self.drawPushpin(i)
-      print("setlocation4")   	
       # update the tooltip label location
       mapPixel     = locToPixel(loc, self.zoomLevel)
       stepX, stepY = self.GetScrollPixelsPerUnit()
       sX, sY       = self.GetViewStart()
 #      self.labels[playerNum].MoveXY(mapPixel[0] - 20 - sX*stepX, mapPixel[1] - 10 - sY*stepY)
       self.labels[playerNum].Move(mapPixel[0] - 20 - sX*stepX, mapPixel[1] - 10 - sY*stepY)
-      print("setlocation-end")   	
 
 
    # remove a pushpin from the map bitmap

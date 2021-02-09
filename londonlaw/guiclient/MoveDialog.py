@@ -61,7 +61,15 @@ class MoveDialog(wx.Dialog):
    # Use EVT_GOT_MOVE to catch the return values (insert derogatory comment about
    #    lack of flexibility in return values for wxDialog::EndModal())
    def __init__(self, parent, ID, destPos, playerList, playerIdx, messenger, destroyedCallback):
-      wx.Dialog.__init__(self, parent, ID, _("Choose a Move"))
+      title=_("Choose a Move")
+      if playerIdx == 1:
+         title=title+"rot"
+      elif playerIdx == 2:
+         title=title+"gelb"
+      else:
+         title=title+" - Mr.X"
+#      wx.Dialog.__init__(self, parent, ID, _("Choose a Move"))
+      wx.Dialog.__init__(self, parent, ID, title)
       self.parent = parent
 
       self.panel = wx.Panel(self, -1)

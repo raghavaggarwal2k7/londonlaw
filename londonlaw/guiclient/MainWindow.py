@@ -109,7 +109,6 @@ class MainWindow(wx.Frame):
 
       # create the map window
       self.mapWindow = MapWindow(self.panel, usernameList)
-      print("Mainwindow3.4")
       for i in list(range(len(self.playerList))):
          if self.playerList[i][1] != -1:
             self.mapWindow.setLocation(i, self.playerList[i][1])
@@ -178,11 +177,8 @@ class MainWindow(wx.Frame):
       self.move = []
       self.moveDialogId = wx.NewId()
 
-      print("Mainwindow7")
       # initialize pixelToLoc algorithm
       generateGridHash()
-      print("Mainwindow8")
-
       # make the buttons do some stuff
 ##      wx.EVT_CHECKBOX(self, self.zoomButton.GetId(), self.toggleZoom)
       self.Bind(wx.EVT_CHECKBOX, self.toggleZoom, id=self.zoomButton.GetId())
@@ -205,17 +201,17 @@ class MainWindow(wx.Frame):
 ##      wx.EVT_MENU(self, self.ABOUT, self.showAbout)
       self.Bind(wx.EVT_MENU, self.showAbout, id=self.ABOUT)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[0].icon, self.scrollToPlayer0)
-#      self.icons.players[0].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer0)
+      self.icons.players[0].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer0)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[1].icon, self.scrollToPlayer1)
-#      self.icons.players[1].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer1)
+      self.icons.players[1].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer1)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[2].icon, self.scrollToPlayer2)
-#      self.icons.players[2].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer2)
+      self.icons.players[2].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer2)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[3].icon, self.scrollToPlayer3)
-#      self.icons.players[3].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer3)
+      self.icons.players[3].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer3)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[4].icon, self.scrollToPlayer4)
-#      self.icons.players[4].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer4)
+      self.icons.players[4].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer4)
 ##      wx.EVT_LEFT_DCLICK(self.icons.players[5].icon, self.scrollToPlayer5)
-#      self.icons.players[5].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer5)
+      self.icons.players[5].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer5)
 ##      wx.EVT_LEFT_DCLICK(self.mapWindow, self.moveToClicked)
 #      self.mapWindow.Bind(wx.EVT_LEFT_DCLICK, self.moveToClicked)
 ##      wx.EVT_CLOSE(self, self.menuExit)

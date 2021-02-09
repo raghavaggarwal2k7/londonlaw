@@ -40,7 +40,6 @@ except:
     import guiclient
     print("except")
 
-print(_("Not yet ready for Python3!"))
 guiclient.init()
 print(_("App closed..."))
 
