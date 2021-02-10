@@ -35,10 +35,8 @@ get started:
 ------------
 
 <h3>For Ubuntu</h3>
-<code>
-sudo apt install python3-wxgtk4.0<br>
-sudo apt install python3-twisted<br>
-</code>
+<code>sudo apt install python3-wxgtk4.0</code>
+<code>sudo apt install python3-twisted</code>
 
 * Run Server:<br>
   python3 londonlaw/london-server.py
