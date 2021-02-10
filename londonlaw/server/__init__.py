@@ -39,8 +39,8 @@ def init():
          default=os.path.expanduser("~/.londonlaw/server"))
    (options, args) = parser.parse_args()
    
-#   log.startLogging(sys.stdout, 0)
-#   log.startLogging(open('./londonlaw-server.log', 'w'))
+##   log.startLogging(sys.stdout, 0)
+##   log.startLogging(open('./londonlaw-server.log', 'w'))
    options.dbdir=os.getcwd()+"/londonlaw/server"
    registry = GameRegistry.getHandle(dbDir=options.dbdir)
    # Purge expired games every half hour

@@ -140,9 +140,8 @@ class MainWindow(wx.Frame):
       self.buttonSizer.Add(self.historyButton, 0, wx.ALL, 5)
       self.buttonSizer.Add(self.moveButton, 0, wx.ALL, 5)
 
-      print("Mainwindow6")
       # create a history window
-#      self.historyWin = HistoryWindow(self.panel)
+      self.historyWin = HistoryWindow(self.panel)
 
       self.centerSizer = wx.BoxSizer(wx.HORIZONTAL)
       self.centerSizer.Add(self.icons, 0, wx.ALIGN_CENTRE|wx.ALL)
@@ -156,11 +155,9 @@ class MainWindow(wx.Frame):
       self.mainSizer.Add(self.centerSizer, 0, wx.ALIGN_CENTRE)
       self.mainSizer.Add(self.chatWindow, 0, wx.EXPAND | wx.ALL, 5)
 
-      print("Mainwindow6.2")
       self.panelSizer = wx.BoxSizer(wx.HORIZONTAL)
-#      self.panelSizer.Add(self.historyWin, 0, wx.EXPAND)
-#      self.panelSizer.Add(self.mainSizer, 1, wx.EXPAND)
-      self.panelSizer.Add(self.mainSizer, 0, wx.EXPAND)
+      self.panelSizer.Add(self.historyWin, 0, wx.EXPAND)
+      self.panelSizer.Add(self.mainSizer, 1, wx.EXPAND)
       
       self.panel.SetSizer(self.panelSizer)
 
@@ -216,7 +213,6 @@ class MainWindow(wx.Frame):
 #      self.mapWindow.Bind(wx.EVT_LEFT_DCLICK, self.moveToClicked)
 ##      wx.EVT_CLOSE(self, self.menuExit)
       self.Bind(wx.EVT_CLOSE, self.menuExit)
-      print("Mainwindow-end")
       
 
    def addChatMessage(self, chatType, data):
@@ -468,7 +464,7 @@ class MainWindow(wx.Frame):
    # display the About dialog
    def showAbout(self, event):
       about = wx.MessageDialog(self, 
-              _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl") %
+              _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
               {"version" : LLAW_VERSION},
               _("About London Law"), wx.OK|wx.ICON_INFORMATION)
       about.ShowModal()

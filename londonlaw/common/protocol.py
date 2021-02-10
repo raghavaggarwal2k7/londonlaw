@@ -15,7 +15,8 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-LLAW_VERSION          = "0.3.0pre2"
+#LLAW_VERSION          = "0.3.0pre2"
+LLAW_VERSION          = "0.303"
 
 #PROTOCOL_VERSION      = "2.1"
 PROTOCOL_VERSION      = "2.0"

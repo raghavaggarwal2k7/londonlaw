@@ -25,17 +25,33 @@ Dependencies:
 * Python
 * [Twisted](https://twistedmatrix.com)
 * [wxPython](http://www.wxpython.org/)
-* [zope-interface](https://pypi.python.org/pypi/zope.interface)
 
 The code has been tested with the following versions:
-* Python 3.8.5 (planned)
+* Python 3.8.5
 * Twisted-13.0.0
 * wxPython-3.0.1.1
-* zope-interface-4.1.1
 
+get started:
+------------
+
+<h3>For Ubuntu</h3>
+<code>
+sudo apt install python3-wxgtk4.0<br>
+sudo apt install python3-twisted<br>
+</code>
+
+* Run Server:<br>
+  python3 londonlaw/london-server.py
+
+* Run Client:<br>
+  python3 londonlaw/london-client.py [ip-adress] [player] [password] [gamename]<br>
+  (The parameters are optional.)
 
 Changes
 -------
+
+0.303:
+   * ported to python3 by Horst Aldebaran alias Meyer (horald)
 
 0.3.0pre2:
 

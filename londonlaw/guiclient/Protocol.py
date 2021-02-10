@@ -43,6 +43,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def _setPreviousState(self):
+      print(self._state)   	
       if self._state == "joined":
          self._state = "loggedin"
       elif self._state == "tryjoin":
@@ -54,6 +55,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
       elif self._state == "trysetteam":
          self._state = "joined"
       elif self._state == "tryvote":
+         self._state = "joined"
+      elif self._state == "trymove":
          self._state = "joined"
       else:
          raise ProtocolError("called _setPreviousState() with unknown state \"" 

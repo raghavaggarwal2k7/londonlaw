@@ -101,7 +101,9 @@ class HistoryWindow(wx.ScrolledWindow):
 
    # update one of the location numbers
    def setLocation(self, turnNum, locStr):
-      self.vbSizers[turnNum].Remove(self.locations[turnNum])
+      print("historywindow - setlocation")  
+      print(turnNum)
+#      self.vbSizers[turnNum].Remove(self.locations[turnNum])
       self.locations[turnNum].Destroy()
       if turnNum in (2, 7, 12, 17, 23):
          fontWeight = wx.BOLD
@@ -116,7 +118,8 @@ class HistoryWindow(wx.ScrolledWindow):
 
    # update one of the ticket graphics 
    def setTicket(self, turnNum, tickNum):
-      self.tickets[turnNum].SetBitmap(wx.BitmapFromImage(self.ticketImages[tickNum]))
+#      self.tickets[turnNum].SetBitmap(wx.BitmapFromImage(self.ticketImages[tickNum]))
+      self.tickets[turnNum].SetBitmap(wx.Bitmap(self.ticketImages[tickNum]))
       self.tickets[turnNum].Refresh(False)
 
 

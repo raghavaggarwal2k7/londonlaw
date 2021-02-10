@@ -63,9 +63,15 @@ class MoveDialog(wx.Dialog):
    def __init__(self, parent, ID, destPos, playerList, playerIdx, messenger, destroyedCallback):
       title=_("Choose a Move")
       if playerIdx == 1:
-         title=title+"rot"
+         title=title+" - "+_("red")
       elif playerIdx == 2:
-         title=title+"gelb"
+         title=title+" - "+_("yellow")
+      elif playerIdx == 3:
+         title=title+" - "+_("green")
+      elif playerIdx == 4:
+         title=title+" - "+_("blue")
+      elif playerIdx == 5:
+         title=title+" - "+_("black")
       else:
          title=title+" - Mr.X"
 #      wx.Dialog.__init__(self, parent, ID, _("Choose a Move"))
@@ -103,7 +109,7 @@ class MoveDialog(wx.Dialog):
       self.dest1Box.SetSelection(0)
       if destPos in self.moves:
          self.Show(True)
-         for i in range(len(self.moves)):
+         for i in list(range(len(self.moves))):
             if self.moves[i] == destPos:
                self.dest1Box.SetSelection(i)
                break
@@ -146,7 +152,7 @@ class MoveDialog(wx.Dialog):
             tokenList[3] -= 1
          player.append(tokenList)
          pl2.append(player)
-         for i in range(1, len(self.playerList)):
+         for i in list(range(1, len(self.playerList))):
             pl2.append(self.playerList[i])
 
          self.dest2ID = wx.NewId()
@@ -226,9 +232,12 @@ class MoveDialog(wx.Dialog):
 
       self.dest1Box.SetFocus()
 
-      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.OnCancel)
-      wx.EVT_BUTTON(self, wx.ID_OK, self.OnOK)
-      wx.EVT_CHOICE(self, self.dest1Box.GetId(), self.updateTrans1)
+#      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.OnCancel)
+#      wx.EVT_BUTTON(self, wx.ID_OK, self.OnOK)
+#      wx.EVT_CHOICE(self, self.dest1Box.GetId(), self.updateTrans1)
+      self.Bind(wx.EVT_BUTTON, self.OnCancel, id=wx.ID_CANCEL)
+      self.Bind(wx.EVT_BUTTON, self.OnOK, id=wx.ID_OK)
+      self.Bind(wx.EVT_BUTTON, self.updateTrans1, id=self.dest1Box.GetId())
       if self.playerIdx == 0:
          wx.EVT_CHOICE(self, self.dest2Box.GetId(), self.updateTrans2Evt)
          wx.EVT_RADIOBOX(self, self.moveType.GetId(), self.updateDouble)
@@ -255,7 +264,7 @@ class MoveDialog(wx.Dialog):
    def setDest1(self, destPos):
       if destPos in self.moves:
          self.Show(True)
-         for i in range(len(self.moves)):
+         for i in list(range(len(self.moves))):
             if self.moves[i] == destPos:
                self.dest1Box.SetSelection(i)
                self.updateTrans1(None)
@@ -320,7 +329,7 @@ class MoveDialog(wx.Dialog):
             tokenList[3] -= 1
          player.append(tokenList)
          pl2.append(player)
-         for i in range(1, len(self.playerList)):
+         for i in list(range(1, len(self.playerList))):
             pl2.append(self.playerList[i])
 
          if len(self.moves) > 0:

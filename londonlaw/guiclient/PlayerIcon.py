@@ -201,7 +201,7 @@ class PlayerIconGroup(wx.Panel):
          cwd+"/londonlaw/guiclient/images/thinking.png", 
          cwd+"/londonlaw/guiclient/images/stuck.png", 
          nameList[0], tokenList[0], True)]
-      for i in range(1, 6):
+      for i in list(range(1, 6)):
 #         filename = os.path.normpath(os.path.join(MEDIAROOT, "images/playericon" + str(i) + ".jpg"))
          filename = cwd+"/londonlaw/guiclient/images/playericon" + str(i) + ".jpg"
 #         self.players.append(PlayerIcon(self, filename,
@@ -223,7 +223,7 @@ class PlayerIconGroup(wx.Panel):
 
    # update the icons to show whose turn it is
    def setTurn(self, index):
-      for i in range(6):
+      for i in list(range(6)):
          if i == index:
             self.isStuck = False
             self.players[i].setTurn()

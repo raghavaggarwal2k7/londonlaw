@@ -35,11 +35,8 @@ PlayerNumError = "Player Number Error"
 
 class MapWindow(wx.ScrolledWindow):
    def __init__(self, parent, usernameList):
-      print("MapWindow")
-      print(usernameList)    	
       wx.ScrolledWindow.__init__(self, parent)
 
-      print("Mapwindow1")      
       cwd=os.getcwd()
       # load the map image and prepare a DC for it
 #      mapImageFile   = os.path.normpath(os.path.join(MEDIAROOT, "images/map.jpg"))
@@ -58,7 +55,6 @@ class MapWindow(wx.ScrolledWindow):
       self.zoomLevel = 2
       self.pushpinOffset = (-8, 35)
 
-      print("Mapwindow2") 
       # configure scrollbars
       self.SetVirtualSize((self.mapBitmapSmall.GetWidth(), self.mapBitmapSmall.GetHeight()))
       self.SetScrollRate(10, 10)
@@ -76,7 +72,6 @@ class MapWindow(wx.ScrolledWindow):
       self.pushpinBackgrounds = []
       self.pushpinsDrawn      = []
       self.labels             = []
-      print("Mapwindow3")
       for i in list(range(6)):
          self.playerLoc.append(0)
 #         filename     = os.path.normpath(os.path.join(MEDIAROOT, "images/pin" + str(i) + ".png"))
@@ -93,7 +88,6 @@ class MapWindow(wx.ScrolledWindow):
          self.labels[i].Hide()
          self.labels[i].SetBackgroundColour(wx.Colour(220, 220, 220))
 
-      print("Mapwindow4")
 #      wx.EVT_PAINT(self, self.OnPaint)
       self.Bind(wx.EVT_PAINT, self.OnPaint)
 #      wx.EVT_ERASE_BACKGROUND(self, self.OnEraseBackground)
@@ -144,7 +138,7 @@ class MapWindow(wx.ScrolledWindow):
       else:
          loc = pixelToLoc((sX*stepX + newX, sY*stepY + newY), self.zoomLevel)
          if loc > 0:
-            for i in range(6):
+            for i in list(range(6)):
                if loc == self.playerLoc[i]:
                   self.labels[i].Show()
                   self.labels[i].Raise()
@@ -152,7 +146,7 @@ class MapWindow(wx.ScrolledWindow):
                   break
          elif self.labelsShown:
             self.labelsShown = False
-            for i in range(6):
+            for i in list(range(6)):
                self.labels[i].Hide()
 
 
@@ -212,19 +206,13 @@ class MapWindow(wx.ScrolledWindow):
 
    # update a pushpin background
    def updatePushpinBackground(self, playerNum):
-      print("updatepushpinbackground-start")   	
       mapPixel = locToPixel(self.playerLoc[playerNum], self.zoomLevel)
-      print("updatepushpinbackground1")   	
       self.pushpinDC.SelectObject(self.pushpinBackgrounds[playerNum])
-      print("updatepushpinbackground2")   	
 #      self.pushpinDC.BeginDrawing()
-#      print("updatepushpinbackground3")   	
       self.pushpinDC.Blit(0, 0, self.pushpinBackgrounds[playerNum].GetWidth(),
             self.pushpinBackgrounds[playerNum].GetHeight(), 
             self.bmpDC, mapPixel[0]-self.pushpinOffset[0], mapPixel[1]-self.pushpinOffset[1])
-#      print("updatepushpinbackground4")   	
 #      self.pushpinDC.EndDrawing()
-      print("updatepushpinbackground-end")   	
 
 
    # blit a pushpin image to the map bitmap
