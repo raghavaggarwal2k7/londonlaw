@@ -35,7 +35,7 @@ get started:
 ------------
 
 <h3>For Ubuntu</h3>
-<code>sudo apt install python3-wxgtk4.0</code>
+<code>sudo apt install python3-wxgtk4.0</code><br>
 <code>sudo apt install python3-twisted</code>
 
 * Run Server:<br>
