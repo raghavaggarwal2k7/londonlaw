@@ -107,7 +107,8 @@ class PlayerIcon(wx.Panel):
       # put the caption under the bitmap and inventory lists
       self.topSizer = wx.BoxSizer(wx.VERTICAL)
       self.topSizer.Add(iconInvSizer, 0, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.ADJUST_MINSIZE, 20)
-      self.topSizer.Add(self.caption, 0, wx.EXPAND|wx.ALIGN_CENTRE|wx.ALL, 2)
+#      self.topSizer.Add(self.caption, 0, wx.EXPAND|wx.ALIGN_CENTRE|wx.ALL, 2)
+      self.topSizer.Add(self.caption, 0, wx.ALIGN_CENTRE|wx.ALL, 2)
       self.SetSizer(self.topSizer)
       self.topSizer.SetSizeHints(self)
 
