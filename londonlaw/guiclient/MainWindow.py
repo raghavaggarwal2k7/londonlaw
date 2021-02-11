@@ -22,8 +22,8 @@
 # a set of player status icons, a chat area, and some useful buttons.
 
 import os, time, gettext, wx
-import webbrowser
-import wx.html2
+#import webbrowser
+#import wx.html2
 from .MapWindow import *
 from .ChatPanel import *
 from .PlayerIcon import *
@@ -32,26 +32,26 @@ from .HistoryWindow import *
 from .graphicalmap import *
 from common.protocol import LLAW_VERSION
 
-class MyBrowser(wx.Dialog): 
-    def __init__(self, *args, **kwds): 
-        wx.Dialog.__init__(self, *args, **kwds) 
-        sizer = wx.BoxSizer(wx.VERTICAL) 
-        self.SetTitle(_("About London Law"))
-        self.browser = wx.html2.WebView.New(self)
-        self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.On_Web_View_Loaded, self.browser)
-        self.browser.Bind(wx.html2.EVT_WEBVIEW_NAVIGATING, self.onNav)
-        sizer.Add(self.browser, 1, wx.EXPAND, 10) 
-        self.SetSizer(sizer) 
-        self.SetSize((450, 200)) 
+#class MyBrowser(wx.Dialog): 
+#    def __init__(self, *args, **kwds): 
+#        wx.Dialog.__init__(self, *args, **kwds) 
+#        sizer = wx.BoxSizer(wx.VERTICAL) 
+#        self.SetTitle(_("About London Law"))
+#        self.browser = wx.html2.WebView.New(self)
+#        self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.On_Web_View_Loaded, self.browser)
+#        self.browser.Bind(wx.html2.EVT_WEBVIEW_NAVIGATING, self.onNav)
+#        sizer.Add(self.browser, 1, wx.EXPAND, 10) 
+#        self.SetSizer(sizer) 
+#        self.SetSize((450, 200)) 
         
-    def On_Web_View_Loaded(self, event):
-        print('Loading')  
+#    def On_Web_View_Loaded(self, event):
+#        print('Loading')  
 
-    def onNav(self, event):
-        print('navigate...')
-        url = event.GetURL()
-        if url!="about:blank":
-           webbrowser.open(url)
+#    def onNav(self, event):
+#        print('navigate...')
+#        url = event.GetURL()
+#        if url!="about:blank":
+#           webbrowser.open(url)
 
 
 class MainWindow(wx.Frame):
@@ -499,9 +499,9 @@ class MainWindow(wx.Frame):
       </body>
       </html>
       """
-      about = MyBrowser(None, -1)
-      about.browser.SetPage(html_string,"") 
-      about.ShowModal() 
+#      about = MyBrowser(None, -1)
+#      about.browser.SetPage(html_string,"") 
+#      about.ShowModal() 
 
    def scrollToPlayer0(self, event):
       self.mapWindow.scrollToPlayer(0)
