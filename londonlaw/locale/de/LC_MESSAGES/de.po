@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: londonlaw\n"
 "Report-Msgid-Bugs-To: pelzlpj@eecs.umich.edu\n"
-"POT-Creation-Date: 2005-08-26 00:31-0400\n"
-"PO-Revision-Date: 2021-02-09 09:27+0100\n"
+"POT-Creation-Date: 2021-02-11 14:28+0100\n"
+"PO-Revision-Date: 2021-02-11 14:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -256,7 +256,7 @@ msgstr "Datei"
 #: guiclient/MainWindow.py:72 guiclient/RegistrationWindow.py:99
 #, python-format
 msgid "Exit%(hotkey)s"
-msgstr "Exit%(hotkey)s"
+msgstr "Beenden%(hotkey)s"
 
 #. TRANSLATORS: labels for server connection dialog
 #: guiclient/ConnectWindow.py:59
@@ -834,3 +834,22 @@ msgstr "Verbindung zum Server herstellen..."
 #: london-client:44
 msgid "Not yet ready for Python3!"
 msgstr "Noch nicht fertig für Python3!"
+
+#: guiclient/ConnectWindow.py:58
+msgid "Connect%(hotkey)s"
+msgstr "Verbinden%(hotkey)s"
+
+#: guiclient/ConnectWindow.py:64
+msgid "About%(hotkey)s"
+msgstr "Über%(hotkey)s"
+
+#: guiclient/__init__.py:49
+msgid "Unable to connect to server."
+msgstr "Verbindung zum Server fehlgeschlagen."
+
+#: guiclient/GameListWindow:161
+msgid "Delete Game"
+msgstr "Spiel löschen"
+
+#~ msgid "About"
+#~ msgstr "Über"

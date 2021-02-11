@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: London Law 0.3.0\n"
 "Report-Msgid-Bugs-To: pelzlpj@eecs.umich.edu\n"
-"POT-Creation-Date: 2021-02-11 09:42+0100\n"
+"POT-Creation-Date: 2021-02-11 14:28+0100\n"
 "PO-Revision-Date: 2005-08-23 01:50-0400\n"
 "Last-Translator: Paul Pelzl <pelzlpj@eecs.umich.edu>\n"
 "Language-Team: english <londonlaw-users@freelists.org>\n"
@@ -554,7 +554,8 @@ msgstr ""
 
 #: guiclient/MainWindow.py:451
 #, python-format
-msgid "London Law v%(version)s\n"
+msgid ""
+"London Law v%(version)s\n"
 "\n"
 "A multiplayer manhunting adventure by Paul Pelzl"
 msgstr ""
@@ -815,27 +816,18 @@ msgstr ""
 msgid "Not yet ready for Python3!"
 msgstr ""
 
-#: GameListWindow.py:208
-msgid "Unrecognized game name."
+#: guiclient/ConnectWindow.py:58
+msgid "Connect%(hotkey)s"
 msgstr ""
 
-#: MoveDialog.py:66
-msgid "red"
+#: guiclient/ConnectWindow.py:64
+msgid "About%(hotkey)s"
 msgstr ""
 
-#: MoveDialog.py:68
-msgid "yellow"
+#: guiclient/__init__.py:49
+msgid "Unable to connect to server."
 msgstr ""
 
-#: MoveDialog.py:70
-msgid "green"
+#: guiclient/GameListWindow:161
+msgid "Delete Game"
 msgstr ""
-
-#: MoveDialog.py:72
-msgid "blue"
-msgstr ""
-
-#: MoveDialog.py:74
-msgid "black"
-msgstr ""
-

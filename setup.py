@@ -62,39 +62,46 @@ def getDataFilesList():
    os.walk('londonlaw/locale', appendMOFiles, installList)
    return installList
 
+print("Setup für Python3-Version not yet ready...")
+print("\n")
+print("You can run the server with following command:")
+print("python3 londonlaw/london-server.py")
+print("\n")
+print("You cann run the client with following commmand:")
+print("python3 londonlaw/london-client.py")
+print("\n")
+## Run the distutils setup.
+#setup(name = "londonlaw",
+#   version = "0.3.0pre1",
+#   description = "networked multiplayer manhunting board game",
+#   author = "Paul J. Pelzl",
+#   author_email = "pelzlpj@eecs.umich.edu",
+#   maintainer = "Paul J. Pelzl",
+#   maintainer_email = "pelzlpj@eecs.umich.edu", 
+#   url = "https://github.com/horald/londonlaw", 
+#   license = "GNU General Public License, Version 2",
+#   platforms = "*nix/X11, OS X, Win32",
+#   keywords = "Scotland Yard board game multiplayer",
+#   long_description = ( 
+#      "London Law is a networked multiplayer adaptation of the classic\n" +
+#      "Scotland Yard board game.  Mr. X must evade a number of detectives by\n" +
+#      "carefully concealing his movements across London.  One of only a\n" +
+#      "handful of asymmetric board games (Mr. X and the detectives have\n" +
+#      "different goals and abilities)." ),
+#   packages = [ 'londonlaw',                      # install all the .py files
+#                'londonlaw.common',
+#                'londonlaw.server',
+#                'londonlaw.guiclient',
+#                'londonlaw.aiclients',
+#                'londonlaw.adminclient'],
+#   scripts  = [ 'londonlaw/london-server',        # install the executable scripts
+#                'londonlaw/london-client',
+#                'londonlaw/london-admin'],
+#   data_files = getDataFilesList()                # install the game media and documentation
+#)
 
-# Run the distutils setup.
-setup(name = "londonlaw",
-   version = "0.3.0pre1",
-   description = "networked multiplayer manhunting board game",
-   author = "Paul J. Pelzl",
-   author_email = "pelzlpj@eecs.umich.edu",
-   maintainer = "Paul J. Pelzl",
-   maintainer_email = "pelzlpj@eecs.umich.edu", 
-   url = "https://github.com/horald/londonlaw", 
-   license = "GNU General Public License, Version 2",
-   platforms = "*nix/X11, OS X, Win32",
-   keywords = "Scotland Yard board game multiplayer",
-   long_description = ( 
-      "London Law is a networked multiplayer adaptation of the classic\n" +
-      "Scotland Yard board game.  Mr. X must evade a number of detectives by\n" +
-      "carefully concealing his movements across London.  One of only a\n" +
-      "handful of asymmetric board games (Mr. X and the detectives have\n" +
-      "different goals and abilities)." ),
-   packages = [ 'londonlaw',                      # install all the .py files
-                'londonlaw.common',
-                'londonlaw.server',
-                'londonlaw.guiclient',
-                'londonlaw.aiclients',
-                'londonlaw.adminclient'],
-   scripts  = [ 'londonlaw/london-server',        # install the executable scripts
-                'londonlaw/london-client',
-                'londonlaw/london-admin'],
-   data_files = getDataFilesList()                # install the game media and documentation
-)
 
-
-# Reset 'config.py' for the source distribution.
-config = open("londonlaw/common/config.py", "w")
-config.write("MEDIAROOT = \"guiclient\"\n")
-config.close()
+## Reset 'config.py' for the source distribution.
+#config = open("londonlaw/common/config.py", "w")
+#config.write("MEDIAROOT = \"guiclient\"\n")
+#config.close()
