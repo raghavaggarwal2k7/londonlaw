@@ -23,6 +23,7 @@
 # enter server information and provide usernames.
 
 import sys, gettext, wx
+import wx.adv
 from common.protocol import *
 
 
@@ -151,13 +152,27 @@ class ConnectWindow(wx.Frame):
 
 
    # display the About dialog
-   def showAboutWin(self, event):
+   def showAboutWinx(self, event):
       about = wx.MessageDialog(self, 
               _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
               {"version" : LLAW_VERSION},
               _("About London Law"), wx.OK|wx.ICON_INFORMATION)
       about.ShowModal()
 
+   def showAboutWin(self, event):
+      cwd=os.getcwd()
+      ABOUT_ICON = cwd+"/londonlaw/guiclient/images/about.jpg"
+      info = wx.adv.AboutDialogInfo()
+      info.Name = "Londonlaw"
+      info.SetIcon (wx.Icon(ABOUT_ICON, wx.BITMAP_TYPE_JPEG))        
+      info.Version = LLAW_VERSION
+      info.Copyright = '(C) GPL-2.0 Licence'
+      info.Description = "A multiplayer manhunting adventure by Paul Pelzl\n modified by Horst Aldebaran"
+      info.SetWebSite = ('https://github.com/horald/londonlaw','Website')
+      info.Developers = [ 'Paul Pelzl, Horst Aldebaran']
+
+      # Then we call wx.AboutBox giving it that info object
+      wx.adv.AboutBox(info)    	
 
    # select contents of a focused wx.TextCtrl
    def selectFocused(self, ev):

@@ -1,8 +1,7 @@
-./londonlaw/adminclient/__init__.py~:      print("Unable to connect to server.")
-./londonlaw/adminclient/__init__.py:      print("Unable to connect to server.")
-Übereinstimmungen in Binärdatei ./londonlaw/adminclient/__pycache__/__init__.cpython-38.pyc
-./londonlaw/guiclient/__init__.py~:      messenger.guiAlert(_("Unable to connect to server."))
-./londonlaw/guiclient/__init__.py:      messenger.guiAlert(_("Unable to connect to server."))
-Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/__init__.cpython-38.pyc
-./build/lib/londonlaw/adminclient/__init__.py:      print("Unable to connect to server.")
-./build/lib/londonlaw/guiclient/__init__.py:      messenger.guiAlert(_("Unable to connect to server."))
+Übereinstimmungen in Binärdatei ./.git/index
+./londonlaw/guiclient/MapWindow.py:#      mapImageFile   = os.path.normpath(os.path.join(MEDIAROOT, "images/map.jpg"))
+./londonlaw/guiclient/MapWindow.py:      mapImageFile   = cwd+"/londonlaw/guiclient/images/map.jpg"
+./londonlaw/guiclient/MapWindow.py~:#      mapImageFile   = os.path.normpath(os.path.join(MEDIAROOT, "images/map.jpg"))
+./londonlaw/guiclient/MapWindow.py~:      mapImageFile   = cwd+"/londonlaw/guiclient/images/map.jpg"
+Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/MapWindow.cpython-38.pyc
+./build/lib/londonlaw/guiclient/MapWindow.py:      mapImageFile   = os.path.normpath(os.path.join(MEDIAROOT, "images/map.jpg"))
