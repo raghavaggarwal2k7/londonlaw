@@ -74,9 +74,9 @@ class GameRegistrySingleton:
          f.close()
 
       # load in the game and user databases
-      self._games = shelve.open(os.path.join(dbDir, "games_db." + LLAW_VERSION), 
+      self._games = shelve.open(os.path.join(dbDir, "londonlaw_games.db"), 
             "c", writeback = True)
-      self._users = shelve.open(os.path.join(dbDir, "users_db." + LLAW_VERSION), 
+      self._users = shelve.open(os.path.join(dbDir, "londonlaw_users.db"), 
             "c", writeback = True)
       self._clients       = {}
       self._unjoinedUsers = set()

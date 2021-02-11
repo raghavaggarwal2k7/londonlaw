@@ -103,6 +103,9 @@ class HistoryWindow(wx.ScrolledWindow):
    def setLocation(self, turnNum, locStr):
       print("historywindow - setlocation")  
       print(turnNum)
+      print(self.vbSizers[turnNum].IsEmpty())
+      if self.vbSizers[turnNum].IsEmpty() == False:
+         print(self.vbSizers[turnNum].GetItemCount())
 #      self.vbSizers[turnNum].Remove(self.locations[turnNum])
       self.locations[turnNum].Destroy()
       if turnNum in (2, 7, 12, 17, 23):

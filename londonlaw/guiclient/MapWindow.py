@@ -230,7 +230,8 @@ class MapWindow(wx.ScrolledWindow):
    def scrollToPlayer(self, playerNum):
       if playerNum in self.pushpinsDrawn:
          mapPixel = locToPixel(self.playerLoc[playerNum], self.zoomLevel)
-         w, h = self.GetClientSizeTuple()
+#         w, h = self.GetClientSizeTuple()
+         w, h = self.GetClientSize()
          targetX = mapPixel[0] - w/2
          targetY = mapPixel[1] - h/2
          stepX, stepY = self.GetScrollPixelsPerUnit()
@@ -239,7 +240,9 @@ class MapWindow(wx.ScrolledWindow):
 
    # unconditional redraw
    def redraw(self):
-      w, h = self.GetClientSizeTuple()
+      print("redraw")   	
+#      w, h = self.GetClientSizeTuple()
+      w, h = self.GetClientSize()
       rect = (0, 0, w, h)
       self.RefreshRect(rect)
 

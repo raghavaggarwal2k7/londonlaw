@@ -21,7 +21,9 @@
 # This class handles the main in-game window.  It has a map window,
 # a set of player status icons, a chat area, and some useful buttons.
 
-import time, gettext, wx
+import os, time, gettext, wx
+import webbrowser
+import wx.html2
 from .MapWindow import *
 from .ChatPanel import *
 from .PlayerIcon import *
@@ -30,6 +32,26 @@ from .HistoryWindow import *
 from .graphicalmap import *
 from common.protocol import LLAW_VERSION
 
+class MyBrowser(wx.Dialog): 
+    def __init__(self, *args, **kwds): 
+        wx.Dialog.__init__(self, *args, **kwds) 
+        sizer = wx.BoxSizer(wx.VERTICAL) 
+        self.SetTitle(_("About London Law"))
+        self.browser = wx.html2.WebView.New(self)
+        self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.On_Web_View_Loaded, self.browser)
+        self.browser.Bind(wx.html2.EVT_WEBVIEW_NAVIGATING, self.onNav)
+        sizer.Add(self.browser, 1, wx.EXPAND, 10) 
+        self.SetSizer(sizer) 
+        self.SetSize((450, 200)) 
+        
+    def On_Web_View_Loaded(self, event):
+        print('Loading')  
+
+    def onNav(self, event):
+        print('navigate...')
+        url = event.GetURL()
+        if url!="about:blank":
+           webbrowser.open(url)
 
 
 class MainWindow(wx.Frame):
@@ -59,6 +81,7 @@ class MainWindow(wx.Frame):
       self.ZOOM       = 103
       self.HISTORY    = 104
       self.ABOUT      = 105
+      self.ABOUTWIN   = 106
 
       self.exitCallback = exitCallback
 
@@ -86,6 +109,7 @@ class MainWindow(wx.Frame):
       menuBar.Append(self.viewMenu, _("View"))
       self.helpMenu = wx.Menu()
       # TRANSLATORS: this is a menu bar entry
+      self.helpMenu.Append(self.ABOUTWIN, "About Window", "About Window")
       self.helpMenu.Append(self.ABOUT, _("About London Law"), _("About London Law"))
       # TRANSLATORS: this is a menu bar entry
       menuBar.Append(self.helpMenu, _("Help"))
@@ -177,41 +201,24 @@ class MainWindow(wx.Frame):
       # initialize pixelToLoc algorithm
       generateGridHash()
       # make the buttons do some stuff
-##      wx.EVT_CHECKBOX(self, self.zoomButton.GetId(), self.toggleZoom)
       self.Bind(wx.EVT_CHECKBOX, self.toggleZoom, id=self.zoomButton.GetId())
-##      wx.EVT_CHECKBOX(self, self.historyButton.GetId(), self.toggleHistory)
-#      self.Bind(wx.EVT_CHECKBOX, self.toggleHistory, id=self.historyButton.GetId()) 
-##      wx.EVT_BUTTON(self, self.moveButton.GetId(), self.makeMove)
+      self.Bind(wx.EVT_CHECKBOX, self.toggleHistory, id=self.historyButton.GetId()) 
       self.Bind(wx.EVT_BUTTON, self.makeMove, id=self.moveButton.GetId())
-##      wx.EVT_TEXT_ENTER(self, self.chatWindow.chatEntry.GetId(), self.chatSend)
       self.Bind(wx.EVT_TEXT_ENTER, self.chatSend, id=self.chatWindow.chatEntry.GetId())
-##      wx.EVT_MENU(self, self.EXIT, self.menuExit)
       self.Bind(wx.EVT_MENU, self.menuExit, id=self.EXIT)
-##      wx.EVT_MENU(self, self.DISCONNECT, self.menuDisconnect)
       self.Bind(wx.EVT_MENU, self.menuDisconnect, id=self.DISCONNECT)
-##      wx.EVT_MENU(self, self.FULLSCREEN, self.toggleFullscreen)
       self.Bind(wx.EVT_MENU, self.toggleFullscreen, id=self.FULLSCREEN)
-##      wx.EVT_MENU(self, self.ZOOM, self.toggleMenuZoom)
       self.Bind(wx.EVT_MENU, self.toggleMenuZoom, id=self.ZOOM)
-##      wx.EVT_MENU(self, self.HISTORY, self.toggleMenuHistory)
-#      self.Bind(wx.EVT_MENU, self.toggleMenuHistory, id=self.HISTORY)
-##      wx.EVT_MENU(self, self.ABOUT, self.showAbout)
+      self.Bind(wx.EVT_MENU, self.toggleMenuHistory, id=self.HISTORY)
+      self.Bind(wx.EVT_MENU, self.showAboutWin, id=self.ABOUTWIN)
       self.Bind(wx.EVT_MENU, self.showAbout, id=self.ABOUT)
-##      wx.EVT_LEFT_DCLICK(self.icons.players[0].icon, self.scrollToPlayer0)
       self.icons.players[0].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer0)
-##      wx.EVT_LEFT_DCLICK(self.icons.players[1].icon, self.scrollToPlayer1)
       self.icons.players[1].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer1)
-##      wx.EVT_LEFT_DCLICK(self.icons.players[2].icon, self.scrollToPlayer2)
       self.icons.players[2].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer2)
-##      wx.EVT_LEFT_DCLICK(self.icons.players[3].icon, self.scrollToPlayer3)
       self.icons.players[3].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer3)
-##      wx.EVT_LEFT_DCLICK(self.icons.players[4].icon, self.scrollToPlayer4)
       self.icons.players[4].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer4)
-##      wx.EVT_LEFT_DCLICK(self.icons.players[5].icon, self.scrollToPlayer5)
       self.icons.players[5].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer5)
-##      wx.EVT_LEFT_DCLICK(self.mapWindow, self.moveToClicked)
-#      self.mapWindow.Bind(wx.EVT_LEFT_DCLICK, self.moveToClicked)
-##      wx.EVT_CLOSE(self, self.menuExit)
+      self.mapWindow.Bind(wx.EVT_LEFT_DCLICK, self.moveToClicked)
       self.Bind(wx.EVT_CLOSE, self.menuExit)
       
 
@@ -251,6 +258,8 @@ class MainWindow(wx.Frame):
 
 
    def displayMove(self, data):
+      print("displaymove-start")  
+      print(data) 	
       mover  = self.pawnName2Index[data[0]]
       loc    = int(data[1])
       ticket = data[2]
@@ -260,6 +269,7 @@ class MainWindow(wx.Frame):
          # it can be done more effectively than redrawing the entire MapWindow.
          self.mapWindow.redraw()
 
+      print("displaymove1")   	
       # update ticket inventories
       pawn    = self.playerList[mover]
       pawn[1] = loc
@@ -287,6 +297,7 @@ class MainWindow(wx.Frame):
          pawn[2][4] -= 1
       self.icons.players[mover].updateTokens(pawn[2])
 
+      print("displaymove2")   	
       if mover == 0:
          self.historyWin.setTicket(self.turn - 1, self.ticketName2Index[ticket])
          if loc == -1:
@@ -317,6 +328,7 @@ class MainWindow(wx.Frame):
       else:
          print("unrecognized mover: " + str(mover))
 
+      print("displaymove3")   	
       # pop up an alert box when X uses a double move
       if mover == self.lastMover and not self.isMrX:
          alert = wx.MessageDialog(self, _("Mr. X just used a double move ticket!"),
@@ -325,6 +337,7 @@ class MainWindow(wx.Frame):
          alert.ShowModal()
 
       self.lastMover = mover
+      print("displaymove-end")   	
             
 
    # send out a chat message
@@ -462,12 +475,33 @@ class MainWindow(wx.Frame):
 
 
    # display the About dialog
-   def showAbout(self, event):
+   def showAboutWin(self, event):
       about = wx.MessageDialog(self, 
               _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
               {"version" : LLAW_VERSION},
               _("About London Law"), wx.OK|wx.ICON_INFORMATION)
       about.ShowModal()
+
+
+   # display the About dialog
+   def showAbout(self, event):
+      html_string = """
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html>
+      <head>
+      <title>London law</title>
+      </head>
+      <body style="background-color:lightgray;">
+      London Law v"""+LLAW_VERSION+"""<br><br>
+      A multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran<br><br>
+      <a href='https://github.com/horald/londonlaw'>https://github.com/horald/londonlaw</a>
+      </body>
+      </html>
+      """
+      about = MyBrowser(None, -1)
+      about.browser.SetPage(html_string,"") 
+      about.ShowModal() 
 
    def scrollToPlayer0(self, event):
       self.mapWindow.scrollToPlayer(0)

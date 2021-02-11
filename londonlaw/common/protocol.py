@@ -14,9 +14,14 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+import os, json
+
+cwd=os.getcwd()
+with open(cwd+"/version.json") as jsonfile:
+   versdata = json.load(jsonfile)	
 
 #LLAW_VERSION          = "0.3.0pre2"
-LLAW_VERSION          = "0.303"
+LLAW_VERSION          = versdata['versnr']
 
 #PROTOCOL_VERSION      = "2.1"
 PROTOCOL_VERSION      = "2.0"

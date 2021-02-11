@@ -28,14 +28,14 @@ Dependencies:
 
 The code has been tested with the following versions:
 * Python 3.8.5
-* Twisted-13.0.0
-* wxPython-3.0.1.1
+* Twisted-18.9.0
+* wxPython-4.0.7
 
 get started:
 ------------
 
 <h3>For Ubuntu</h3>
-<code>sudo apt install python3-wxgtk4.0</code><br>
+<code>sudo apt install python3-wxgtk4.0</code> (only for the client)<br>
 <code>sudo apt install python3-twisted</code>
 
 * Run Server:<br>

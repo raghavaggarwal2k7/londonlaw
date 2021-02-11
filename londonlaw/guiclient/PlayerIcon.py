@@ -129,13 +129,13 @@ class PlayerIcon(wx.Panel):
    def setTurn(self):
       self.srcDC.SelectObject(self.playerBitmap)
       self.iconDC.SelectObject(self.iconBitmap2)
-      self.iconDC.BeginDrawing()
+#      self.iconDC.BeginDrawing()
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0)
       self.srcDC.SelectObject(self.thinkingBitmap)
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0, wx.COPY, True)
-      self.iconDC.EndDrawing()
+#      self.iconDC.EndDrawing()
       self.iconDC.SelectObject(wx.NullBitmap)
       temp             = self.iconBitmap
       self.iconBitmap  = self.iconBitmap2
@@ -148,13 +148,13 @@ class PlayerIcon(wx.Panel):
    def setStuck(self):
       self.srcDC.SelectObject(self.playerBitmap)
       self.iconDC.SelectObject(self.iconBitmap2)
-      self.iconDC.BeginDrawing()
+#      self.iconDC.BeginDrawing()
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0)
       self.srcDC.SelectObject(self.stuckBitmap)
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0, wx.COPY, True)
-      self.iconDC.EndDrawing()
+#      self.iconDC.EndDrawing()
       self.iconDC.SelectObject(wx.NullBitmap)
       temp             = self.iconBitmap
       self.iconBitmap  = self.iconBitmap2
@@ -167,10 +167,10 @@ class PlayerIcon(wx.Panel):
    def clearOverlay(self):
       self.srcDC.SelectObject(self.playerBitmap)
       self.iconDC.SelectObject(self.iconBitmap2)
-      self.iconDC.BeginDrawing()
+#      self.iconDC.BeginDrawing()
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0)
-      self.iconDC.EndDrawing()
+#      self.iconDC.EndDrawing()
       self.iconDC.SelectObject(wx.NullBitmap)
       temp             = self.iconBitmap
       self.iconBitmap  = self.iconBitmap2

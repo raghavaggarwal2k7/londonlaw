@@ -134,17 +134,24 @@ class RegistrationWindow(wx.Frame):
 
       DISCONNECT = 100
       EXIT       = 101
+      ABOUTWIN   = 102
 
       # Create a menu bar
       # TRANSLATORS: this is a menu bar entry
-      fileMenu = wx.Menu(_("File"))
+#      fileMenu = wx.Menu(_("File"))
+      fileMenu = wx.Menu()
       # TRANSLATORS: this is a menu bar entry
       fileMenu.Append(DISCONNECT, _("Disconnect"), _("Disconnect from server"))
       # TRANSLATORS: this is a menu bar entry
       fileMenu.Append(EXIT, _("Exit%(hotkey)s") % {"hotkey" : "\tCTRL+Q"}, _("Exit London Law"))
+
+      helpMenu = wx.Menu()
+      helpMenu.Append(ABOUTWIN, _("About%(hotkey)s") % {"hotkey" : "\tCTRL+A"}, _("About"))
+
       menuBar = wx.MenuBar()
       # TRANSLATORS: this is a menu bar entry
       menuBar.Append(fileMenu, _("File"))
+      menuBar.Append(helpMenu, _("Help"))
       self.SetMenuBar(menuBar)
 
       self.status = self.CreateStatusBar()

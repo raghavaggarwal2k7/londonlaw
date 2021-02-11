@@ -43,6 +43,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def _setPreviousState(self):
+      print("setPriviousState")
       print(self._state)   	
       if self._state == "joined":
          self._state = "loggedin"
@@ -64,22 +65,26 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def connectionLost(self, reason):
+      print("connectionLost")   	
       if self._state != "shutdown":
          self._messenger.guiAlert(_("You have been disconnected from the server."))
          self._messenger.guiLaunchConnectionWindow()
 
 
    def connectionMade(self):
+      print("connectionMade")
       self.factory.registerProtocol(self)
       self.sendTokens(self.genTag(), "protocol", PROTOCOL_VERSION)
       self._state = "protocol"
 
 
    def disconnect(self):
+      print("disconnect")
       self.transport.loseConnection()
 
 
    def join(self, name):
+      print("join")
       log.msg("called Protocol.join()")
 #      self.sendTokens(self.genTag(), "join", name.encode("utf-8"))
       self.sendTokens(self.genTag(), "join", name)
@@ -88,6 +93,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def leave(self):
+      print("leave")
       log.msg("called Protocol.leave()")
       self._state = "tryleave"
       self.sendTokens(self.genTag(), "leave")
@@ -131,6 +137,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def makeMove(self, data):
+      print("makeMove")
+      print(data)   	
       self._state = "trymove"
       if len(data) == 3:
          self.sendTokens(self.genTag(), "move", data[0], data[1], data[2])
@@ -150,6 +158,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def genTag(self):
+      print("genTag")
       if self._tagIndex > 99999:
          self._tagIndex = 0
       st = repr(self._tagIndex)
@@ -159,62 +168,74 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
       
 
    def sendTokens(self, *tokens):
+      print("sendTokens")
       s = util.join_tokens(*tokens)
       # convert from unicode to 8-bit ascii
       self.sendLine(s.encode("utf-8"))
 
 
    def logUnmatched(self, tag, response, data):
+      print("logUnmatched")
       log.msg("Received unmatched \"" + response + "\" message tagged \"" + 
             tag + "\" with data " + str(data))
 
 
    def requestAI(self, algorithm):
+      print("requestAI")
       self._state = "tryrequestai"
       self.sendTokens(self.genTag(), "requestai", algorithm.encode("utf-8"))
 
 
    def requestAIList(self, team):
+      print("requestAIList")
       self._state = "trylistai"
       self._aiAlgorithms = []
       self.sendTokens(self.genTag(), "listai", team)
 
 
    def response_aiinfo_trylistai(self, tag, data):
-      self._aiAlgorithms.append(data[0].decode("utf-8"))
+      print("response_aiinfo_trylistai")
+#      self._aiAlgorithms.append(data[0].decode("utf-8"))
+      self._aiAlgorithms.append(data[0])
 
       
    def response_chatall_endgame(self, tag, data):
+      print("response_chatall_endgame")
 #      decoded = [el.decode("utf-8") for el in data]
       decoded = [el for el in data]
       self._messenger.guiUpdateChat("all", decoded)
 
 
    def response_chatall_joined(self, tag, data):
+      print("response_chatall_joined")
 #      decoded = [el.decode("utf-8") for el in data]
       decoded = [el for el in data]
       self._messenger.guiUpdateChat("all", decoded)
 
 
    def response_chatall_playing(self, tag, data):
+      print("response_chatall_playing")
 #      decoded = [el.decode("utf-8") for el in data]
       decoded = [el for el in data]
       self._messenger.guiUpdateChat("all", decoded)
 
 
    def response_chatteam_endgame(self, tag, data):
+      print("response_chatteam_endgame")    
 #      decoded = [el.decode("utf-8") for el in data]
       decoded = [el for el in data]
       self._messenger.guiUpdateChat("team", decoded)
 
 
    def response_chatteam_playing(self, tag, data):
+      print("response_chatteam_playing")
 #      decoded = [el.decode("utf-8") for el in data]
       decoded = [el for el in data]
       self._messenger.guiUpdateChat("team", decoded)
 
 
    def response_ejected_default(self, tag, data):
+      print("response_ejected_default")
       self._messenger.guiAlert(data[0])
       self._state = "loggedin"
       self.sendTokens(self.genTag(), "listgames")
@@ -222,23 +243,28 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
    
 
    def response_no_login(self, tag, data):
+      print("response_no_login")
       self._messenger.guiAlert(data[0])
       self.transport.loseConnection()
 
 
    def response_no_language(self, tag, data):
+      print("response_no_language")
       self.response_ok_language(tag, data)
 
 
    def response_ok_endgame(self, tag, data):
+      print("response_ok_endgame")
       pass
 
 
    def response_ok_joined(self, tag, data):
+      print("response_ok_joined")
       pass
 
 
    def response_ok_language(self, tag, data):
+      print("response_ok_language")
       if tag == self._waitTag:
          self._state = "login"
          self.sendTokens(self.genTag(), "login", 
@@ -251,6 +277,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_login(self, tag, data):
+      print("response_ok_login")
       if tag == self._waitTag:
          self._state = "loggedin"
          self.sendTokens(self.genTag(), "listgames")
@@ -260,14 +287,17 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_loggedin(self, tag, data):
+      print("response_ok_loggedin")
       pass
 
 
    def response_ok_playing(self, tag, data):
+      print("response_ok_playing")
       pass
 
 
    def response_ok_protocol(self, tag, data):
+      print("response_ok_protocol")
       if tag == self._waitTag:
          lang = locale.getdefaultlocale()[0]
          if lang != None:
@@ -285,6 +315,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_tryjoin(self, tag, data):
+      print("response_ok_tryjoin")
       log.msg("called Protocol.response_ok_tryjoin()")
       if tag == self._waitTag:
          if self._game2Status[self._gameJoined] == GAMESTATUS_NEW:
@@ -299,6 +330,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_tryleave(self, tag, data):
+      print("response_ok_tryleave")
       log.msg("called Protocol.response_ok_tryleave()")
       if tag == self._waitTag:
          self._state = "loggedin"
@@ -309,6 +341,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_trylistai(self, tag, data):
+      print("response_ok_trylistai")
       log.msg("called Protocol.response_ok_trylistai()")
       if tag == self._waitTag:
          self._state = "loggedin"
@@ -318,6 +351,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_trymove(self, tag, data):
+      print("response_ok_trymove")
       log.msg("called Protocol.response_ok_trymove()")
       if tag == self._waitTag:
          self._state = "playing"
@@ -327,6 +361,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_trynewgame(self, tag, data):
+      print("response_ok_trynewgame")
       log.msg("called Protocol.response_ok_trynewgame()")
       if tag == self._waitTag:
          self._state = "joined"
@@ -337,27 +372,32 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_ok_tryrequestai(self, tag, data):
+      print("response_ok_tryrequestai")
       self._state = "joined"
 
 
    def response_no_trylistai(self, tag, data):
+      print("response_no_trylistai")
       log.msg("failed to list ai clients")
       self._state = "joined"
 
 
    def response_no_tryjoin(self, tag, data):
+      print("response_no_tryjoin")
       log.msg("denied entry to a game")
       self._messenger.guiAlert(data[0])
       self._state = "loggedin"
 
 
    def response_no_tryrequestai(self, tag, data):
+      print("response_no_tryrequestai")
       log.msg("AI client request denied")
       self._messenger.guiAlert(data[0])
       self._state = "joined"
       
 
    def response_gameinfo_loggedin(self, tag, data):
+      print("response_gameinfo_loggedin")
       log.msg("received gameinfo " + str(data))
 #      decoded = [data[0].decode("utf-8")] + data[1:]
       decoded = [data[0]] + data[1:]
@@ -366,10 +406,12 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_gameinfo_tryjoin(self, tag, data):
+      print("response_gameinfo_tryjoin")
       self.response_gameinfo_tryjoin(self, tag, data)
 
 
    def response_gameover_playing(self, tag, data):
+      print("response_gameover_playing")
       log.msg("received gameover " + str(data))
       self._state = "endgame"
       self._messenger.guiAlert(data[1])
@@ -378,6 +420,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_gameremoved_loggedin(self, tag, data):
+      print("response_gameremoved_loggedin")
       log.msg("received gameremoved info " + str(data))
 #      decoded = [el.decode("utf-8") for el in data]
       decoded = [el for el in data]
@@ -385,12 +428,14 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_gamestart_default(self, tag, data):
+      print("response_gamestart_default")
       log.msg("received gamestart " + str(data))
       self._state = "playing"
       self._messenger.guiUpdateStatusBar(_("Preparing to start the game..."))
 
 
    def response_history_endgame(self, tag, data):
+      print("response_history_endgame")
       log.msg("received history + " + str(data))
       if data[0] == "end":
          self._messenger.guiUpdateHistory(self._history)
@@ -402,29 +447,35 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
          
 
    def response_history_playing(self, tag, data):
+      print("response_history_playing")
       self.response_history_endgame(tag, data)
 
 
    def response_move_playing(self, tag, data):
+      print("received move " + str(data))    	
       log.msg("received move " + str(data))
       self._messenger.guiDisplayMove(data)
 
 
    def response_no_default(self, tag, data):
+      print("response_no_default")
       self._setPreviousState()
       self._messenger.guiAlert(data[0])
 
 
    def response_no_trysetteam(self, tag, data):
+      print("response_no_trysetteam")
       self._state = "joined"
       self._messenger.guiAlert(data[0])
 
 
    def response_ok_trysetteam(self, tag, data):
+      print("response_ok_trysetteam")
       self._state = "playing"
 
 
    def response_ok_tryvote(self, tag, data):
+      print("response_ok_tryvote") 
       self._state = "joined"
       self._messenger.guiDisableVoteButton()
 
@@ -442,6 +493,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
       
 
    def response_playerinfo_joined(self, tag, data):
+      print("response_playerinfo_joined")
       log.msg("received playerinfo " + str(data))
 #      decoded = [data[0].decode("utf-8")] + data[1:]
       decoded = [data[0]] + data[1:]
@@ -449,6 +501,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_playerinfo_default(self, tag, data):
+      print("response_playerinfo_default")
       log.msg("received playerinfo " + str(data))
 #      decoded = [data[0].decode("utf-8")] + data[1:]
       decoded = [data[0]] + data[1:]
@@ -456,6 +509,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_playerleave_joined(self, tag, data):
+      print("response_playerleave_joined")
       log.msg("received playerleave " + str(data))
 #      decoded = [el.decode("utf-8") for el in data]
       decoded = [el for el in data]
@@ -463,22 +517,30 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_playerleave_playing(self, tag, data):
+      print("response_playerleave_playing")
       log.msg("received playerleave " + str(data))
+#      self._messenger.guiAlert(_("Player \"%(playername)s\" disconnected from the server.") %
+#            {"playername" : data[0].decode("utf-8")})
       self._messenger.guiAlert(_("Player \"%(playername)s\" disconnected from the server.") %
-            {"playername" : data[0].decode("utf-8")})
+            {"playername" : data[0]})
 
 
    def response_playerleave_endgame(self, tag, data):
+      print("response_playerleave_endgame")
       self.response_playerleave_playing(tag, data)
 
 
    def response_rejoin_playing(self, tag, data):
+      print("response_rejoin_playing")
       log.msg("received rejoin " + str(data))
+#      self._messenger.guiAlert(_("Player \"%(playername)s\" has rejoined the game.") %
+#            {"playername" : data[0].decode("utf-8")})
       self._messenger.guiAlert(_("Player \"%(playername)s\" has rejoined the game.") %
-            {"playername" : data[0].decode("utf-8")})
+            {"playername" : data[0]})
 
 
    def response_stuck_playing(self, tag, data):
+      print("response_stuck_playing")
       log.msg("received stuck " + str(data))
       self._messenger.guiPawnStuck(data[0])
 
@@ -498,15 +560,18 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def setMessenger(self, m):
+      print("setMessenger")
       self._messenger = m
 
 
    def setTeam(self, team):
+      print("setTeam")
       self._state = "trysetteam"
       self.sendTokens(self.genTag(), "setteam", team)
 
 
    def sendChat(self, text, sendTo):
+      print("sendChat")
       if sendTo == _("all"):
          self.sendTokens(self.genTag(), "chatall", text.encode("utf-8"))
       elif sendTo == _("team"):
@@ -514,11 +579,13 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
 
    def shutdown(self):
+      print("shutdown")
       self._state = "shutdown"
       self.disconnect()
 
 
    def vote(self):
+      print("vote")
       self._state = "tryvote"
       self.sendTokens(self.genTag(), "votestart", "True")
 

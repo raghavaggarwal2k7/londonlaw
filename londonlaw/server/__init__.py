@@ -42,6 +42,7 @@ def init():
 ##   log.startLogging(sys.stdout, 0)
 ##   log.startLogging(open('./londonlaw-server.log', 'w'))
    options.dbdir=os.getcwd()+"/londonlaw/server"
+   deletedb(dbDir=options.dbdir)
    registry = GameRegistry.getHandle(dbDir=options.dbdir)
    # Purge expired games every half hour
    gameKiller = task.LoopingCall(registry.purgeExpiredGames)
@@ -52,4 +53,9 @@ def init():
    reactor.run()
    registry.close()
 
-
+def deletedb(dbDir):
+   if os.path.exists(os.path.join(dbDir, "londonlaw_games.db")): 	
+      os.remove(os.path.join(dbDir, "londonlaw_games.db")) 	
+   if os.path.exists(os.path.join(dbDir, "londonlaw_users.db")): 	
+      os.remove(os.path.join(dbDir, "londonlaw_users.db")) 	
+   	

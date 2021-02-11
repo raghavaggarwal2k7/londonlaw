@@ -31,7 +31,9 @@ class ConnectWindow(wx.Frame):
    def __init__(self, parent, ID, title, exitCallback):
       wx.Frame.__init__(self, parent, ID, title)
 
-      EXIT = 100
+      EXIT       = 100
+      CONNECT    = 101
+      ABOUTWIN   = 102
 
       self.exitCallback = exitCallback
       
@@ -51,12 +53,19 @@ class ConnectWindow(wx.Frame):
 
       # Create a menu bar
       # TRANSLATORS: this is a menu bar entry
-      fileMenu = wx.Menu(_("File"))
+#      fileMenu = wx.Menu(_("Connect"), _("Connect to: "))
+      fileMenu = wx.Menu()
+      fileMenu.Append(CONNECT, _("Connect%(hotkey)s") % {"hotkey" : "\tCTRL+V"}, _("Connect to: "))
       # TRANSLATORS: this is a menu bar entry
       fileMenu.Append(EXIT, _("Exit%(hotkey)s") % {"hotkey" : "\tCTRL+Q"}, "Exit London Law")
       menuBar = wx.MenuBar()
+
+      helpMenu = wx.Menu()
+      helpMenu.Append(ABOUTWIN, _("About%(hotkey)s") % {"hotkey" : "\tCTRL+A"}, _("About"))
+
       # TRANSLATORS: this is a menu bar entry
       menuBar.Append(fileMenu, _("File"))
+      menuBar.Append(helpMenu, _("Help"))
       self.SetMenuBar(menuBar)
 
       # Create a status bar
@@ -131,18 +140,24 @@ class ConnectWindow(wx.Frame):
 
       self.hostEntry.SetFocus()
 
-#      wx.EVT_SET_FOCUS(self.hostEntry, self.selectFocused)
       self.hostEntry.Bind(wx.EVT_SET_FOCUS, self.selectFocused)
-#      wx.EVT_SET_FOCUS(self.portEntry, self.selectFocused)
       self.portEntry.Bind(wx.EVT_SET_FOCUS, self.selectFocused)
-#      wx.EVT_SET_FOCUS(self.usernameEntry, self.selectFocused)
       self.usernameEntry.Bind(wx.EVT_SET_FOCUS, self.selectFocused)
-#      wx.EVT_SET_FOCUS(self.passEntry, self.selectFocused)
       self.passEntry.Bind(wx.EVT_SET_FOCUS,self.selectFocused)
-#      wx.EVT_BUTTON(self, self.quitButton.GetId(), self.menuExit)
       self.quitButton.Bind(wx.EVT_BUTTON,self.menuExit)
-#      wx.EVT_MENU(self, EXIT, self.menuExit)
-      self.Bind(wx.EVT_MENU, self.menuExit, id=wx.ID_EXIT)
+#      self.Bind(wx.EVT_MENU, self.connectButton, id=CONNECT)
+      self.Bind(wx.EVT_MENU, self.showAboutWin, id=ABOUTWIN)
+      self.Bind(wx.EVT_MENU, self.menuExit, id=EXIT)
+
+
+   # display the About dialog
+   def showAboutWin(self, event):
+      about = wx.MessageDialog(self, 
+              _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
+              {"version" : LLAW_VERSION},
+              _("About London Law"), wx.OK|wx.ICON_INFORMATION)
+      about.ShowModal()
+
 
    # select contents of a focused wx.TextCtrl
    def selectFocused(self, ev):

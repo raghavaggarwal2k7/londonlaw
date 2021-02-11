@@ -113,16 +113,23 @@ class GameListWindow(wx.Frame):
 
       DISCONNECT = 100
       EXIT       = 101
+      ABOUTWIN   = 102
 
       # Create a menu bar
       # TRANSLATORS: this is a menu bar entry
-      fileMenu = wx.Menu(_("File"))
+#      fileMenu = wx.Menu(_("File"))
+      fileMenu = wx.Menu()
       # TRANSLATORS: this is a menu bar entry
       fileMenu.Append(DISCONNECT, _("Disconnect"), _("Disconnect from server"))
       fileMenu.Append(EXIT, _("Exit%(hotkey)s") % {"hotkey" : "\tCTRL+Q"}, _("Exit London Law"))
+
+      helpMenu = wx.Menu()
+      helpMenu.Append(ABOUTWIN, _("About%(hotkey)s") % {"hotkey" : "\tCTRL+A"}, _("About"))
+
       menuBar = wx.MenuBar()
       # TRANSLATORS: this is a menu bar entry
       menuBar.Append(fileMenu, _("File"))
+      menuBar.Append(helpMenu, _("Help"))
       self.SetMenuBar(menuBar)
 
       self.status = self.CreateStatusBar()
@@ -162,20 +169,23 @@ class GameListWindow(wx.Frame):
       mainPanel.SetSizer(mainSizer)
       mainSizer.Fit(mainPanel)
 
-#      wx.EVT_CLOSE(self, self.menuExit)
       self.Bind(wx.EVT_CLOSE, self.menuExit)
-#      wx.EVT_MENU(self, EXIT, self.menuExit)
       self.Bind(wx.EVT_MENU, self.menuExit, id=EXIT)
-#      wx.EVT_MENU(self, DISCONNECT, self.menuDisconnect)
       self.Bind(wx.EVT_MENU, self.menuDisconnect, id=DISCONNECT) 
-#      wx.EVT_LIST_ITEM_SELECTED(self, self.list.GetId(), self.enableSelectButton)
       self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enableSelectButton, id=self.list.GetId())
-#      wx.EVT_LIST_ITEM_DESELECTED(self, self.list.GetId(), self.disableSelectButton)
       self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disableSelectButton, id=self.list.GetId())
-#      wx.EVT_BUTTON(self, self.selectButton.GetId(), self.joinGame)
       self.Bind(wx.EVT_BUTTON, self.joinGame, id=self.selectButton.GetId())
-#      wx.EVT_BUTTON(self, self.createButton.GetId(), self.createGame)
       self.Bind(wx.EVT_BUTTON, self.createGame, id=self.createButton.GetId())
+      self.Bind(wx.EVT_MENU, self.showAboutWin, id=ABOUTWIN)
+
+
+   # display the About dialog
+   def showAboutWin(self, event):
+      about = wx.MessageDialog(self, 
+              _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
+              {"version" : LLAW_VERSION},
+              _("About London Law"), wx.OK|wx.ICON_INFORMATION)
+      about.ShowModal()
 
 
    def addGame(self, data):

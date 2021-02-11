@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: London Law 0.3.0\n"
 "Report-Msgid-Bugs-To: pelzlpj@eecs.umich.edu\n"
-"POT-Creation-Date: 2021-02-09 09:30+0100\n"
+"POT-Creation-Date: 2021-02-09 09:40+0100\n"
 "PO-Revision-Date: 2005-08-23 01:50-0400\n"
 "Last-Translator: Paul Pelzl <pelzlpj@eecs.umich.edu>\n"
 "Language-Team: english <londonlaw-users@freelists.org>\n"
@@ -67,9 +67,7 @@ msgstr ""
 
 #: server/Game.py:390
 #, python-format
-msgid ""
-"Mr. X was caught by the %(color)s Detective at location %(number)d.  The "
-"detectives win!"
+msgid "Mr. X was caught by the %(color)s Detective at location %(number)d.  The detectives win!"
 msgstr ""
 
 #: server/Game.py:470
@@ -93,9 +91,7 @@ msgid "Purging expired games"
 msgstr ""
 
 #: server/GameRegistry.py:163
-msgid ""
-"admin login disabled.  Consult the user manual to enable administrator "
-"access."
+msgid "admin login disabled.  Consult the user manual to enable administrator access."
 msgstr ""
 
 #: server/GameRegistry.py:165 server/GameRegistry.py:172
@@ -558,8 +554,7 @@ msgstr ""
 
 #: guiclient/MainWindow.py:451
 #, python-format
-msgid ""
-"London Law v%(version)s\n"
+msgid "London Law v%(version)s\n"
 "\n"
 "A multiplayer manhunting adventure by Paul Pelzl"
 msgstr ""
@@ -819,3 +814,8 @@ msgstr ""
 #: london-client:44
 msgid "Not yet ready for Python3!"
 msgstr ""
+
+#: GameListWindow.py:208
+msgid "Unrecognized game name."
+msgstr ""
+

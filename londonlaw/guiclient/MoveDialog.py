@@ -63,15 +63,15 @@ class MoveDialog(wx.Dialog):
    def __init__(self, parent, ID, destPos, playerList, playerIdx, messenger, destroyedCallback):
       title=_("Choose a Move")
       if playerIdx == 1:
-         title=title+" - "+_("red")
+         title=title+" - "+_("Red")
       elif playerIdx == 2:
-         title=title+" - "+_("yellow")
+         title=title+" - "+_("Yellow")
       elif playerIdx == 3:
-         title=title+" - "+_("green")
+         title=title+" - "+_("Green")
       elif playerIdx == 4:
-         title=title+" - "+_("blue")
+         title=title+" - "+_("Blue")
       elif playerIdx == 5:
-         title=title+" - "+_("black")
+         title=title+" - "+_("Black")
       else:
          title=title+" - Mr.X"
 #      wx.Dialog.__init__(self, parent, ID, _("Choose a Move"))
@@ -85,6 +85,10 @@ class MoveDialog(wx.Dialog):
       self.currPos           = self.playerList[self.playerIdx][1]
       self.messenger         = messenger
       self.destroyedCallback = destroyedCallback
+      print("movedialog playerIdx,playerlist,currpos")
+      print(playerIdx)
+      print(playerList)
+      print(self.currPos)
 
       # Mr. X gets the option of a double move
       if self.playerIdx == 0:
@@ -237,10 +241,12 @@ class MoveDialog(wx.Dialog):
 #      wx.EVT_CHOICE(self, self.dest1Box.GetId(), self.updateTrans1)
       self.Bind(wx.EVT_BUTTON, self.OnCancel, id=wx.ID_CANCEL)
       self.Bind(wx.EVT_BUTTON, self.OnOK, id=wx.ID_OK)
-      self.Bind(wx.EVT_BUTTON, self.updateTrans1, id=self.dest1Box.GetId())
+      self.Bind(wx.EVT_CHOICE, self.updateTrans1, id=self.dest1Box.GetId())
       if self.playerIdx == 0:
-         wx.EVT_CHOICE(self, self.dest2Box.GetId(), self.updateTrans2Evt)
-         wx.EVT_RADIOBOX(self, self.moveType.GetId(), self.updateDouble)
+#         wx.EVT_CHOICE(self, self.dest2Box.GetId(), self.updateTrans2Evt)
+#         wx.EVT_RADIOBOX(self, self.moveType.GetId(), self.updateDouble)
+         self.Bind(wx.EVT_CHOICE, self.updateTrans2Evt, id=self.dest2Box.GetId())
+         self.Bind(wx.EVT_RADIOBOX, self.updateDouble, id=self.moveType.GetId()) 
 
 
    def drawMoveErrorDialog(self):
@@ -293,19 +299,21 @@ class MoveDialog(wx.Dialog):
    # after choosing a destination to move to, update the associated 
    # list of transportations
    def updateTrans1(self, event):
+      print("updateTrans1-start")   	
       if len(self.moves) > 0:
          self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
             self.playerList[self.playerIdx][2], self.playerIdx)
       else:
          self.trans    = []
          self.transStr = []
-      self.move1Sizer.Remove(self.trans1Box)
+#      self.move1Sizer.Remove(self.trans1Box)
       self.trans1Box.Destroy()
       self.trans1Box = wx.Choice(self.panel, self.trans1ID, wx.DefaultPosition, wx.DefaultSize, self.transStr)
       self.trans1Box.SetSelection(0)
       self.move1Sizer.Add(self.trans1Box, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
       self.move1Sizer.Layout()
       self.updateDest2()
+      print("updateTrans1-end")   	
 
 
    def updateDest2(self):
@@ -412,6 +420,8 @@ class MoveDialog(wx.Dialog):
             tret = "black"
          move.append(tret)
 
+      print("OnOK")
+      print(move)
       self.messenger.netMakeMove(move) 
       self.destroyedCallback()
       self.Destroy()

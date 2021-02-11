@@ -251,7 +251,6 @@ maskImageFile = os.path.join(MEDIAROOT, "images/map-number-mask.png")
 # locations that overlap those grids.
 def generateGridHash():
    gridHash.clear()
-   print("generategridhash,mapsize,gridsize")
    for i in list(range(int(MAPSIZE[0]/GRIDSIZE[0] + 1))):
       for j in list(range(int(MAPSIZE[1]/GRIDSIZE[1] + 1))):
          grid = (i*GRIDSIZE[0], j*GRIDSIZE[1], GRIDSIZE[0], GRIDSIZE[1])

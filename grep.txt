@@ -1,22 +1,57 @@
-./londonlaw/guiclient/HistoryWindow.py:      self.vbSizers     = []
-./londonlaw/guiclient/HistoryWindow.py:         self.vbSizers.append(wx.BoxSizer(wx.VERTICAL))
-./londonlaw/guiclient/HistoryWindow.py:         self.vbSizers[i].Add(self.turns[i], 1, wx.EXPAND|wx.CENTRE|wx.ADJUST_MINSIZE)
-./londonlaw/guiclient/HistoryWindow.py:         self.vbSizers[i].Add(self.locations[i], 1, wx.EXPAND|wx.CENTRE|wx.ADJUST_MINSIZE)
-./londonlaw/guiclient/HistoryWindow.py:         self.panelSizers[i].Add(self.vbSizers[i], 1, wx.EXPAND)
-./londonlaw/guiclient/HistoryWindow.py:#      self.vbSizers[turnNum].Remove(self.locations[turnNum])
-./londonlaw/guiclient/HistoryWindow.py:#      self.vbSizers[turnNum].Add(self.locations[turnNum], 1, wx.EXPAND|wx.CENTRE)
-./londonlaw/guiclient/HistoryWindow.py~:      self.vbSizers     = []
-./londonlaw/guiclient/HistoryWindow.py~:         self.vbSizers.append(wx.BoxSizer(wx.VERTICAL))
-./londonlaw/guiclient/HistoryWindow.py~:         self.vbSizers[i].Add(self.turns[i], 1, wx.EXPAND|wx.CENTRE|wx.ADJUST_MINSIZE)
-./londonlaw/guiclient/HistoryWindow.py~:         self.vbSizers[i].Add(self.locations[i], 1, wx.EXPAND|wx.CENTRE|wx.ADJUST_MINSIZE)
-./londonlaw/guiclient/HistoryWindow.py~:         self.panelSizers[i].Add(self.vbSizers[i], 1, wx.EXPAND)
-./londonlaw/guiclient/HistoryWindow.py~:#      self.vbSizers[turnNum].Remove(self.locations[turnNum])
-./londonlaw/guiclient/HistoryWindow.py~:#      self.vbSizers[turnNum].Add(self.locations[turnNum], 1, wx.EXPAND|wx.CENTRE)
-Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/HistoryWindow.cpython-38.pyc
-./build/lib/londonlaw/guiclient/HistoryWindow.py:      self.vbSizers     = []
-./build/lib/londonlaw/guiclient/HistoryWindow.py:         self.vbSizers.append(wx.BoxSizer(wx.VERTICAL))
-./build/lib/londonlaw/guiclient/HistoryWindow.py:         self.vbSizers[i].Add(self.turns[i], 1, wx.EXPAND|wx.CENTRE|wx.ADJUST_MINSIZE)
-./build/lib/londonlaw/guiclient/HistoryWindow.py:         self.vbSizers[i].Add(self.locations[i], 1, wx.EXPAND|wx.CENTRE|wx.ADJUST_MINSIZE)
-./build/lib/londonlaw/guiclient/HistoryWindow.py:         self.panelSizers[i].Add(self.vbSizers[i], 1, wx.EXPAND)
-./build/lib/londonlaw/guiclient/HistoryWindow.py:      self.vbSizers[turnNum].Remove(self.locations[turnNum])
-./build/lib/londonlaw/guiclient/HistoryWindow.py:      self.vbSizers[turnNum].Add(self.locations[turnNum], 1, wx.EXPAND|wx.CENTRE)
+./londonlaw/guiclient/MoveDialog.py:      self.dest1Box = wx.Choice(self.panel, -1, wx.DefaultPosition, wx.DefaultSize, self.movesStr)
+./londonlaw/guiclient/MoveDialog.py:      self.dest1Box.SetSelection(0)
+./londonlaw/guiclient/MoveDialog.py:               self.dest1Box.SetSelection(i)
+./londonlaw/guiclient/MoveDialog.py:         self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py:               {"number" : self.dest1Box.GetStringSelection()}, wx.Point(0,0))
+./londonlaw/guiclient/MoveDialog.py:            player.append(self.moves[self.dest1Box.GetSelection()])
+./londonlaw/guiclient/MoveDialog.py:            self.moves2, self.moves2Str = self.getAvailMoves(self.moves[self.dest1Box.GetSelection()], pl2, 0)
+./londonlaw/guiclient/MoveDialog.py:            self.trans2, self.trans2Str = self.getAvailTransports(self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py:      self.move1Sizer.Add(self.dest1Box, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
+./londonlaw/guiclient/MoveDialog.py:      self.dest1Box.SetFocus()
+./londonlaw/guiclient/MoveDialog.py:#      wx.EVT_CHOICE(self, self.dest1Box.GetId(), self.updateTrans1)
+./londonlaw/guiclient/MoveDialog.py:      self.Bind(wx.EVT_BUTTON, self.updateTrans1, id=self.dest1Box.GetId())
+./londonlaw/guiclient/MoveDialog.py:               self.dest1Box.SetSelection(i)
+./londonlaw/guiclient/MoveDialog.py:         self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py:         self.pos2Label.SetLabel(_("Move from %(number)s to ") % {"number" : self.dest1Box.GetStringSelection()})
+./londonlaw/guiclient/MoveDialog.py:            player.append(self.moves[self.dest1Box.GetSelection()])
+./londonlaw/guiclient/MoveDialog.py:            self.moves2, self.moves2Str = self.getAvailMoves(self.moves[self.dest1Box.GetSelection()], pl2, 0)
+./londonlaw/guiclient/MoveDialog.py:         self.trans2, self.trans2Str = self.getAvailTransports(self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py:      move.append(self.dest1Box.GetStringSelection())
+Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/MoveDialog.cpython-38.pyc
+./londonlaw/guiclient/MoveDialog.py~:      self.dest1Box = wx.Choice(self.panel, -1, wx.DefaultPosition, wx.DefaultSize, self.movesStr)
+./londonlaw/guiclient/MoveDialog.py~:      self.dest1Box.SetSelection(0)
+./londonlaw/guiclient/MoveDialog.py~:               self.dest1Box.SetSelection(i)
+./londonlaw/guiclient/MoveDialog.py~:         self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py~:               {"number" : self.dest1Box.GetStringSelection()}, wx.Point(0,0))
+./londonlaw/guiclient/MoveDialog.py~:            player.append(self.moves[self.dest1Box.GetSelection()])
+./londonlaw/guiclient/MoveDialog.py~:            self.moves2, self.moves2Str = self.getAvailMoves(self.moves[self.dest1Box.GetSelection()], pl2, 0)
+./londonlaw/guiclient/MoveDialog.py~:            self.trans2, self.trans2Str = self.getAvailTransports(self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py~:      self.move1Sizer.Add(self.dest1Box, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
+./londonlaw/guiclient/MoveDialog.py~:      self.dest1Box.SetFocus()
+./londonlaw/guiclient/MoveDialog.py~:#      wx.EVT_CHOICE(self, self.dest1Box.GetId(), self.updateTrans1)
+./londonlaw/guiclient/MoveDialog.py~:      self.Bind(wx.EVT_BUTTON, self.updateTrans1, id=self.dest1Box.GetId())
+./londonlaw/guiclient/MoveDialog.py~:               self.dest1Box.SetSelection(i)
+./londonlaw/guiclient/MoveDialog.py~:         self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py~:         self.pos2Label.SetLabel(_("Move from %(number)s to ") % {"number" : self.dest1Box.GetStringSelection()})
+./londonlaw/guiclient/MoveDialog.py~:            player.append(self.moves[self.dest1Box.GetSelection()])
+./londonlaw/guiclient/MoveDialog.py~:            self.moves2, self.moves2Str = self.getAvailMoves(self.moves[self.dest1Box.GetSelection()], pl2, 0)
+./londonlaw/guiclient/MoveDialog.py~:         self.trans2, self.trans2Str = self.getAvailTransports(self.moves[self.dest1Box.GetSelection()],
+./londonlaw/guiclient/MoveDialog.py~:      move.append(self.dest1Box.GetStringSelection())
+./build/lib/londonlaw/guiclient/MoveDialog.py:      self.dest1Box = wx.Choice(self.panel, -1, wx.DefaultPosition, wx.DefaultSize, self.movesStr)
+./build/lib/londonlaw/guiclient/MoveDialog.py:      self.dest1Box.SetSelection(0)
+./build/lib/londonlaw/guiclient/MoveDialog.py:               self.dest1Box.SetSelection(i)
+./build/lib/londonlaw/guiclient/MoveDialog.py:         self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
+./build/lib/londonlaw/guiclient/MoveDialog.py:               {"number" : self.dest1Box.GetStringSelection()}, wx.Point(0,0))
+./build/lib/londonlaw/guiclient/MoveDialog.py:            player.append(self.moves[self.dest1Box.GetSelection()])
+./build/lib/londonlaw/guiclient/MoveDialog.py:            self.moves2, self.moves2Str = self.getAvailMoves(self.moves[self.dest1Box.GetSelection()], pl2, 0)
+./build/lib/londonlaw/guiclient/MoveDialog.py:            self.trans2, self.trans2Str = self.getAvailTransports(self.moves[self.dest1Box.GetSelection()],
+./build/lib/londonlaw/guiclient/MoveDialog.py:      self.move1Sizer.Add(self.dest1Box, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
+./build/lib/londonlaw/guiclient/MoveDialog.py:      self.dest1Box.SetFocus()
+./build/lib/londonlaw/guiclient/MoveDialog.py:      wx.EVT_CHOICE(self, self.dest1Box.GetId(), self.updateTrans1)
+./build/lib/londonlaw/guiclient/MoveDialog.py:               self.dest1Box.SetSelection(i)
+./build/lib/londonlaw/guiclient/MoveDialog.py:         self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
+./build/lib/londonlaw/guiclient/MoveDialog.py:         self.pos2Label.SetLabel(_("Move from %(number)s to ") % {"number" : self.dest1Box.GetStringSelection()})
+./build/lib/londonlaw/guiclient/MoveDialog.py:            player.append(self.moves[self.dest1Box.GetSelection()])
+./build/lib/londonlaw/guiclient/MoveDialog.py:            self.moves2, self.moves2Str = self.getAvailMoves(self.moves[self.dest1Box.GetSelection()], pl2, 0)
+./build/lib/londonlaw/guiclient/MoveDialog.py:         self.trans2, self.trans2Str = self.getAvailTransports(self.moves[self.dest1Box.GetSelection()],
+./build/lib/londonlaw/guiclient/MoveDialog.py:      move.append(self.dest1Box.GetStringSelection())
