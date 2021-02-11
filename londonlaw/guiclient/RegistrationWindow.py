@@ -174,7 +174,8 @@ class RegistrationWindow(wx.Frame):
       self.list.SetColumnWidth(1, 140) 
 
       mainSizer = wx.BoxSizer(wx.VERTICAL)
-      mainSizer.Add(self.list, 3, wx.ALIGN_CENTRE|wx.EXPAND|wx.ALL, 5)
+#      mainSizer.Add(self.list, 3, wx.ALIGN_CENTRE|wx.EXPAND|wx.ALL, 5)
+      mainSizer.Add(self.list, 3, wx.ALIGN_CENTRE|wx.ALL, 5)
 
       self.chatWindow = ChatPanel(mainPanel, "", False)
       mainSizer.Add(self.chatWindow, 2, wx.EXPAND|wx.ALL, 5)
