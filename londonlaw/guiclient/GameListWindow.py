@@ -152,7 +152,8 @@ class GameListWindow(wx.Frame):
       self.list.SetColumnWidth(2, 140) 
 
       mainSizer = wx.BoxSizer(wx.VERTICAL)
-      mainSizer.Add(self.list, 1, wx.ALIGN_CENTRE|wx.EXPAND|wx.ALL, 5)
+#      mainSizer.Add(self.list, 1, wx.ALIGN_CENTRE|wx.EXPAND|wx.ALL, 5)
+      mainSizer.Add(self.list, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
 
       self.selectButton = wx.Button(mainPanel, -1, _("Join Game"))
       self.selectButton.Disable()
