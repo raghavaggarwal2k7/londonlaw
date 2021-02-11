@@ -3,6 +3,8 @@ git.sh
 git.sh~
 run.sh
 run.sh~
+run.bat
+run.bat~
 *.py~
 *.txt~
 *.json~

@@ -17,17 +17,17 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import gettext, sys, os, io
+import gettext, sys, os
 import locale
 
-sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 try:
     import guiclient
 #    cwd = os.path.split(os.path.abspath(os.getcwd()))
     cwd=os.getcwd()
 #    print("Pfad="+cwd+"\n")
-    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
+    trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", ["de"])
+    trans.install()
+#    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
 #    locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
     encoding=locale.getdefaultlocale()
     print ("encoding: "+format(encoding)+"," )    
