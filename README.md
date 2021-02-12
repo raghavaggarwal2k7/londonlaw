@@ -45,6 +45,23 @@ get started:
   python3 londonlaw/london-client.py [ip-adress] [player] [password] [gamename]<br>
   (The parameters are optional.)
 
+<h3>For Windows</h3>
+Check, if you have Python3 installed:<br>
+<code>python --version</code><br>
+Python 3.8.5
+
+Install the libraries, you need administration rights:<br>
+<code>pip install wxpython</code> (only for the client)<br>
+<code>pip install twisted</code>
+
+* Run Server:<br>
+  python londonlaw/london-server.py
+
+* Run Client:<br>
+  python londonlaw/london-client.py [ip-adress] [player] [password] [gamename]<br>
+  (The parameters are optional.)
+
+
 Changes
 -------
 
