@@ -168,8 +168,9 @@ class ConnectWindow(wx.Frame):
       info.Version = LLAW_VERSION
       info.Copyright = '(C) GPL-2.0 Licence'
       info.Description = "A multiplayer manhunting adventure by Paul Pelzl\n modified by Horst Aldebaran"
-      info.SetWebSite = ('https://github.com/horald/londonlaw','Website')
+      info.SetWebSite = ('https://github.com/horald/londonlaw')
       info.Developers = [ 'Paul Pelzl, Horst Aldebaran']
+      info.AddTranslator('Horst Meyer')
 
       # Then we call wx.AboutBox giving it that info object
       wx.adv.AboutBox(info)    	

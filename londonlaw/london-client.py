@@ -25,13 +25,12 @@ try:
 #    cwd = os.path.split(os.path.abspath(os.getcwd()))
     cwd=os.getcwd()
 #    print("Pfad="+cwd+"\n")
-    print(os.environ['LANGUAGE'])
     trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", [os.environ['LANGUAGE']])
     trans.install()
 #    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
 #    locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
     encoding=locale.getdefaultlocale()
-    print ("encoding: "+format(encoding)+"," )    
+#    print ("encoding: "+format(encoding)+"," )    
     print (_("Attempting to launch client from current directory..."))
 except:
     gettext.install("londonlaw", "locale") # use local locale directory if launching locally

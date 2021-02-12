@@ -128,7 +128,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 #            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
             g = GameRegistry.registry.getGame(args[0])
          except KeyError:
-            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+#            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+            raise DeniedCommand(_("Unrecognized game name."))
 
          playerList = g.getPlayers()[:]
          for player in playerList:
@@ -209,7 +210,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
          try:
             g = GameRegistry.registry.getGame(game)
          except KeyError:
-            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+#            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+            raise DeniedCommand(_("Unrecognized game name."))
          
          if g.getStatus() == GAMESTATUS_NEW or g.getStatus() == GAMESTATUS_COMPLETE:
             if player in g.getPlayers():
@@ -298,7 +300,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
                self._state = "playing"
                self._game.syncPlayer(self._username)
          except KeyError:
-            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+#            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+            raise DeniedCommand(_("Unrecognized game name."))
          except TeamError as e:
             raise DeniedCommand(self.trans.gettext(e.ustr()))
          except GameError as e:
@@ -358,7 +361,8 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
 #            g = GameRegistry.registry.getGame(args[0].decode("utf-8"))
             g = GameRegistry.registry.getGame(args[0])
          except KeyError:
-            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+#            raise DeniedCommand(self.trans.gettext("Unrecognized game name."))
+            raise DeniedCommand(_("Unrecognized game name.").decode())
       elif self._state == "joined":
          g = self._game
       else:

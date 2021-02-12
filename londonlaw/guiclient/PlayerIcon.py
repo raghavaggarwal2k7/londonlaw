@@ -41,6 +41,8 @@ class PlayerIcon(wx.Panel):
       self.isStuck   = False
       self.isMrX     = isMrX
 
+      print("PlayerIcon")
+      print(name)
       # load the image
       iconImage = wx.Image(imagefile, wx.BITMAP_TYPE_ANY)
       # we need an extra copy of the player icon, so we can blit to one of them in memory
@@ -71,7 +73,8 @@ class PlayerIcon(wx.Panel):
 
 
       # create the caption
-      self.caption = TextPanel(self, " "+name[:20]+" ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
+#      self.caption = TextPanel(self, " "+name[:20]+" ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
+      self.caption = TextPanel(self, " name ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
 
       # create the inventory labels
       if self.isMrX:

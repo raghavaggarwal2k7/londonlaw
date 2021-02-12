@@ -229,7 +229,7 @@ class GameListWindow(wx.Frame):
       self.PushStatusText("")
 #      print(info.decode("utf-8", errors="ignore"))
       print(_("Unrecognized game name."))
-      alert = wx.MessageDialog(self, _(info),
+      alert = wx.MessageDialog(self, str(info)[2:-1],
          # TRANSLATORS: this is the title for a small alert window that pops up when the server reports an error
          _("Server Message"), wx.OK|wx.ICON_INFORMATION)
       alert.ShowModal()
