@@ -24,8 +24,9 @@ try:
 #   gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
     cwd=os.getcwd()
 #    print("Pfad="+cwd+"\n")
-    trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", [os.environ['LANGUAGE']])
-    trans.install()
+    if "LANGUAGE" in os.environ:
+       trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", [os.environ['LANGUAGE']])
+       trans.install()
 #    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
     encoding=locale.getdefaultlocale()
 #    print ("encoding: "+format(encoding)+"," )    

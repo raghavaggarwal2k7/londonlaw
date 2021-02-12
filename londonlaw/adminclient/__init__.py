@@ -50,7 +50,7 @@ def init():
    if len(args) < 1:
       print(usage)
    else:
-      log.startLogging(sys.stdout, 0)
+#      log.startLogging(sys.stdout, 0)
       reactor.connectTCP(options.host, int(options.port), AdminClientFactory(args[0]))
       reactor.run()
 

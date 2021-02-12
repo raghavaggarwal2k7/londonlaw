@@ -25,8 +25,9 @@ try:
 #    cwd = os.path.split(os.path.abspath(os.getcwd()))
     cwd=os.getcwd()
 #    print("Pfad="+cwd+"\n")
-    trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", [os.environ['LANGUAGE']])
-    trans.install()
+    if "LANGUAGE" in os.environ:
+       trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", [os.environ['LANGUAGE']])
+       trans.install()
 #    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
 #    locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
     encoding=locale.getdefaultlocale()

@@ -1,41 +1,7 @@
-./londonlaw/locale/es/LC_MESSAGES/es.po:msgid "Server Message"
-Übereinstimmungen in Binärdatei ./londonlaw/locale/es/LC_MESSAGES/londonlaw.mo
-Übereinstimmungen in Binärdatei ./londonlaw/locale/af/LC_MESSAGES/londonlaw.mo
-./londonlaw/locale/af/LC_MESSAGES/af.po:msgid "Server Message"
-./londonlaw/locale/londonlaw.pot:msgid "Server Message"
-./londonlaw/locale/sv/LC_MESSAGES/sv.po:msgid "Server Message"
-./londonlaw/locale/pl/LC_MESSAGES/pl.po:msgid "Server Message"
-Übereinstimmungen in Binärdatei ./londonlaw/locale/pl/LC_MESSAGES/londonlaw.mo
-Übereinstimmungen in Binärdatei ./londonlaw/locale/el/LC_MESSAGES/londonlaw.mo
-./londonlaw/locale/el/LC_MESSAGES/el.po:msgid "Server Message"
-./londonlaw/locale/fi/LC_MESSAGES/fi.po:msgid "Server Message"
-Übereinstimmungen in Binärdatei ./londonlaw/locale/fi/LC_MESSAGES/londonlaw.mo
-./londonlaw/locale/nb/LC_MESSAGES/nb.po:msgid "Server Message"
-./londonlaw/locale/fr/LC_MESSAGES/fr.po:msgid "Server Message"
-Übereinstimmungen in Binärdatei ./londonlaw/locale/fr/LC_MESSAGES/londonlaw.mo
-./londonlaw/locale/de/LC_MESSAGES/de.po:msgid "Server Message"
-Übereinstimmungen in Binärdatei ./londonlaw/locale/de/LC_MESSAGES/londonlaw.mo
-./londonlaw/locale/de/LC_MESSAGES/de (Kopie 1).po:msgid "Server Message"
-./londonlaw/locale/de/LC_MESSAGES/de.po~:msgid "Server Message"
-Übereinstimmungen in Binärdatei ./londonlaw/locale/de/LC_MESSAGES/de.mo
-Übereinstimmungen in Binärdatei ./londonlaw/locale/it/LC_MESSAGES/londonlaw.mo
-./londonlaw/locale/it/LC_MESSAGES/it.po:msgid "Server Message"
-./londonlaw/locale/nl/LC_MESSAGES/nl.po:msgid "Server Message"
-Übereinstimmungen in Binärdatei ./londonlaw/locale/nl/LC_MESSAGES/londonlaw.mo
-./londonlaw/locale/londonlaw.pot~:msgid "Server Message"
-./londonlaw/guiclient/GameListWindow.py~:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./londonlaw/guiclient/ConnectWindow.py~:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./londonlaw/guiclient/RegistrationWindow.py~:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./londonlaw/guiclient/ConnectWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./londonlaw/guiclient/MainWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./londonlaw/guiclient/RegistrationWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/RegistrationWindow.cpython-38.pyc
-Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/MainWindow.cpython-38.pyc
-Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/GameListWindow.cpython-38.pyc
-Übereinstimmungen in Binärdatei ./londonlaw/guiclient/__pycache__/ConnectWindow.cpython-38.pyc
-./londonlaw/guiclient/MainWindow.py~:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./londonlaw/guiclient/GameListWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./build/lib/londonlaw/guiclient/ConnectWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./build/lib/londonlaw/guiclient/MainWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./build/lib/londonlaw/guiclient/RegistrationWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
-./build/lib/londonlaw/guiclient/GameListWindow.py:         _("Server Message"), wx.OK|wx.ICON_INFORMATION)
+Übereinstimmungen in Binärdatei ./.git/index
+./londonlaw/guiclient/HistoryWindow.py:from .TextPanel import *
+./londonlaw/guiclient/HistoryWindow.py:         self.turns.append(TextPanel(self.panels[i], _(" Turn %(num)d ") % {"num" : i+1},
+./londonlaw/guiclient/HistoryWindow.py:         self.locations.append(TextPanel(self.panels[i], " ", 16, 0))
+./londonlaw/guiclient/HistoryWindow.py:      self.locations[turnNum] = TextPanel(self.panels[turnNum], " " + locStr + " ",
+./londonlaw/guiclient/MapWindow.py:from .TextPanel import *
+./londonlaw/guiclient/MapWindow.py:         self.labels.append(TextPanel(self, " " + usernameList[i][:20] + " ", 10, wx.SIMPLE_BORDER))

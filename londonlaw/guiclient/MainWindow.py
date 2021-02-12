@@ -139,10 +139,10 @@ class MainWindow(wx.Frame):
          
       if self.isMrX:
          # TRANSLATORS: this is the main game window title
-         self.SetTitle(_("London Law -- Mr. X"))
+         self.SetTitle(_("London Law -- Mr. X - ")+username)
       else:
          # TRANSLATORS: this is the main game window title
-         self.SetTitle(_("London Law -- Detectives"))
+         self.SetTitle(_("London Law -- Detectives - ")+username)
       
       # create a chat view and chat entry area
       self.chatWindow = ChatPanel(self.panel, "", not self.isMrX)
@@ -258,8 +258,6 @@ class MainWindow(wx.Frame):
 
 
    def displayMove(self, data):
-      print("displaymove-start")  
-      print(data) 	
       mover  = self.pawnName2Index[data[0]]
       loc    = int(data[1])
       ticket = data[2]
@@ -269,7 +267,6 @@ class MainWindow(wx.Frame):
          # it can be done more effectively than redrawing the entire MapWindow.
          self.mapWindow.redraw()
 
-      print("displaymove1")   	
       # update ticket inventories
       pawn    = self.playerList[mover]
       pawn[1] = loc
@@ -297,7 +294,6 @@ class MainWindow(wx.Frame):
          pawn[2][4] -= 1
       self.icons.players[mover].updateTokens(pawn[2])
 
-      print("displaymove2")   	
       if mover == 0:
          self.historyWin.setTicket(self.turn - 1, self.ticketName2Index[ticket])
          if loc == -1:
@@ -328,7 +324,6 @@ class MainWindow(wx.Frame):
       else:
          print("unrecognized mover: " + str(mover))
 
-      print("displaymove3")   	
       # pop up an alert box when X uses a double move
       if mover == self.lastMover and not self.isMrX:
          alert = wx.MessageDialog(self, _("Mr. X just used a double move ticket!"),
@@ -337,7 +332,6 @@ class MainWindow(wx.Frame):
          alert.ShowModal()
 
       self.lastMover = mover
-      print("displaymove-end")   	
             
 
    # send out a chat message

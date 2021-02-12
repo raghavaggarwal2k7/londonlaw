@@ -26,16 +26,12 @@ try:
 #   gettext.install("londonlaw") # use system locale dir if client was installed
    cwd=os.getcwd()
 #    print("Pfad="+cwd+"\n")
-#   gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
-   if "LANGUAGE" in os.environ:
-      trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", [os.environ['LANGUAGE']])
-      trans.install()
-   print(_("Attempting to launch admin client from current directory..."))
+   gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
    
 except:
    gettext.install("londonlaw", "locale") # use local locale directory if launching locally
 #   print (_("Attempting to launch admin client from current directory...")).encode(sys.stdout.encoding, "replace")
-   print((_("Attempting to launch admin client from current directory...")))
+   print (_("Attempting to launch admin client from current directory..."))
    import sys, os.path
    # add the parent directory to PYTHONPATH
    cwd = os.path.split(os.path.abspath(os.getcwd()))

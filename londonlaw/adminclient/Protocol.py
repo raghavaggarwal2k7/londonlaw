@@ -58,7 +58,8 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
    def lineReceived(self, line):
       try:
-         tokens    = shlex.split(line)
+#         tokens    = shlex.split(line)
+         tokens = shlex.split(line.decode("utf-8"))
          if len(tokens) > 1:
             tag       = tokens[0]
             response  = tokens[1].lower()
@@ -78,8 +79,8 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
       except AttributeError as e:
          log.msg(str(e))
-         print("tokens = " + str(tokens))
-         log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
+         print("Received unhandled server message:"+line.decode("utf-8")+" state:"+self._state)
+#         log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 
 
    def genTag(self):
@@ -92,7 +93,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
       
 
    def getCommand(self):
-      return raw_input("> ")
+      return input("> ")
 
 
    def handleCommand(self, command_str):
@@ -148,7 +149,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
             print("Usage: quit")
             print("Disconnect from the server and exit the admin client.")
          else:
-            print("Unable to provide help for unrecognized command \"" + commands[1] + "\".")
+            print(("Unable to provide help for unrecognized command \"" + commands[1] + "\"."))
          d = threads.deferToThread(self.getCommand)
          d.addCallback(self.handleCommand)
       elif commands[0] == 'allplayers':
@@ -232,7 +233,7 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
    def sendTokens(self, *tokens):
       s = util.join_tokens(*tokens)
       # convert from unicode to 8-bit ascii
-      self.sendLine(str(s))
+      self.sendLine(str(s).encode("utf-8"))
 
 
    def logUnmatched(self, tag, response, data):
@@ -241,13 +242,13 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_gameinfo_trylistgames(self, tag, data):
-      print("* \"" + makePrint(data[0]) + "\"")
-      print("     status: " + makePrint(data[1]) + "   type: " + makePrint(data[2]) + \
-            "   players: " + data[3])
+      print(("* \"" + makePrint(data[0]) + "\""))
+      print(("     status: " + makePrint(data[1]) + "   type: " + makePrint(data[2]) + \
+            "   players: " + data[3]))
 
 
    def response_bad_default(self, tag, data):
-      print("Bad command. (\"" + makePrint(data[0]) + "\")")
+      print(("Bad command. (\"" + makePrint(data[0]) + "\")"))
       self._state = "loggedin"
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
@@ -266,14 +267,14 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_no_default(self, tag, data):
-      print("Command rejected. (\"" + makePrint(data[0]) + "\")")
+      print(("Command rejected. (\"" + makePrint(data[0]) + "\")"))
       self._state = "loggedin"
       d = threads.deferToThread(self.getCommand)
       d.addCallback(self.handleCommand)
 
 
    def response_no_login(self, tag, data):
-      print("The server refused your login attempt. (\"" + makePrint(data[0]) + "\")")
+      print(("The server refused your login attempt. (\"" + makePrint(data[0]) + "\")"))
       self.transport.loseConnection()
 
 
@@ -364,17 +365,17 @@ class AdminClientProtocol(basic.LineOnlyReceiver):
 
 
    def response_playerinfo_trylistplayers(self, tag, data):
-      print("* \"" + makePrint(data[0]) + "\"")
-      print("     team: " + data[1] + "   vote_start: " + data[2] + "   pawns: " + data[3])
+      print(("* \"" + makePrint(data[0]) + "\""))
+      print(("     team: " + data[1] + "   vote_start: " + data[2] + "   pawns: " + data[3]))
 
 
    def response_playername_tryallplayers(self, tag, data):
-      print("* \"" + makePrint(data[0]) + "\"")
+      print(("* \"" + makePrint(data[0]) + "\""))
 
 
    def response_profile_tryprofile(self, tag, data):
       if tag == self._waitTag:
-         print("password: \"" + makePrint(data[0]) + "\"   last_ip: " + data[1])
+         print(("password: \"" + makePrint(data[0]) + "\"   last_ip: " + data[1]))
       else:
          self.logUnmatched(tag, "profile", data)
       self._state = "loggedin"

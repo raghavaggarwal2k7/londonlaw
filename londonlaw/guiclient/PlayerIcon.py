@@ -74,21 +74,28 @@ class PlayerIcon(wx.Panel):
 
       # create the caption
 #      self.caption = TextPanel(self, " "+name[:20]+" ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
-      self.caption = TextPanel(self, " name ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
+#      self.caption = TextPanel(self, " name ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
+      self.caption = wx.StaticText(self, label=" "+name[:20]+" ")
+      self.caption.SetBackgroundColour(wx.Colour(255,255,255))
 
       # create the inventory labels
       if self.isMrX:
-         self.blackLabel = TextPanel(self, " "+repr(tokenList[3])+" ", 10, wx.EXPAND)
+#         self.blackLabel = TextPanel(self, " "+repr(tokenList[3])+" ", 10, wx.EXPAND)
+         self.blackLabel = wx.StaticText(self, label=" "+repr(tokenList[3])+" ")
          self.blackLabel.SetBackgroundColour(wx.Colour(0,0,0))
          self.blackLabel.SetForegroundColour(wx.Colour(255,255,255))
-         self.doubleLabel = TextPanel(self, " "+repr(tokenList[4])+" ", 10, wx.EXPAND)
+#         self.doubleLabel = TextPanel(self, " "+repr(tokenList[4])+" ", 10, wx.EXPAND)
+         self.doubleLabel = wx.StaticText(self, label=" "+repr(tokenList[4])+" ")
          self.doubleLabel.SetBackgroundColour(wx.Colour(255,84,166))
       else:
-         self.taxiLabel = TextPanel(self, " "+repr(tokenList[0])+" ", 10, wx.EXPAND)
+#         self.taxiLabel = TextPanel(self, " "+repr(tokenList[0])+" ", 10, wx.EXPAND)
+         self.taxiLabel = wx.StaticText(self, label=" "+repr(tokenList[0])+" ")
          self.taxiLabel.SetBackgroundColour(wx.Colour(255, 191, 0))
-         self.busLabel = TextPanel(self, " "+repr(tokenList[1])+" ", 10, wx.EXPAND)
+#         self.busLabel = TextPanel(self, " "+repr(tokenList[1])+" ", 10, wx.EXPAND)
+         self.busLabel = wx.StaticText(self, label=" "+repr(tokenList[1])+" ")
          self.busLabel.SetBackgroundColour(wx.Colour(7, 155, 0))
-         self.ugndLabel = TextPanel(self, " "+repr(tokenList[2])+" ", 10, wx.EXPAND)
+#         self.ugndLabel = TextPanel(self, " "+repr(tokenList[2])+" ", 10, wx.EXPAND)
+         self.ugndLabel = wx.StaticText(self, label=" "+repr(tokenList[2])+" ")
          self.ugndLabel.SetBackgroundColour(wx.Colour(160, 36, 96))
          self.ugndLabel.SetForegroundColour(wx.Colour(255, 255, 255))
 
@@ -121,12 +128,18 @@ class PlayerIcon(wx.Panel):
 
    def updateTokens(self, tokenList):
       if self.isMrX:
-         self.blackLabel.SetText(" "+repr(tokenList[3])+" ")
-         self.doubleLabel.SetText(" "+repr(tokenList[4])+" ")
+         pass 
+#         self.blackLabel.SetText(" "+repr(tokenList[3])+" ")
+         self.blackLabel.SetLabel(" "+str(tokenList[3])+" ")
+#         self.doubleLabel.SetText(" "+repr(tokenList[4])+" ")
+         self.doubleLabel.SetLabel(" "+str(tokenList[4])+" ")
       else:
-         self.taxiLabel.SetText(" "+repr(tokenList[0])+" ")
-         self.busLabel.SetText(" "+repr(tokenList[1])+" ")
-         self.ugndLabel.SetText(" "+repr(tokenList[2])+" ")
+#         self.taxiLabel.SetText(" "+repr(tokenList[0])+" ")
+         self.taxiLabel.SetLabel(" "+str(tokenList[0])+" ")
+#         self.busLabel.SetText(" "+repr(tokenList[1])+" ")
+         self.busLabel.SetLabel(" "+str(tokenList[1])+" ")
+#         self.ugndLabel.SetText(" "+repr(tokenList[2])+" ")
+         self.ugndLabel.SetLabel(" "+str(tokenList[2])+" ")
       self.invSizer.Layout()
 
 
