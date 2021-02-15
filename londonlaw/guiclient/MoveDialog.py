@@ -299,7 +299,6 @@ class MoveDialog(wx.Dialog):
    # after choosing a destination to move to, update the associated 
    # list of transportations
    def updateTrans1(self, event):
-      print("updateTrans1-start")   	
       if len(self.moves) > 0:
          self.trans, self.transStr = self.getAvailTransports(self.currPos, self.moves[self.dest1Box.GetSelection()],
             self.playerList[self.playerIdx][2], self.playerIdx)
@@ -313,11 +312,11 @@ class MoveDialog(wx.Dialog):
       self.move1Sizer.Add(self.trans1Box, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
       self.move1Sizer.Layout()
       self.updateDest2()
-      print("updateTrans1-end")   	
 
 
    def updateDest2(self):
       if self.playerIdx == 0:
+         print("updateDest2")
          # TRANSLATORS: this is for the move selection dialog
          self.pos2Label.SetLabel(_("Move from %(number)s to ") % {"number" : self.dest1Box.GetStringSelection()})
          pl2 = []
@@ -345,15 +344,20 @@ class MoveDialog(wx.Dialog):
          else:
             self.moves2    = []
             self.moves2Str = []
-         self.move2Sizer.Remove(self.pos2Label)
-         self.move2Sizer.Remove(self.dest2Box)
+#         self.move2Sizer.Remove(self.pos2Label)
+#         self.move2Sizer.Remove(self.dest2Box)
+         self.move2Sizer.Detach(self.pos2Label)
+         self.move2Sizer.Detach(self.dest2Box)
          self.dest2Box.Destroy()
          self.dest2Box = wx.Choice(self.panel, self.dest2ID, wx.DefaultPosition, wx.DefaultSize, self.moves2Str)
          self.dest2Box.SetSelection(0)
          if self.moveType.GetSelection() == 0:
             self.dest2Box.Enable(False)
-         self.move2Sizer.Prepend(self.dest2Box, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
-         self.move2Sizer.Prepend(self.pos2Label, 0, wx.ALIGN_CENTRE | wx.ALL | wx.ADJUST_MINSIZE, 5)
+         try:            
+            self.move2Sizer.Prepend(self.dest2Box, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
+            self.move2Sizer.Prepend(self.pos2Label, 0, wx.ALIGN_CENTRE | wx.ALL | wx.ADJUST_MINSIZE, 5)
+         except:
+         	pass   
          self.updateTrans2()
       else:
          self.sizer.Layout()
@@ -363,6 +367,7 @@ class MoveDialog(wx.Dialog):
       self.updateTrans2()
 
    def updateTrans2(self):
+      print("updateTrans2")   	
       xtokens = self.playerList[0][2][:]
       dummy = self.trans1Box.GetStringSelection()
       if dummy == _("black ticket"):
@@ -374,7 +379,8 @@ class MoveDialog(wx.Dialog):
       else:
          self.trans2    = []
          self.trans2Str = []
-      self.move2Sizer.Remove(self.trans2Box)
+#      self.move2Sizer.Remove(self.trans2Box)
+      self.move2Sizer.Detach(self.trans2Box)
       self.trans2Box.Destroy()
       self.trans2Box = wx.Choice(self.panel, self.trans2ID, wx.DefaultPosition, wx.DefaultSize, self.trans2Str)
       self.trans2Box.SetSelection(0)

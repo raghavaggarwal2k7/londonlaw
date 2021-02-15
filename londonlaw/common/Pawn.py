@@ -45,8 +45,8 @@ class Pawn(object):
    # they need to be well-defined constants.  But we need translations
    # when popping up messages for the user.
    def getTranslatedName(self, trans):
-      print("getTranslateName")
-      print(trans)   	
+#      print("getTranslateName")
+#      print(trans)   	
       return self._name   	
 #      if self._name == "Red":
 #         return trans.ugettext("Red")

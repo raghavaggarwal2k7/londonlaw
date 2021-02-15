@@ -1,7 +1,2 @@
-Übereinstimmungen in Binärdatei ./.git/index
-./londonlaw/guiclient/HistoryWindow.py:from .TextPanel import *
-./londonlaw/guiclient/HistoryWindow.py:         self.turns.append(TextPanel(self.panels[i], _(" Turn %(num)d ") % {"num" : i+1},
-./londonlaw/guiclient/HistoryWindow.py:         self.locations.append(TextPanel(self.panels[i], " ", 16, 0))
-./londonlaw/guiclient/HistoryWindow.py:      self.locations[turnNum] = TextPanel(self.panels[turnNum], " " + locStr + " ",
-./londonlaw/guiclient/MapWindow.py:from .TextPanel import *
-./londonlaw/guiclient/MapWindow.py:         self.labels.append(TextPanel(self, " " + usernameList[i][:20] + " ", 10, wx.SIMPLE_BORDER))
+./londonlaw/common/Pawn.py:      print("getTranslateName")
+Übereinstimmungen in Binärdatei ./londonlaw/common/__pycache__/Pawn.cpython-38.pyc
