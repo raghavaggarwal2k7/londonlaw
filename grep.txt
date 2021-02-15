@@ -1,2 +1,0 @@
-./londonlaw/common/Pawn.py:      print("getTranslateName")
-Übereinstimmungen in Binärdatei ./londonlaw/common/__pycache__/Pawn.cpython-38.pyc
