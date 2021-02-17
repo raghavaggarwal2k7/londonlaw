@@ -86,8 +86,6 @@ class NewGameDialog(wx.Dialog):
       sizer.Fit(self)
       self.SetAutoLayout(1)
 
-#      wx.EVT_BUTTON(self, wx.ID_OK, self.submit)
-#      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.cancel) 
       self.Bind(wx.EVT_BUTTON, self.submit, id=wx.ID_OK)
       self.Bind(wx.EVT_BUTTON, self.cancel, id=wx.ID_CANCEL)
 
@@ -117,7 +115,6 @@ class GameListWindow(wx.Frame):
 
       # Create a menu bar
       # TRANSLATORS: this is a menu bar entry
-#      fileMenu = wx.Menu(_("File"))
       fileMenu = wx.Menu()
       # TRANSLATORS: this is a menu bar entry
       fileMenu.Append(DISCONNECT, _("Disconnect"), _("Disconnect from server"))
@@ -152,7 +149,6 @@ class GameListWindow(wx.Frame):
       self.list.SetColumnWidth(2, 140) 
 
       mainSizer = wx.BoxSizer(wx.VERTICAL)
-#      mainSizer.Add(self.list, 1, wx.ALIGN_CENTRE|wx.EXPAND|wx.ALL, 5)
       mainSizer.Add(self.list, 1, wx.ALIGN_CENTRE|wx.ALL, 5)
 
       self.selectButton = wx.Button(mainPanel, -1, _("Join Game"))
@@ -210,7 +206,6 @@ class GameListWindow(wx.Frame):
 
 
    def createGame(self, event):
-      print("createGame")   	
       gameData = [None, None]
       gameDialog = NewGameDialog(self, gameData)
       result     = gameDialog.ShowModal()
@@ -227,8 +222,6 @@ class GameListWindow(wx.Frame):
 
    def showInfoAlert(self, info):
       self.PushStatusText("")
-#      print(info.decode("utf-8", errors="ignore"))
-      print(_("Unrecognized game name."))
       alert = wx.MessageDialog(self, str(info)[2:-1],
          # TRANSLATORS: this is the title for a small alert window that pops up when the server reports an error
          _("Server Message"), wx.OK|wx.ICON_INFORMATION)

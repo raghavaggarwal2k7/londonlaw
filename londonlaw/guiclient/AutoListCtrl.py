@@ -67,17 +67,13 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
       # Maybe a wxPython bug... imageList falls out of scope and gets deleted prematurely?
       self.imageList = wx.ImageList(16, 16, True)
       cwd=os.getcwd()
-#      file1 = os.path.normpath(os.path.join(MEDIAROOT, "images/smalluparrow.png"))
-#      file2 = os.path.normpath(os.path.join(MEDIAROOT, "images/smalldownarrow.png"))
       file1 = cwd+"/londonlaw/guiclient/images/smalluparrow.png"
       file2 = cwd+"/londonlaw/guiclient/images/smalldownarrow.png"
       image = wx.Image(file1, wx.BITMAP_TYPE_ANY)
       image.SetMaskColour(255, 255, 255)
-#      self.smallUpArrow = self.imageList.Add(wx.BitmapFromImage(image))
       self.smallUpArrow = self.imageList.Add(wx.Bitmap(image))
       image = wx.Image(file2, wx.BITMAP_TYPE_ANY)
       image.SetMaskColour(255, 255, 255)
-#      self.smallDnArrow = self.imageList.Add(wx.BitmapFromImage(image))
       self.smallDnArrow = self.imageList.Add(wx.Bitmap(image))
       self.SetImageList(self.imageList, wx.IMAGE_LIST_SMALL)
 
@@ -103,18 +99,12 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
       for i in list(range(len(self.headers))):
          info.m_text = self.headers[i]
          self.InsertColumn(i, self.headers[i])
-#         self.InsertColumnInfo(i, info)
 
       items = list(self.itemDataMap.items())
       for i in list(range(len(items))):
          key, data = items[i]
-#         self.InsertStringItem(i, data[0])
-         print("i,data")
-         print(i)
-         print(data) 
          self.InsertItem(i, data[0])
          for j in list(range(1, len(self.headers))):
-#            self.SetStringItem(i, j, data[j])
             self.SetItem(i, j, data[j])
          self.SetItemData(i, key)
 
@@ -147,7 +137,6 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
          if data[0] == self.itemDataMap[item][0]:
             foundMatch = True
             for i in list(range(1, len(data))):
-#               self.SetStringItem(item, i, data[i])
                self.SetItem(item, i, data[i])
 
       if not foundMatch:
@@ -159,10 +148,8 @@ class AutoListCtrl(AutoWidthListCtrl, ColumnSorterMixin):
                del self.itemDataMap[0]
          index = len(self.itemDataMap)
          self.itemDataMap[index] = data
-#         self.InsertStringItem(index, data[0])
          self.InsertItem(index, data[0])
          for i in list(range(1, len(self.headers))):
-#            self.SetStringItem(index, i, data[i])
             self.SetItem(index, i, data[i])
          self.SetItemData(index, index)
 

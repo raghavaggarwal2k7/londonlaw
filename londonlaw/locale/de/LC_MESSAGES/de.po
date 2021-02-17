@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: londonlaw\n"
 "Report-Msgid-Bugs-To: pelzlpj@eecs.umich.edu\n"
 "POT-Creation-Date: 2021-02-11 14:28+0100\n"
-"PO-Revision-Date: 2021-02-11 14:29+0100\n"
+"PO-Revision-Date: 2021-02-17 15:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -66,7 +66,7 @@ msgstr "Dieses Spiel ist bereits vorbei."
 
 #: server/Game.py:194
 msgid "That game is full."
-msgstr "Dieses Spiel ist voll."
+msgstr "Diese Spiel ist vollzählig."
 
 #: server/Game.py:390
 #, python-format
@@ -214,11 +214,11 @@ msgstr "Ungültige Anzahl an Zügen."
 
 #: server/Team.py:19
 msgid "That team is full."
-msgstr "Dieses Team ist voll."
+msgstr "Dieses Mannschaft ist voll."
 
 #: server/Team.py:54
 msgid "Player not on team."
-msgstr "Spieler ist nicht im Team."
+msgstr "Spieler ist nicht in der Mannschaft."
 
 #: server/__init__.py:36
 msgid "listen for connections on port NUM"
@@ -241,7 +241,7 @@ msgstr "alle Spieler"
 #. TRANSLATORS: this is for a set of radio buttons for chat messages--send to "all" players or send to "team" only
 #: guiclient/ChatPanel.py:44
 msgid "team"
-msgstr "Team"
+msgstr "Mannschaft"
 
 #. TRANSLATORS: this is a menu bar entry
 #: guiclient/ConnectWindow.py:42 guiclient/ConnectWindow.py:47
@@ -410,27 +410,27 @@ msgstr " ? "
 #: guiclient/MainWindow.py:77
 #, python-format
 msgid "Fullscreen Map%(hotkey)s"
-msgstr ""
+msgstr "Vollbildmodus%(hotkey)s"
 
 #: guiclient/MainWindow.py:78
 msgid "Toggle fullscreen map view"
-msgstr ""
+msgstr "Vollbildmodus umschalten"
 
 #. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:80
 #, python-format
 msgid "Map Zoom%(hotkey)s"
-msgstr ""
+msgstr "Karte vergrößern%(hotkey)s"
 
 #: guiclient/MainWindow.py:81
 msgid "Toggle map zoom level"
-msgstr ""
+msgstr "Zoomstufe der Karte umschalten"
 
 #. TRANSLATORS: this is a menu bar entry
 #: guiclient/MainWindow.py:83
 #, python-format
 msgid "Mr. X History%(hotkey)s"
-msgstr ""
+msgstr "Mr.X Spielverlauf%(hotkey)s"
 
 #: guiclient/MainWindow.py:84
 msgid "Show/hide the Mr. X history window"
@@ -478,24 +478,24 @@ msgstr "Bewegen"
 #. TRANSLATORS: label for the "view Mr. X history" toggle checkbox
 #: guiclient/MainWindow.py:137
 msgid "View History"
-msgstr ""
+msgstr "Zeige Spielverlauf"
 
 #. TRANSLATORS: label for the map zoom toggle checkbox
 #: guiclient/MainWindow.py:140
 msgid "Zoom"
-msgstr "Zoom"
+msgstr "Vergrößern"
 
 #. TRANSLATORS: this is how team chat messages will appear
 #: guiclient/MainWindow.py:205
 #, python-format
 msgid "<%(playername)s [to team]> %(message)s"
-msgstr ""
+msgstr "%(playername)s an die Mannschaft: %(message)s"
 
 #. TRANSLATORS: this is how chat messages will appear
 #: guiclient/MainWindow.py:209
 #, python-format
 msgid "<%(playername)s> %(message)s"
-msgstr ""
+msgstr "%(playername)s: %(message)s"
 
 #. TRANSLATORS: as in "Mr. X made his move using 'a taxi'."
 #: guiclient/MainWindow.py:253
@@ -578,6 +578,10 @@ msgid ""
 "\n"
 "A multiplayer manhunting adventure by Paul Pelzl"
 msgstr ""
+"London Law v%(version)s\n"
+"\n"
+"Ein Detektivspiel für mehrere Spieler von Paul Pelzl, ergänzt durch Horst "
+"Aldebaran"
 
 #. TRANSLATORS: this is the turn counter at the lower right of the game window
 #: guiclient/MainWindow.py:477
@@ -629,44 +633,44 @@ msgstr "Wählen Sie einen Zug"
 #. TRANSLATORS: this is a label for a choose box that lets the user select single or double move
 #: guiclient/MoveDialog.py:76
 msgid "move type: "
-msgstr ""
+msgstr "Zugtyp: "
 
 #. TRANSLATORS: as in "single move", not "double move"
 #: guiclient/MoveDialog.py:78
 msgid "Single"
-msgstr ""
+msgstr "Einzeln"
 
 #. TRANSLATORS: as in "double move", not "single move"
 #: guiclient/MoveDialog.py:80
 msgid "Double"
-msgstr ""
+msgstr "Doppelt"
 
 #. TRANSLATORS: this is for the move selection dialog
 #: guiclient/MoveDialog.py:86
 #, python-format
 msgid "Move from %(number)d to "
-msgstr ""
+msgstr "Bewegen von %(number)d nach "
 
 #. TRANSLATORS: this is for the move selection dialog: "move from 102 to 110 'using' taxi"
 #: guiclient/MoveDialog.py:89 guiclient/MoveDialog.py:119
 msgid " using "
-msgstr ""
+msgstr " verwenden "
 
 #. TRANSLATORS: this is for the move selection dialog
 #: guiclient/MoveDialog.py:116 guiclient/MoveDialog.py:277
 #, python-format
 msgid "Move from %(number)s to "
-msgstr ""
+msgstr "Bewegen von %(number)s nach "
 
 #. TRANSLATORS: as in "move number one" (of multiple moves)
 #: guiclient/MoveDialog.py:157
 msgid "Move One:"
-msgstr ""
+msgstr "Erster Zug:"
 
 #. TRANSLATORS: as in "move number two" (of multiple moves)
 #: guiclient/MoveDialog.py:159
 msgid "Move Two:"
-msgstr ""
+msgstr "Zweiter Zug:"
 
 #: guiclient/MoveDialog.py:216
 msgid "Mr. X can't move to that location."
@@ -728,12 +732,12 @@ msgstr "Vorbereitung auf das Spiel..."
 #: guiclient/Protocol.py:374
 #, python-format
 msgid "Player \"%(playername)s\" disconnected from the server."
-msgstr ""
+msgstr "Spieler \"%(playername)s\" hat die Verbindung getrennt."
 
 #: guiclient/Protocol.py:384
 #, python-format
 msgid "Player \"%(playername)s\" has rejoined the game."
-msgstr ""
+msgstr "Spieler \"%(playername)s\" ist dem Spiel wieder beigetreten."
 
 #: guiclient/RegistrationWindow.py:39
 msgid "Choose a Team"
@@ -772,12 +776,12 @@ msgstr "Spielbereit?"
 #. TRANSLATORS: these are column labels for the window where the players choose teams for a game
 #: guiclient/RegistrationWindow.py:118
 msgid "Pawns"
-msgstr ""
+msgstr "Figuren"
 
 #. TRANSLATORS: this is displayed in a column when no players have joined one of the games
 #: guiclient/RegistrationWindow.py:120
 msgid "(no players joined)"
-msgstr ""
+msgstr "(kein Spieler verbunden)"
 
 #: guiclient/RegistrationWindow.py:130
 msgid "Leave Game"
@@ -809,23 +813,23 @@ msgstr "London Law -- Spielerauswahl"
 #. TRANSLATORS: main window title
 #: guiclient/__init__.py:116
 msgid "London Law"
-msgstr ""
+msgstr "London Law"
 
 #: guiclient/__init__.py:130
 msgid "You must enter a valid hostname."
-msgstr ""
+msgstr "Du mußt einen gültigen Hostnamen wählen."
 
 #: guiclient/__init__.py:133
 msgid "You must enter a valid port number."
-msgstr ""
+msgstr "Sie müssen eine gültige Portnummer eingeben."
 
 #: guiclient/__init__.py:136
 msgid "You must enter a valid username."
-msgstr ""
+msgstr "Sie müssen einen gültigen Benutzernamen eingeben."
 
 #: guiclient/__init__.py:142
 msgid "The port number must be an integer."
-msgstr ""
+msgstr "Die Portnummer muss eine ganze Zahl sein."
 
 #: guiclient/__init__.py:147
 msgid "Connecting to server..."

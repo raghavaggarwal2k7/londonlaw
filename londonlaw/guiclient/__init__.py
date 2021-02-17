@@ -78,8 +78,8 @@ class MyApp(wx.App):
       self.connectFrame.Fit()
       self.connectFrame.Show(1)
       self.currentWindow = self.connectFrame
-#      wx.EVT_BUTTON(self.connectFrame, self.connectFrame.connectButton.GetId(), self.connect)
       self.connectFrame.connectButton.Bind(wx.EVT_BUTTON,self.connect)
+      self.connectFrame.connectButton.Bind(wx.EVT_MENU,self.connect)
       return self.connectFrame
 
 

@@ -34,7 +34,6 @@ class HistoryWindow(wx.ScrolledWindow):
       # load in the ticket images
       self.ticketImages = []
       for i in list(range(5)):
-#         filename = os.path.normpath(os.path.join(MEDIAROOT, "images/ticket" + str(i) + ".png"))
          filename = cwd+"/londonlaw/guiclient/images/ticket" + str(i) + ".png"
          self.ticketImages.append(wx.Image(filename, wx.BITMAP_TYPE_ANY))
 
@@ -70,7 +69,6 @@ class HistoryWindow(wx.ScrolledWindow):
          self.panels[i].SetSizerAndFit(self.panelSizers[i])
 
          self.panels2.append(wx.Panel(self, -1, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER))
-#         self.tickets.append(wx.StaticBitmap(self.panels2[i], -1, wx.BitmapFromImage(self.ticketImages[4])))
          self.tickets.append(wx.StaticBitmap(self.panels2[i], -1, wx.Bitmap(self.ticketImages[4])))
 
          self.panelSizers2.append(wx.BoxSizer(wx.HORIZONTAL))
@@ -106,7 +104,7 @@ class HistoryWindow(wx.ScrolledWindow):
       print(self.vbSizers[turnNum].IsEmpty())
       if self.vbSizers[turnNum].IsEmpty() == False:
          print(self.vbSizers[turnNum].GetItemCount())
-#      self.vbSizers[turnNum].Remove(self.locations[turnNum])
+      self.vbSizers[turnNum].Detach(self.locations[turnNum])
       self.locations[turnNum].Destroy()
       if turnNum in (2, 7, 12, 17, 23):
          fontWeight = wx.BOLD
@@ -121,7 +119,6 @@ class HistoryWindow(wx.ScrolledWindow):
 
    # update one of the ticket graphics 
    def setTicket(self, turnNum, tickNum):
-#      self.tickets[turnNum].SetBitmap(wx.BitmapFromImage(self.ticketImages[tickNum]))
       self.tickets[turnNum].SetBitmap(wx.Bitmap(self.ticketImages[tickNum]))
       self.tickets[turnNum].Refresh(False)
 

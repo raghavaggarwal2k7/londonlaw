@@ -54,7 +54,6 @@ class ConnectWindow(wx.Frame):
 
       # Create a menu bar
       # TRANSLATORS: this is a menu bar entry
-#      fileMenu = wx.Menu(_("Connect"), _("Connect to: "))
       fileMenu = wx.Menu()
       fileMenu.Append(CONNECT, _("Connect%(hotkey)s") % {"hotkey" : "\tCTRL+V"}, _("Connect to: "))
       # TRANSLATORS: this is a menu bar entry
@@ -82,7 +81,6 @@ class ConnectWindow(wx.Frame):
       connectLabel.SetFont(labelFont)
       # TRANSLATORS: labels for server connection dialog
       self.hostEntryLabel = wx.StaticText(mainPanel, -1, _("host:"), wx.Point(0,0))
-#      self.hostEntry      = wx.TextCtrl(mainPanel, -1, "localhost", wx.DefaultPosition, (170, wx.DefaultSize[1]))
       self.hostEntry      = wx.TextCtrl(mainPanel, -1, self.defaultHost, wx.DefaultPosition, (170, wx.DefaultSize[1]))
       # TRANSLATORS: labels for server connection dialog
       self.portEntryLabel = wx.StaticText(mainPanel, -1, _("port:"), wx.Point(0,0))
@@ -146,7 +144,7 @@ class ConnectWindow(wx.Frame):
       self.usernameEntry.Bind(wx.EVT_SET_FOCUS, self.selectFocused)
       self.passEntry.Bind(wx.EVT_SET_FOCUS,self.selectFocused)
       self.quitButton.Bind(wx.EVT_BUTTON,self.menuExit)
-#      self.Bind(wx.EVT_MENU, self.connectButton, id=CONNECT)
+#      self.Bind(wx.EVT_MENU, self.menuConnect, id=CONNECT)
       self.Bind(wx.EVT_MENU, self.showAboutWin, id=ABOUTWIN)
       self.Bind(wx.EVT_MENU, self.menuExit, id=EXIT)
 
@@ -198,7 +196,6 @@ class ConnectWindow(wx.Frame):
 
 
    def showInfoAlert(self, info):
-#      self.PushStatusText("")
       alert = wx.MessageDialog(self, info,
       # TRANSLATORS: this is the title for a small alert window that pops up when the server reports an error
          _("Server Message"), wx.OK|wx.ICON_INFORMATION)
@@ -207,5 +204,10 @@ class ConnectWindow(wx.Frame):
 
    def menuExit(self, ev):
       self.exitCallback(self)
+      
+   def menuConnect(self, ev):
+      print("menuConnect")   	
+      pass
+         	      
 
 

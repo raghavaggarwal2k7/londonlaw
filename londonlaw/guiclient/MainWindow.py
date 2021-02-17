@@ -32,27 +32,6 @@ from .HistoryWindow import *
 from .graphicalmap import *
 from common.protocol import LLAW_VERSION
 
-#class MyBrowser(wx.Dialog): 
-#    def __init__(self, *args, **kwds): 
-#        wx.Dialog.__init__(self, *args, **kwds) 
-#        sizer = wx.BoxSizer(wx.VERTICAL) 
-#        self.SetTitle(_("About London Law"))
-#        self.browser = wx.html2.WebView.New(self)
-#        self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.On_Web_View_Loaded, self.browser)
-#        self.browser.Bind(wx.html2.EVT_WEBVIEW_NAVIGATING, self.onNav)
-#        sizer.Add(self.browser, 1, wx.EXPAND, 10) 
-#        self.SetSizer(sizer) 
-#        self.SetSize((450, 200)) 
-        
-#    def On_Web_View_Loaded(self, event):
-#        print('Loading')  
-
-#    def onNav(self, event):
-#        print('navigate...')
-#        url = event.GetURL()
-#        if url!="about:blank":
-#           webbrowser.open(url)
-
 
 class MainWindow(wx.Frame):
    # players is a list of Mr. X and all detectives, their
@@ -226,11 +205,11 @@ class MainWindow(wx.Frame):
       if chatType == "team":
          # TRANSLATORS: this is how team chat messages will appear
          self.chatWindow.AppendText(_("<%(playername)s [to team]> %(message)s") % 
-         {"playername" : data[0], "message" : data[1]})
+         {"playername" : data[0], "message" : data[1][1:]})
       else:
          # TRANSLATORS: this is how chat messages will appear
          self.chatWindow.AppendText(_("<%(playername)s> %(message)s") % 
-         {"playername" : data[0], "message" : data[1]})
+         {"playername" : data[0], "message" : data[1][1:]})
 
 
    def menuExit(self, event):

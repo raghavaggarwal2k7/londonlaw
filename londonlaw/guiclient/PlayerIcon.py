@@ -41,14 +41,9 @@ class PlayerIcon(wx.Panel):
       self.isStuck   = False
       self.isMrX     = isMrX
 
-      print("PlayerIcon")
-      print(name)
       # load the image
       iconImage = wx.Image(imagefile, wx.BITMAP_TYPE_ANY)
       # we need an extra copy of the player icon, so we can blit to one of them in memory
-#      self.playerBitmap = wx.BitmapFromImage(iconImage)
-#      self.iconBitmap   = wx.BitmapFromImage(iconImage)
-#      self.iconBitmap2  = wx.BitmapFromImage(iconImage)
       self.playerBitmap = wx.Bitmap(iconImage)
       self.iconBitmap   = wx.Bitmap(iconImage)
       self.iconBitmap2  = wx.Bitmap(iconImage)
@@ -57,13 +52,11 @@ class PlayerIcon(wx.Panel):
       # load the overlay image for the "I'm thinking" question mark
       thinkingImage = wx.Image(thinkingimagefile, wx.BITMAP_TYPE_ANY)
       thinkingImage.SetMaskColour(255, 0, 242) # the purplish colour is not to be drawn
-#      self.thinkingBitmap = wx.BitmapFromImage(thinkingImage)
       self.thinkingBitmap = wx.Bitmap(thinkingImage)
 
       # load the overlay image for the "I'm stuck" stop sign
       stuckImage = wx.Image(stuckimagefile, wx.BITMAP_TYPE_ANY)
       stuckImage.SetMaskColour(255, 0, 242) # the purplish colour is not to be drawn
-#      self.stuckBitmap = wx.BitmapFromImage(stuckImage)
       self.stuckBitmap = wx.Bitmap(stuckImage)
 
       iconSizer = wx.BoxSizer(wx.VERTICAL)
@@ -73,28 +66,21 @@ class PlayerIcon(wx.Panel):
 
 
       # create the caption
-#      self.caption = TextPanel(self, " "+name[:20]+" ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
-#      self.caption = TextPanel(self, " name ", 10, wx.SIMPLE_BORDER)#|wx.ALIGN_CENTRE
       self.caption = wx.StaticText(self, label=" "+name[:20]+" ")
       self.caption.SetBackgroundColour(wx.Colour(255,255,255))
 
       # create the inventory labels
       if self.isMrX:
-#         self.blackLabel = TextPanel(self, " "+repr(tokenList[3])+" ", 10, wx.EXPAND)
          self.blackLabel = wx.StaticText(self, label=" "+repr(tokenList[3])+" ")
          self.blackLabel.SetBackgroundColour(wx.Colour(0,0,0))
          self.blackLabel.SetForegroundColour(wx.Colour(255,255,255))
-#         self.doubleLabel = TextPanel(self, " "+repr(tokenList[4])+" ", 10, wx.EXPAND)
          self.doubleLabel = wx.StaticText(self, label=" "+repr(tokenList[4])+" ")
          self.doubleLabel.SetBackgroundColour(wx.Colour(255,84,166))
       else:
-#         self.taxiLabel = TextPanel(self, " "+repr(tokenList[0])+" ", 10, wx.EXPAND)
          self.taxiLabel = wx.StaticText(self, label=" "+repr(tokenList[0])+" ")
          self.taxiLabel.SetBackgroundColour(wx.Colour(255, 191, 0))
-#         self.busLabel = TextPanel(self, " "+repr(tokenList[1])+" ", 10, wx.EXPAND)
          self.busLabel = wx.StaticText(self, label=" "+repr(tokenList[1])+" ")
          self.busLabel.SetBackgroundColour(wx.Colour(7, 155, 0))
-#         self.ugndLabel = TextPanel(self, " "+repr(tokenList[2])+" ", 10, wx.EXPAND)
          self.ugndLabel = wx.StaticText(self, label=" "+repr(tokenList[2])+" ")
          self.ugndLabel.SetBackgroundColour(wx.Colour(160, 36, 96))
          self.ugndLabel.SetForegroundColour(wx.Colour(255, 255, 255))
@@ -117,7 +103,6 @@ class PlayerIcon(wx.Panel):
       # put the caption under the bitmap and inventory lists
       self.topSizer = wx.BoxSizer(wx.VERTICAL)
       self.topSizer.Add(iconInvSizer, 0, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.ADJUST_MINSIZE, 20)
-#      self.topSizer.Add(self.caption, 0, wx.EXPAND|wx.ALIGN_CENTRE|wx.ALL, 2)
       self.topSizer.Add(self.caption, 0, wx.ALIGN_CENTRE|wx.ALL, 2)
       self.SetSizer(self.topSizer)
       self.topSizer.SetSizeHints(self)
@@ -129,16 +114,11 @@ class PlayerIcon(wx.Panel):
    def updateTokens(self, tokenList):
       if self.isMrX:
          pass 
-#         self.blackLabel.SetText(" "+repr(tokenList[3])+" ")
          self.blackLabel.SetLabel(" "+str(tokenList[3])+" ")
-#         self.doubleLabel.SetText(" "+repr(tokenList[4])+" ")
          self.doubleLabel.SetLabel(" "+str(tokenList[4])+" ")
       else:
-#         self.taxiLabel.SetText(" "+repr(tokenList[0])+" ")
          self.taxiLabel.SetLabel(" "+str(tokenList[0])+" ")
-#         self.busLabel.SetText(" "+repr(tokenList[1])+" ")
          self.busLabel.SetLabel(" "+str(tokenList[1])+" ")
-#         self.ugndLabel.SetText(" "+repr(tokenList[2])+" ")
          self.ugndLabel.SetLabel(" "+str(tokenList[2])+" ")
       self.invSizer.Layout()
 
@@ -146,13 +126,11 @@ class PlayerIcon(wx.Panel):
    def setTurn(self):
       self.srcDC.SelectObject(self.playerBitmap)
       self.iconDC.SelectObject(self.iconBitmap2)
-#      self.iconDC.BeginDrawing()
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0)
       self.srcDC.SelectObject(self.thinkingBitmap)
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0, wx.COPY, True)
-#      self.iconDC.EndDrawing()
       self.iconDC.SelectObject(wx.NullBitmap)
       temp             = self.iconBitmap
       self.iconBitmap  = self.iconBitmap2
@@ -165,13 +143,11 @@ class PlayerIcon(wx.Panel):
    def setStuck(self):
       self.srcDC.SelectObject(self.playerBitmap)
       self.iconDC.SelectObject(self.iconBitmap2)
-#      self.iconDC.BeginDrawing()
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0)
       self.srcDC.SelectObject(self.stuckBitmap)
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0, wx.COPY, True)
-#      self.iconDC.EndDrawing()
       self.iconDC.SelectObject(wx.NullBitmap)
       temp             = self.iconBitmap
       self.iconBitmap  = self.iconBitmap2
@@ -184,10 +160,8 @@ class PlayerIcon(wx.Panel):
    def clearOverlay(self):
       self.srcDC.SelectObject(self.playerBitmap)
       self.iconDC.SelectObject(self.iconBitmap2)
-#      self.iconDC.BeginDrawing()
       self.iconDC.Blit(0, 0, self.iconBitmap.GetWidth(), self.iconBitmap.GetHeight(),
             self.srcDC, 0, 0)
-#      self.iconDC.EndDrawing()
       self.iconDC.SelectObject(wx.NullBitmap)
       temp             = self.iconBitmap
       self.iconBitmap  = self.iconBitmap2
@@ -208,23 +182,13 @@ class PlayerIconGroup(wx.Panel):
             "(here it was called with length "+repr(len(nameList))+")")
 
       cwd=os.getcwd()
-#      self.players = [PlayerIcon(self, 
-#         os.path.normpath(os.path.join(MEDIAROOT, "images/playericon0.jpg")),
-#         os.path.normpath(os.path.join(MEDIAROOT, "images/thinking.png")), 
-#         os.path.normpath(os.path.join(MEDIAROOT, "images/stuck.png")), 
-#         nameList[0], tokenList[0], True)]
       self.players = [PlayerIcon(self, 
          cwd+"/londonlaw/guiclient/images/playericon0.jpg",
          cwd+"/londonlaw/guiclient/images/thinking.png", 
          cwd+"/londonlaw/guiclient/images/stuck.png", 
          nameList[0], tokenList[0], True)]
       for i in list(range(1, 6)):
-#         filename = os.path.normpath(os.path.join(MEDIAROOT, "images/playericon" + str(i) + ".jpg"))
          filename = cwd+"/londonlaw/guiclient/images/playericon" + str(i) + ".jpg"
-#         self.players.append(PlayerIcon(self, filename,
-#            os.path.normpath(os.path.join(MEDIAROOT, "images/thinking.png")), 
-#            os.path.normpath(os.path.join(MEDIAROOT, "images/stuck.png")), 
-#            nameList[i], tokenList[i]))
          self.players.append(PlayerIcon(self, filename,
             cwd+"/londonlaw/guiclient/images/thinking.png", 
             cwd+"/londonlaw/guiclient/images/stuck.png", 

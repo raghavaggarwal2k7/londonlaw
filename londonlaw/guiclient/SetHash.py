@@ -23,10 +23,8 @@ class SetHash:
 
    def add(self, key, value):
       try:
-#         self.dict[key] |= Set([value])
          self.dict[key] |= {value}
       except KeyError:
-#         self.dict[key] = Set([value])
          self.dict[key] = {value}
 
    def get(self, key):

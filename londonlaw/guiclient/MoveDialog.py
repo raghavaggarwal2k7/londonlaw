@@ -74,7 +74,6 @@ class MoveDialog(wx.Dialog):
          title=title+" - "+_("Black")
       else:
          title=title+" - Mr.X"
-#      wx.Dialog.__init__(self, parent, ID, _("Choose a Move"))
       wx.Dialog.__init__(self, parent, ID, title)
       self.parent = parent
 
@@ -85,10 +84,6 @@ class MoveDialog(wx.Dialog):
       self.currPos           = self.playerList[self.playerIdx][1]
       self.messenger         = messenger
       self.destroyedCallback = destroyedCallback
-      print("movedialog playerIdx,playerlist,currpos")
-      print(playerIdx)
-      print(playerList)
-      print(self.currPos)
 
       # Mr. X gets the option of a double move
       if self.playerIdx == 0:
@@ -236,15 +231,10 @@ class MoveDialog(wx.Dialog):
 
       self.dest1Box.SetFocus()
 
-#      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.OnCancel)
-#      wx.EVT_BUTTON(self, wx.ID_OK, self.OnOK)
-#      wx.EVT_CHOICE(self, self.dest1Box.GetId(), self.updateTrans1)
       self.Bind(wx.EVT_BUTTON, self.OnCancel, id=wx.ID_CANCEL)
       self.Bind(wx.EVT_BUTTON, self.OnOK, id=wx.ID_OK)
       self.Bind(wx.EVT_CHOICE, self.updateTrans1, id=self.dest1Box.GetId())
       if self.playerIdx == 0:
-#         wx.EVT_CHOICE(self, self.dest2Box.GetId(), self.updateTrans2Evt)
-#         wx.EVT_RADIOBOX(self, self.moveType.GetId(), self.updateDouble)
          self.Bind(wx.EVT_CHOICE, self.updateTrans2Evt, id=self.dest2Box.GetId())
          self.Bind(wx.EVT_RADIOBOX, self.updateDouble, id=self.moveType.GetId()) 
 
@@ -305,7 +295,7 @@ class MoveDialog(wx.Dialog):
       else:
          self.trans    = []
          self.transStr = []
-#      self.move1Sizer.Remove(self.trans1Box)
+      self.move1Sizer.Detach(self.trans1Box) 
       self.trans1Box.Destroy()
       self.trans1Box = wx.Choice(self.panel, self.trans1ID, wx.DefaultPosition, wx.DefaultSize, self.transStr)
       self.trans1Box.SetSelection(0)
@@ -316,7 +306,6 @@ class MoveDialog(wx.Dialog):
 
    def updateDest2(self):
       if self.playerIdx == 0:
-         print("updateDest2")
          # TRANSLATORS: this is for the move selection dialog
          self.pos2Label.SetLabel(_("Move from %(number)s to ") % {"number" : self.dest1Box.GetStringSelection()})
          pl2 = []
@@ -344,8 +333,6 @@ class MoveDialog(wx.Dialog):
          else:
             self.moves2    = []
             self.moves2Str = []
-#         self.move2Sizer.Remove(self.pos2Label)
-#         self.move2Sizer.Remove(self.dest2Box)
          self.move2Sizer.Detach(self.pos2Label)
          self.move2Sizer.Detach(self.dest2Box)
          self.dest2Box.Destroy()
@@ -367,7 +354,6 @@ class MoveDialog(wx.Dialog):
       self.updateTrans2()
 
    def updateTrans2(self):
-      print("updateTrans2")   	
       xtokens = self.playerList[0][2][:]
       dummy = self.trans1Box.GetStringSelection()
       if dummy == _("black ticket"):
@@ -379,7 +365,6 @@ class MoveDialog(wx.Dialog):
       else:
          self.trans2    = []
          self.trans2Str = []
-#      self.move2Sizer.Remove(self.trans2Box)
       self.move2Sizer.Detach(self.trans2Box)
       self.trans2Box.Destroy()
       self.trans2Box = wx.Choice(self.panel, self.trans2ID, wx.DefaultPosition, wx.DefaultSize, self.trans2Str)
@@ -426,8 +411,6 @@ class MoveDialog(wx.Dialog):
             tret = "black"
          move.append(tret)
 
-      print("OnOK")
-      print(move)
       self.messenger.netMakeMove(move) 
       self.destroyedCallback()
       self.Destroy()

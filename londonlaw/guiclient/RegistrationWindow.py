@@ -62,8 +62,6 @@ class RadioDialog(wx.Dialog):
       sizer.Fit(self)
       self.SetAutoLayout(1)
 
-#      wx.EVT_BUTTON(self, wx.ID_OK, self.submit)
-#      wx.EVT_BUTTON(self, wx.ID_CANCEL, self.cancel)
       self.Bind(wx.EVT_BUTTON, self.submit, id=wx.ID_OK)
       self.Bind(wx.EVT_BUTTON, self.cancel, id=wx.ID_CANCEL)
 
@@ -138,7 +136,6 @@ class RegistrationWindow(wx.Frame):
 
       # Create a menu bar
       # TRANSLATORS: this is a menu bar entry
-#      fileMenu = wx.Menu(_("File"))
       fileMenu = wx.Menu()
       # TRANSLATORS: this is a menu bar entry
       fileMenu.Append(DISCONNECT, _("Disconnect"), _("Disconnect from server"))
@@ -174,7 +171,6 @@ class RegistrationWindow(wx.Frame):
       self.list.SetColumnWidth(1, 140) 
 
       mainSizer = wx.BoxSizer(wx.VERTICAL)
-#      mainSizer.Add(self.list, 3, wx.ALIGN_CENTRE|wx.EXPAND|wx.ALL, 5)
       mainSizer.Add(self.list, 3, wx.ALIGN_CENTRE|wx.ALL, 5)
 
       self.chatWindow = ChatPanel(mainPanel, "", False)
@@ -182,13 +178,11 @@ class RegistrationWindow(wx.Frame):
 
       self.leaveButton = wx.Button(mainPanel, -1, _("Leave Game"))
       self.teamButton  = wx.Button(mainPanel, -1, _("Choose Team"))
-#      self.aiButton    = wx.Button(mainPanel, -1, _("Request AI"))
       self.voteButton  = wx.Button(mainPanel, -1, _("Vote to Start"))
       buttonSizer      = wx.BoxSizer(wx.HORIZONTAL)
       buttonSizer.Add(self.leaveButton, 0, wx.ALIGN_CENTRE | wx.LEFT | wx.RIGHT | wx.BOTTOM | wx.ALL, 5)
       buttonSizer.Add((1, 1), 1, wx.EXPAND)
       buttonSizer.Add(self.teamButton, 0, wx.ALIGN_CENTRE | wx.RIGHT | wx.BOTTOM | wx.ALL, 5)
-#      buttonSizer.Add(self.aiButton,   0, wx.ALIGN_CENTRE | wx.RIGHT | wx.BOTTOM | wx.ALL, 5)
       buttonSizer.Add(self.voteButton, 0, wx.ALIGN_CENTRE | wx.RIGHT | wx.BOTTOM | wx.ALL, 5)
       mainSizer.Add(buttonSizer, 0, wx.EXPAND, 0)
 

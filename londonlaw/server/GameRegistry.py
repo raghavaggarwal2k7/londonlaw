@@ -92,7 +92,6 @@ class GameRegistrySingleton:
          raise Exception(N_("Game name in use."))
 
    def addUnjoinedUser(self, username):
-#      print("add user="+username)
       self._unjoinedUsers.add(username)
 
    def close(self):
@@ -129,7 +128,6 @@ class GameRegistrySingleton:
 
    def getUserList(self):
       users = list(self._users.keys())
-#      decoded = [u.decode("utf-8") for u in users]
       decoded = [u for u in users]
       decoded.sort()
       return decoded
@@ -148,7 +146,6 @@ class GameRegistrySingleton:
                break
 
    def purgeExpiredGames(self):
-#      if self._expiration > 0:
       if self._expiration != None:
          log.msg(util.printable(_("Purging expired games")))
          games = list(self._games.values())
@@ -183,7 +180,8 @@ class GameRegistrySingleton:
          if username in self._clients:
             raise UserError(N_("That username is in use."))
          elif password != self._users[username][0]:
-            raise PasswordError(N_("Incorrect password."))
+#            raise PasswordError(N_("Incorrect password."))
+            raise PasswordError(_("Incorrect password."))
          else:
             self._users[username] = (password, address)
 
@@ -221,3 +219,4 @@ def getHandle(dbDir):
    if registry == None:
       registry = GameRegistrySingleton(dbDir)
    return registry
+   

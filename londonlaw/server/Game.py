@@ -201,7 +201,8 @@ class Game:
       elif self._gameType == GAMETYPE_STANDARD:
          team = self._findAvailableTeam()
          if team is None:
-            raise GameError(N_("That game is full."))
+#            raise GameError(N_("That game is full."))
+            raise GameError(_("That game is full."))
          self._players.append(player)
          GameRegistry.registry.getClient(player).setGame(self)
          self._setTeamForPlayer(player, team)
@@ -445,13 +446,15 @@ class Game:
       for pawn in self._pawns:
          if pawn.getName() == name:
             return pawn
-      raise GameError(N_("Unrecognized pawn name."))
+#      raise GameError(N_("Unrecognized pawn name."))
+      raise GameError(_("Unrecognized pawn name."))
    
    def _getTeamByName(self, name):
       for team in self._teams:
          if team.getName() == name:
             return team
-      raise GameError(N_("Unrecognized team name."))
+#      raise GameError(N_("Unrecognized team name."))
+      raise GameError(_("Unrecognized team name."))
    
    def _getTeamForPawn(self, pawn):
       return self._pawn2team.get(pawn, None)
