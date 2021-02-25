@@ -30,6 +30,7 @@ from common.protocol import *
 from common.config import *
 from .AutoListCtrl import *
 from .ChatPanel import *
+from .About import *
 
 
 
@@ -197,6 +198,11 @@ class RegistrationWindow(wx.Frame):
       self.Bind(wx.EVT_BUTTON, self.chooseTeam, id=self.teamButton.GetId())
       self.Bind(wx.EVT_BUTTON, self.voteStart, id=self.voteButton.GetId())
       self.Bind(wx.EVT_TEXT_ENTER, self.chatSend, id=self.chatWindow.chatEntry.GetId())
+      self.Bind(wx.EVT_MENU, self.showAbout, id=ABOUTWIN)
+
+   # display the About dialog
+   def showAbout(self, event):
+      AboutWindow.showAbout(self)   	 
 
 
    def addPlayer(self, data):

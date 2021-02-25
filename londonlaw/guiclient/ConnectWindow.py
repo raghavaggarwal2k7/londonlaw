@@ -25,6 +25,7 @@
 import sys, gettext, wx
 import wx.adv
 from common.protocol import *
+from .About import *
 
 
 # Initial window.  Creates a form for the user to enter a host, port, and user information.
@@ -145,33 +146,12 @@ class ConnectWindow(wx.Frame):
       self.passEntry.Bind(wx.EVT_SET_FOCUS,self.selectFocused)
       self.quitButton.Bind(wx.EVT_BUTTON,self.menuExit)
 #      self.Bind(wx.EVT_MENU, self.menuConnect, id=CONNECT)
-      self.Bind(wx.EVT_MENU, self.showAboutWin, id=ABOUTWIN)
+      self.Bind(wx.EVT_MENU, self.showAbout, id=ABOUTWIN)
       self.Bind(wx.EVT_MENU, self.menuExit, id=EXIT)
 
 
-   # display the About dialog
-   def showAboutWinx(self, event):
-      about = wx.MessageDialog(self, 
-              _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
-              {"version" : LLAW_VERSION},
-              _("About London Law"), wx.OK|wx.ICON_INFORMATION)
-      about.ShowModal()
-
-   def showAboutWin(self, event):
-      cwd=os.getcwd()
-      ABOUT_ICON = cwd+"/londonlaw/guiclient/images/about.jpg"
-      info = wx.adv.AboutDialogInfo()
-      info.Name = "Londonlaw"
-      info.SetIcon (wx.Icon(ABOUT_ICON, wx.BITMAP_TYPE_JPEG))        
-      info.Version = LLAW_VERSION
-      info.Copyright = '(C) GPL-2.0 Licence'
-      info.Description = "A multiplayer manhunting adventure by Paul Pelzl\n modified by Horst Aldebaran"
-      info.SetWebSite = ('https://github.com/horald/londonlaw')
-      info.Developers = [ 'Paul Pelzl, Horst Aldebaran']
-      info.AddTranslator('Horst Meyer')
-
-      # Then we call wx.AboutBox giving it that info object
-      wx.adv.AboutBox(info)    	
+   def showAbout(self, event):
+      AboutWindow.showAbout(self)   	 
 
    # select contents of a focused wx.TextCtrl
    def selectFocused(self, ev):

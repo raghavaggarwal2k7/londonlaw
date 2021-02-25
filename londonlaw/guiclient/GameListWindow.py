@@ -31,6 +31,7 @@ import wx
 from common.protocol import *
 from common.config import *
 from .AutoListCtrl import *
+from .About import *
 
 
 
@@ -173,16 +174,12 @@ class GameListWindow(wx.Frame):
       self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disableSelectButton, id=self.list.GetId())
       self.Bind(wx.EVT_BUTTON, self.joinGame, id=self.selectButton.GetId())
       self.Bind(wx.EVT_BUTTON, self.createGame, id=self.createButton.GetId())
-      self.Bind(wx.EVT_MENU, self.showAboutWin, id=ABOUTWIN)
+      self.Bind(wx.EVT_MENU, self.showAbout, id=ABOUTWIN)
 
 
    # display the About dialog
-   def showAboutWin(self, event):
-      about = wx.MessageDialog(self, 
-              _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
-              {"version" : LLAW_VERSION},
-              _("About London Law"), wx.OK|wx.ICON_INFORMATION)
-      about.ShowModal()
+   def showAbout(self, event):
+      AboutWindow.showAbout(self)   	 
 
 
    def addGame(self, data):

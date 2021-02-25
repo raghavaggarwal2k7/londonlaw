@@ -31,6 +31,7 @@ from .MoveDialog import *
 from .HistoryWindow import *
 from .graphicalmap import *
 from common.protocol import LLAW_VERSION
+from .About import *
 
 
 class MainWindow(wx.Frame):
@@ -60,7 +61,7 @@ class MainWindow(wx.Frame):
       self.ZOOM       = 103
       self.HISTORY    = 104
       self.ABOUT      = 105
-      self.ABOUTWIN   = 106
+#      self.ABOUTWIN   = 106
 
       self.exitCallback = exitCallback
 
@@ -88,7 +89,7 @@ class MainWindow(wx.Frame):
       menuBar.Append(self.viewMenu, _("View"))
       self.helpMenu = wx.Menu()
       # TRANSLATORS: this is a menu bar entry
-      self.helpMenu.Append(self.ABOUTWIN, "About Window", "About Window")
+#      self.helpMenu.Append(self.ABOUTWIN, "About Window", "About Window")
       self.helpMenu.Append(self.ABOUT, _("About London Law"), _("About London Law"))
       # TRANSLATORS: this is a menu bar entry
       menuBar.Append(self.helpMenu, _("Help"))
@@ -189,7 +190,7 @@ class MainWindow(wx.Frame):
       self.Bind(wx.EVT_MENU, self.toggleFullscreen, id=self.FULLSCREEN)
       self.Bind(wx.EVT_MENU, self.toggleMenuZoom, id=self.ZOOM)
       self.Bind(wx.EVT_MENU, self.toggleMenuHistory, id=self.HISTORY)
-      self.Bind(wx.EVT_MENU, self.showAboutWin, id=self.ABOUTWIN)
+#      self.Bind(wx.EVT_MENU, self.showAboutWin, id=self.ABOUTWIN)
       self.Bind(wx.EVT_MENU, self.showAbout, id=self.ABOUT)
       self.icons.players[0].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer0)
       self.icons.players[1].icon.Bind(wx.EVT_LEFT_DCLICK, self.scrollToPlayer1)
@@ -447,34 +448,10 @@ class MainWindow(wx.Frame):
          self.panelSizer.Layout()
 
 
-   # display the About dialog
-   def showAboutWin(self, event):
-      about = wx.MessageDialog(self, 
-              _("London Law v%(version)s\n\nA multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran\n\nhttps://github.com/horald/londonlaw") %
-              {"version" : LLAW_VERSION},
-              _("About London Law"), wx.OK|wx.ICON_INFORMATION)
-      about.ShowModal()
-
 
    # display the About dialog
    def showAbout(self, event):
-      html_string = """
-      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-      <html>
-      <head>
-      <title>London law</title>
-      </head>
-      <body style="background-color:lightgray;">
-      London Law v"""+LLAW_VERSION+"""<br><br>
-      A multiplayer manhunting adventure by Paul Pelzl, modified by Horst Aldebaran<br><br>
-      <a href='https://github.com/horald/londonlaw'>https://github.com/horald/londonlaw</a>
-      </body>
-      </html>
-      """
-#      about = MyBrowser(None, -1)
-#      about.browser.SetPage(html_string,"") 
-#      about.ShowModal() 
+      AboutWindow.showAbout(self)   	 
 
    def scrollToPlayer0(self, event):
       self.mapWindow.scrollToPlayer(0)
@@ -497,7 +474,7 @@ class MainWindow(wx.Frame):
    def setTurnNum(self, turnNum):
       self.turn = turnNum
       # TRANSLATORS: this is the turn counter at the lower right of the game window
-      self.status.PushStatusText(_("Turn: %(num)d") % {"num" : self.turn}, 2)
+      self.status.PushStatusText(_("Turn: %(num)d ") % {"num" : self.turn}, 2)
 
    # FIXME: refactor.
    def setPawnTurn(self, pawnName):
