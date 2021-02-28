@@ -63,7 +63,6 @@ class LLawServerProtocol(basic.LineOnlyReceiver):
       self.trans = gettext.NullTranslations()
 
 
-
    def cmd_allplayers_admin(self, tag, args):
       for player in GameRegistry.registry.getUserList():
          self.sendUntagged("playername", player)

@@ -34,9 +34,13 @@ def init():
    parser = OptionParser()
    parser.add_option("-p", "--port", dest="port",
          help=_("listen for connections on port NUM"), metavar=_("NUM"), default=str(LLAW_PORT))
+   parser.add_option("-a", "--addr", dest="addr",
+         help=_("listen for connections on host HOST"), metavar=_("HOST"), default="127.0.0.1")
    parser.add_option("-D", "--dbdir", dest="dbdir",
          help=_("use DBDIR to store game und user database"), metavar=_("DBDIR"),
          default=os.path.expanduser("~/.londonlaw/server"))
+   parser.add_option("-t", "--type", dest="type",
+         help=_("listen for connections on type TCP/UDP"), metavar=_("TYPE"), default="UDP")
    (options, args) = parser.parse_args()
    
 ##   log.startLogging(sys.stdout, 0)
@@ -49,7 +53,9 @@ def init():
    loopgameKiller = gameKiller.start(1800)
    # Purge games involving AI clients
    registry.purgeBotGames()
-   reactor.listenTCP(int(options.port), LLawServerFactory())
+   print("listen %s" % options.addr)   
+   reactor.listenTCP(int(options.port), LLawServerFactory(), interface=options.addr)
+#   reactor.listenUDP(int(options.port), LLawServerFactory(), interface="127.0.0.1")
    reactor.run()
    registry.close()
 

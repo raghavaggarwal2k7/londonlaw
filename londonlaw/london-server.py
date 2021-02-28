@@ -21,25 +21,14 @@ import locale
 
 try:
     import server
-#   gettext.install("londonlaw", unicode=True) # use system locale dir if client was installed
     cwd=os.getcwd()
-#    print("Pfad="+cwd+"\n")
     if "LANGUAGE" in os.environ:
        trans = gettext.translation("londonlaw", cwd+"/londonlaw/locale", [os.environ['LANGUAGE']])
        trans.install()
-#    gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
     encoding=locale.getdefaultlocale()
-#    print ("encoding: "+format(encoding)+"," )    
     print (_("Attempting to launch server from current directory..."))
 except:
     pass
-#   gettext.install("londonlaw", "locale", unicode=True) # use local locale directory if launching locally
-#   print (_("Attempting to launch server from current directory...")).encode(sys.stdout.encoding, "replace")
-#   import sys, os.path
-#   # add the parent directory to PYTHONPATH
-#   cwd = os.path.split(os.path.abspath(os.getcwd()))
-#   sys.path.append(cwd[0])
-#   import londonlaw.server
     cwd=os.getcwd()
     print("Pfad="+cwd+"\n")
     gettext.install("londonlaw",cwd+"/londonlaw/locale") # use system locale dir if client was installed
