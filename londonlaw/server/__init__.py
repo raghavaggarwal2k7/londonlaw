@@ -40,7 +40,7 @@ def init():
          help=_("use DBDIR to store game und user database"), metavar=_("DBDIR"),
          default=os.path.expanduser("~/.londonlaw/server"))
    parser.add_option("-t", "--type", dest="type",
-         help=_("listen for connections on type TCP/UDP"), metavar=_("TYPE"), default="UDP")
+         help=_("listen for connections on type TCP/UDP"), metavar=_("TYPE"), default="TCP")
    (options, args) = parser.parse_args()
    
 ##   log.startLogging(sys.stdout, 0)
