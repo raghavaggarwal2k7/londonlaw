@@ -60,7 +60,7 @@ class GameRegistrySingleton:
          os.makedirs(dbDir)
 
       # read and parse server configuration file
-      configParser   = configparser.SafeConfigParser()
+      configParser   = configparser.ConfigParser()
       configFilename = os.path.join(dbDir, "config")
       self._adminPassword  = None
       self._expiration     = None
