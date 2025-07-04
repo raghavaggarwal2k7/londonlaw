@@ -116,14 +116,14 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
                log.msg("Received unhandled server message (tried default): \"" + line + "\" state = \"" + self._state + "\"")
                return
 
-            print(tag)     
-            print(response)
-            for x in list(range(len(data))): 
-               print(data[x])   
-            if f is None:
-               print("".join(("response_", response, "_default")))
-            else:           
-               print("".join(("response_", response, "_", self._state)))
+      #      print(tag)     
+      #      print(response)
+      #      for x in list(range(len(data))): 
+      #         print(data[x])   
+      #      if f is None:
+      #         print("".join(("response_", response, "_default")))
+      #      else:           
+      #         print("".join(("response_", response, "_", self._state)))
             f(tag, data)
          else:
             log.msg("Received unhandled server message (too few args): \"" + line + "\" state = \"" + self._state + "\"")
