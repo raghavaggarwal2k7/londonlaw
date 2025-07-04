@@ -113,9 +113,8 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
                # Try a catch-all method for the command
                f = getattr(self, "".join(("response_", response, "_default")), None)
             if f is None:
-               log.msg("Received unhandled server message (tried default): \"" + line + "\" state = \"" + self._state + "\"")
+               log.msg("Received unhandled server message (tried default): \"" + line.decode('utf-8') + "\" state = \"" + self._state + "\"")
                return
-
       #      print(tag)     
       #      print(response)
       #      for x in list(range(len(data))): 
@@ -126,7 +125,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
       #         print("".join(("response_", response, "_", self._state)))
             f(tag, data)
          else:
-            log.msg("Received unhandled server message (too few args): \"" + line + "\" state = \"" + self._state + "\"")
+            log.msg("Received unhandled server message (too few args): \"" + line.decode('utf-8') + "\" state = \"" + self._state + "\"")
 
       except AttributeError as e:
          log.msg(str(e))
