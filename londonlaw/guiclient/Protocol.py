@@ -129,7 +129,7 @@ class LLawClientProtocol(basic.LineOnlyReceiver):
 
       except AttributeError as e:
          log.msg(str(e))
-         print("Received unhandled server message:"+line.decode("utf-8")+" state:"+self._state)
+        #  print("Received unhandled server message:"+line.decode("utf-8")+" state:"+self._state)
 #         log.msg("Received unhandled server message: \"" + line + "\" state = \"" + self._state + "\"")
 
 

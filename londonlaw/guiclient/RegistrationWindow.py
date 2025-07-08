@@ -218,7 +218,8 @@ class RegistrationWindow(wx.Frame):
 
    def addChatMessage(self, chatType, data):
       log.msg("called RegistrationWindow.addChatMessage()")
-      self.chatWindow.AppendText("<" + data[0] + "> " + data[1])
+      self.chatWindow.AppendText("<" + data[0] + "> " + self.chatWindow.remove_quotes(data[1][1:]))
+      print("<" + data[0] + "> " + self.chatWindow.remove_quotes(data[1][1:]))  # For debugging purposes, print to console
 
 
    def chatSend(self, event):

@@ -206,11 +206,11 @@ class MainWindow(wx.Frame):
       if chatType == "team":
          # TRANSLATORS: this is how team chat messages will appear
          self.chatWindow.AppendText(_("<%(playername)s [to team]> %(message)s") % 
-         {"playername" : data[0], "message" : data[1][1:]})
+         {"playername" : data[0], "message" : self.chatWindow.remove_quotes(data[1][1:])})
       else:
          # TRANSLATORS: this is how chat messages will appear
          self.chatWindow.AppendText(_("<%(playername)s> %(message)s") % 
-         {"playername" : data[0], "message" : data[1][1:]})
+         {"playername" : data[0], "message" : self.chatWindow.remove_quotes(data[1][1:])})
 
 
    def menuExit(self, event):

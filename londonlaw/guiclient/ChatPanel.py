@@ -70,17 +70,22 @@ class ChatPanel(wx.Panel):
 
    def SetText(self, txt):
       self.chatDisplay.SetText(txt)
-    
-   def normalize_to_string(data):
-       if isinstance(data, bytes):
-           try:
-              return data.decode('utf-8', errors="replace") #Fallback for any weird bytes
-           except Exception:
-              return repr(data) #Return bytes visually
-       elif isinstance(data, str):
-              return data
-       else:
-          return str(data) #Handles other types like int, None
+
+   @staticmethod
+   def remove_quotes(data):
+      if data[0] == "'":
+         return data[1:-1]  # Remove quotes if present
+      else:
+         return data
+    #    if isinstance(data, bytes):
+    #        try:
+    #           return data.decode('utf-8', errors="replace") #Fallback for any weird bytes
+    #        except Exception:
+    #           return repr(data) #Return bytes visually
+    #    elif isinstance(data, str):
+    #           return data
+    #    else:
+    #       return str(data) #Handles other types like int, None
 
    def AppendText(self, txt):
-      self.chatDisplay.AppendText(normalize_to_string(txt))
+      self.chatDisplay.AppendText(txt)
